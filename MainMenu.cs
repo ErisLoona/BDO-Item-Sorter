@@ -20,8 +20,7 @@ namespace BDO_Item_Sorter
         public static int[,] gridItemID = new int[8, 8], gridOverviewIndex = new int[8, 8];
         public static string[] itemName = new string[10000], itemCategory = new string[10000], menuCategories = new string[100], menuCities = new string[100], menuCategoryAttribution = new string[100], menuCityAttribution = new string[100];
         public static bool[] itemIgnored = new bool[10000], itemProblematic = new bool[10000];
-        public static bool[,] knownItemCheck = new bool[8, 8], itemClicked = new bool[8, 8];
-        public static bool canAdd = false;
+        public static bool[,] knownItemCheck = new bool[8, 8], itemClicked = new bool[8, 8], canAdd = new bool[8, 8];
         int cW = 0, cH = 0, s = 0, picW = 0, picH = 0;
 
         public static Button[,] itemButtons;
@@ -195,11 +194,11 @@ namespace BDO_Item_Sorter
             return result;
         }
 
-        public static bool[,] ClearBoolMatrix(bool[,] array) //sets all elements in 8 by 8 bool matrices to false
+        public static bool[,] ClearBoolMatrix(bool[,] array) //sets all elements in 8 by 8 bool matrices to true
         {
             for (int row = 0; row < 8; row++)
                 for (int col = 0; col < 8; col++)
-                    array[row, col] = false;
+                    array[row, col] = true;
             return array;
         }
 
@@ -242,11 +241,22 @@ namespace BDO_Item_Sorter
                         {
                             if (itemIgnored[gridItemID[row, col]] == true && gridItemID[row, col] != 0 && gridItemID[row, col] != 1 && gridItemID[row, col] != 2)
                             {
-                                itemButtons[row, col].BackColor = Color.White;
-                                itemButtons[row, col].FlatAppearance.MouseOverBackColor = Color.Silver;
-                                itemButtons[row, col].FlatAppearance.MouseDownBackColor = Color.Gray;
-                                itemButtons[row, col].Visible = true;
-                                itemButtons[row, col].Enabled = true;
+                                if (itemProblematic[gridItemID[row, col]] == false)
+                                {
+                                    itemButtons[row, col].BackColor = Color.White;
+                                    itemButtons[row, col].FlatAppearance.MouseOverBackColor = Color.Silver;
+                                    itemButtons[row, col].FlatAppearance.MouseDownBackColor = Color.Gray;
+                                    itemButtons[row, col].Visible = true;
+                                    itemButtons[row, col].Enabled = true;
+                                }
+                                else
+                                {
+                                    itemButtons[row, col].BackColor = Color.Orange;
+                                    itemButtons[row, col].FlatAppearance.MouseOverBackColor = Color.Goldenrod;
+                                    itemButtons[row, col].FlatAppearance.MouseDownBackColor = Color.DarkGoldenrod;
+                                    itemButtons[row, col].Visible = true;
+                                    itemButtons[row, col].Enabled = true;
+                                }
                             }
                             if(itemIgnored[gridItemID[row, col]] == false)
                             {
@@ -307,7 +317,7 @@ namespace BDO_Item_Sorter
         {
             analyzeButton.Enabled = false;
             loadingBar.Value = 0;
-            canAdd = true;
+            canAdd = ClearBoolMatrix(canAdd);
             prtscr = null;
             g.Flush();
             prtscr = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
@@ -567,7 +577,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton00_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[0, 0].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[0, 0]] == true && canAdd[0, 0] == true)
             {
                 itemClicked[0, 0] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -606,7 +616,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton01_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[0, 1].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[0, 1]] == true && canAdd[0, 1] == true)
             {
                 itemClicked[0, 1] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -645,7 +655,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton02_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[0, 2].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[0, 2]] == true && canAdd[0, 2] == true)
             {
                 itemClicked[0, 2] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -684,7 +694,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton03_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[0, 3].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[0, 3]] == true && canAdd[0, 3] == true)
             {
                 itemClicked[0, 3] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -723,7 +733,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton04_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[0, 4].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[0, 4]] == true && canAdd[0, 4] == true)
             {
                 itemClicked[0, 4] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -762,7 +772,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton05_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[0, 5].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[0, 5]] == true && canAdd[0, 5] == true)
             {
                 itemClicked[0, 5] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -801,7 +811,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton06_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[0, 6].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[0, 6]] == true && canAdd[0, 6] == true)
             {
                 itemClicked[0, 6] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -840,7 +850,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton07_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[0, 7].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[0, 7]] == true && canAdd[0, 7] == true)
             {
                 itemClicked[0, 7] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -879,7 +889,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton10_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[1, 0].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[1, 0]] == true && canAdd[1, 0] == true)
             {
                 itemClicked[1, 0] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -918,7 +928,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton11_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[1, 1].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[1, 1]] == true && canAdd[1, 1] == true)
             {
                 itemClicked[1, 1] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -957,7 +967,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton12_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[1, 2].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[1, 2]] == true && canAdd[1, 2] == true)
             {
                 itemClicked[1, 2] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -996,7 +1006,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton13_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[1, 3].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[1, 3]] == true && canAdd[1, 3] == true)
             {
                 itemClicked[1, 3] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1035,7 +1045,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton14_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[1, 4].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[1, 4]] == true && canAdd[1, 4] == true)
             {
                 itemClicked[1, 4] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1074,7 +1084,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton15_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[1, 5].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[1, 5]] == true && canAdd[1, 5] == true)
             {
                 itemClicked[1, 5] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1113,7 +1123,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton16_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[1, 6].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[1, 6]] == true && canAdd[1, 6] == true)
             {
                 itemClicked[1, 6] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1152,7 +1162,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton17_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[1, 7].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[1, 7]] == true && canAdd[1, 7] == true)
             {
                 itemClicked[1, 7] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1191,7 +1201,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton20_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[2, 0].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[2, 0]] == true && canAdd[2, 0] == true)
             {
                 itemClicked[2, 0] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1230,7 +1240,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton21_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[2, 1].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[2, 1]] == true && canAdd[2, 1] == true)
             {
                 itemClicked[2, 1] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1269,7 +1279,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton22_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[2, 2].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[2, 2]] == true && canAdd[2, 2] == true)
             {
                 itemClicked[2, 2] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1308,7 +1318,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton23_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[2, 3].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[2, 3]] == true && canAdd[2, 3] == true)
             {
                 itemClicked[2, 3] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1347,7 +1357,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton24_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[2, 4].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[2, 4]] == true && canAdd[2, 4] == true)
             {
                 itemClicked[2, 4] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1386,7 +1396,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton25_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[2, 5].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[2, 5]] == true && canAdd[2, 5] == true)
             {
                 itemClicked[2, 5] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1425,7 +1435,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton26_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[2, 6].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[2, 6]] == true && canAdd[2, 6] == true)
             {
                 itemClicked[2, 6] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1464,7 +1474,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton27_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[2, 7].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[2, 7]] == true && canAdd[2, 7] == true)
             {
                 itemClicked[2, 7] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1503,7 +1513,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton30_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[3, 0].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[3, 0]] == true && canAdd[3, 0] == true)
             {
                 itemClicked[3, 0] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1542,7 +1552,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton31_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[3, 1].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[3, 1]] == true && canAdd[3, 1] == true)
             {
                 itemClicked[3, 1] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1581,7 +1591,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton32_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[3, 2].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[3, 2]] == true && canAdd[3, 2] == true)
             {
                 itemClicked[3, 2] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1620,7 +1630,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton33_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[3, 3].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[3, 3]] == true && canAdd[3, 3] == true)
             {
                 itemClicked[3, 3] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1659,7 +1669,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton34_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[3, 4].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[3, 4]] == true && canAdd[3, 4] == true)
             {
                 itemClicked[3, 4] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1698,7 +1708,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton35_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[3, 5].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[3, 5]] == true && canAdd[3, 5] == true)
             {
                 itemClicked[3, 5] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1737,7 +1747,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton36_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[3, 6].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[3, 6]] == true && canAdd[3, 6] == true)
             {
                 itemClicked[3, 6] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1776,7 +1786,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton37_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[3, 7].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[3, 7]] == true && canAdd[3, 7] == true)
             {
                 itemClicked[3, 7] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1815,7 +1825,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton40_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[4, 0].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[4, 0]] == true && canAdd[4, 0] == true)
             {
                 itemClicked[4, 0] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1854,7 +1864,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton41_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[4, 1].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[4, 1]] == true && canAdd[4, 1] == true)
             {
                 itemClicked[4, 1] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1893,7 +1903,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton42_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[4, 2].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[4, 2]] == true && canAdd[4, 2] == true)
             {
                 itemClicked[4, 2] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1932,7 +1942,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton43_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[4, 3].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[4, 3]] == true && canAdd[4, 3] == true)
             {
                 itemClicked[4, 3] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -1971,7 +1981,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton44_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[4, 4].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[4, 4]] == true && canAdd[4, 4] == true)
             {
                 itemClicked[4, 4] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2010,7 +2020,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton45_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[4, 5].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[4, 5]] == true && canAdd[4, 5] == true)
             {
                 itemClicked[4, 5] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2049,7 +2059,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton46_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[4, 6].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[4, 6]] == true && canAdd[4, 6] == true)
             {
                 itemClicked[4, 6] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2088,7 +2098,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton47_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[4, 7].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[4, 7]] == true && canAdd[4, 7] == true)
             {
                 itemClicked[4, 7] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2127,7 +2137,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton50_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[5, 0].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[5, 0]] == true && canAdd[5, 0] == true)
             {
                 itemClicked[5, 0] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2166,7 +2176,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton51_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[5, 1].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[5, 1]] == true && canAdd[5, 1] == true)
             {
                 itemClicked[5, 1] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2205,7 +2215,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton52_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[5, 2].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[5, 2]] == true && canAdd[5, 2] == true)
             {
                 itemClicked[5, 2] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2244,7 +2254,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton53_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[5, 3].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[5, 3]] == true && canAdd[5, 3] == true)
             {
                 itemClicked[5, 3] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2283,7 +2293,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton54_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[5, 4].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[5, 4]] == true && canAdd[5, 4] == true)
             {
                 itemClicked[5, 4] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2322,7 +2332,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton55_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[5, 5].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[5, 5]] == true && canAdd[5, 5] == true)
             {
                 itemClicked[5, 5] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2361,7 +2371,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton56_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[5, 6].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[5, 6]] == true && canAdd[5, 6] == true)
             {
                 itemClicked[5, 6] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2400,7 +2410,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton57_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[5, 7].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[5, 7]] == true && canAdd[5, 7] == true)
             {
                 itemClicked[5, 7] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2439,7 +2449,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton60_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[6, 0].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[6, 0]] == true && canAdd[6, 0] == true)
             {
                 itemClicked[6, 0] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2478,7 +2488,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton61_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[6, 1].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[6, 1]] == true && canAdd[6, 1] == true)
             {
                 itemClicked[6, 1] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2517,7 +2527,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton62_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[6, 2].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[6, 2]] == true && canAdd[6, 2] == true)
             {
                 itemClicked[6, 2] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2556,7 +2566,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton63_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[6, 3].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[6, 3]] == true && canAdd[6, 3] == true)
             {
                 itemClicked[6, 3] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2595,7 +2605,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton64_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[6, 4].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[6, 4]] == true && canAdd[6, 4] == true)
             {
                 itemClicked[6, 4] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2634,7 +2644,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton65_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[6, 5].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[6, 5]] == true && canAdd[6, 5] == true)
             {
                 itemClicked[6, 5] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2673,7 +2683,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton66_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[6, 6].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[6, 6]] == true && canAdd[6, 6] == true)
             {
                 itemClicked[6, 6] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2712,7 +2722,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton67_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[6, 7].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[6, 7]] == true && canAdd[6, 7] == true)
             {
                 itemClicked[6, 7] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2751,7 +2761,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton70_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[7, 0].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[7, 0]] == true && canAdd[7, 0] == true)
             {
                 itemClicked[7, 0] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2790,7 +2800,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton71_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[7, 1].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[7, 1]] == true && canAdd[7, 1] == true)
             {
                 itemClicked[7, 1] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2829,7 +2839,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton72_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[7, 2].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[7, 2]] == true && canAdd[7, 2] == true)
             {
                 itemClicked[7, 2] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2868,7 +2878,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton73_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[7, 3].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[7, 3]] == true && canAdd[7, 3] == true)
             {
                 itemClicked[7, 3] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2907,7 +2917,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton74_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[7, 4].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[7, 4]] == true && canAdd[7, 4] == true)
             {
                 itemClicked[7, 4] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2946,7 +2956,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton75_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[7, 5].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[7, 5]] == true && canAdd[7, 5] == true)
             {
                 itemClicked[7, 5] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -2985,7 +2995,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton76_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[7, 6].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[7, 6]] == true && canAdd[7, 6] == true)
             {
                 itemClicked[7, 6] = true;
                 DuplicateSelector ds = new DuplicateSelector();
@@ -3024,7 +3034,7 @@ namespace BDO_Item_Sorter
 
         private void itemButton77_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && itemButtons[7, 7].BackColor == Color.Orange && canAdd == true)
+            if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[7, 7]] == true && canAdd[7, 7] == true)
             {
                 itemClicked[7, 7] = true;
                 DuplicateSelector ds = new DuplicateSelector();

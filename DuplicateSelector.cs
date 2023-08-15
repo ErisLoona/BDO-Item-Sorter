@@ -85,7 +85,7 @@ namespace BDO_Item_Sorter
                 if (nameBox.SelectedIndex != -1)
                     MainMenu.gridItemID[rowID, colID] = itemIDs[nameBox.SelectedIndex];
             }
-            MainMenu.canAdd = false;
+            MainMenu.canAdd[rowID, colID] = false;
         }
     }
 }

@@ -24,6 +24,12 @@ Because of the way the program works and my lack of skill, it has several limita
 ## **Info**
 Heyo! I'm Eris, newbie programmer who really likes C#. I made this item sorter for myself, but decided to share it with others as it can come in handy for those obsessed with order in their inventories. I really tried my best when making it, but I'm sure it has a ton of flaws in the programming.<br />
 The way the program works is by associating the items' icons with the "known items" that you've added previously and categorizing them accordingly. It then displays in its virtual inventory the items detected and tell you where that particular item should go. I'm using multi-threading to work through the items faster, 4 BackgroundWorkers take one quarter of the inventory each. I'm using `.csv` files as "databses" for the configurable stuff, associating an item ID to each item and having its icon with the same ID as its name to associate them. The header for the `Item Attributions.csv` file, which is the main item database, would be Item ID,Item Name,Should the item be ignored?,Does the item share an icon? so if you ever look into that, that's what's happening. Why is the `Problematic Items` file a .txt and not a .csv? A lack of forethought and being too lazy to change it in all of its appearances in code. Actually this answer probably applies for pretty much all the weird stuff you may or may not find. Anyway, this has made my life so much easier when sorting through my inventory in BDO and I hope it helps you too! Feel free to change the code however you want, just link back here and give me credit if you share it. Have a nice day <3<br />
+<br />
+### To-do<br />
+- Make the program auto-generate support files if they're missing.
+- Lift the "one right-click per item" limitation, highly preferrably without having to change the csv scheme.
+- Reduce friction with setup somehow (no edge detection pls, is too difficult).
+- (low priority) Look into a way to convert the existing captured icons to other themes.<br />
 ## **Tutorial**<br />
 ![image](https://github.com/ErisLoona/BDO-Item-Sorter/assets/142046400/0b1d35ab-639f-4d35-bcbe-efadf237b9aa)<br />
 1. The virtual inventory, this is where the analysis results are displayed as buttons of 4 possible colors.

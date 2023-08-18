@@ -101,7 +101,7 @@ namespace BDO_Item_Sorter
 
         private void attributeButton_Click(object sender, EventArgs e)
         {
-            if (categoryDrop.SelectedIndex != MainMenu.menuCategoriesIndex - 1)
+            if (categoryDrop.SelectedIndex != menuCategoriesIndex - 1)
             {
                 MainMenu.lineEditor(categoryDrop.Text + ',' + cityDrop.Text, Directory.GetCurrentDirectory() + "\\Category Attributions.csv", categoryDrop.SelectedIndex);
             }
@@ -109,9 +109,9 @@ namespace BDO_Item_Sorter
 
         private void categoryDrop_SelectedIndexChanged(object sender, EventArgs e)
         {
-            for (int i = 0; i < MainMenu.menuCitiesIndex; i++)
+            for (int i = 0; i < menuCitiesIndex; i++)
             {
-                if (MainMenu.menuCityAttribution[categoryDrop.SelectedIndex] == MainMenu.menuCities[i])
+                if (menuCityAttribution[categoryDrop.SelectedIndex] == menuCities[i])
                 {
                     cityDrop.SelectedIndex = i;
                     break;
@@ -244,7 +244,7 @@ namespace BDO_Item_Sorter
 
         private void CategoryEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (categoryDrop.SelectedIndex != MainMenu.menuCategoriesIndex - 1)
+            if (categoryDrop.SelectedIndex != menuCategoriesIndex - 1)
             {
                 MainMenu.lineEditor(categoryDrop.Text + ',' + cityDrop.Text, Directory.GetCurrentDirectory() + "\\Category Attributions.csv", categoryDrop.SelectedIndex);
             }

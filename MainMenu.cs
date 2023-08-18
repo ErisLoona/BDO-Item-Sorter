@@ -21,8 +21,10 @@ namespace BDO_Item_Sorter
         public static string[] itemName = new string[10000], itemCategory = new string[10000], menuCategories = new string[100], menuCities = new string[100], menuCategoryAttribution = new string[100], menuCityAttribution = new string[100];
         public static bool[] itemIgnored = new bool[10000], itemProblematic = new bool[10000];
         public static bool[,] knownItemCheck = new bool[8, 8], itemClicked = new bool[8, 8], canAdd = new bool[8, 8];
-        int cW = 0, cH = 0, s = 0, picW = 0, picH = 0;
+        public static int cW = 0, cH = 0, s = 0, picW = 0, picH = 0;
+        public static bool firstSetup = false;
 
+        Screen activeScreen = Screen.PrimaryScreen;
         public static Button[,] itemButtons;
         public static Rectangle[,] itemCoords = new Rectangle[8, 8];
         Bitmap prtscr, currentItem;
@@ -40,7 +42,62 @@ namespace BDO_Item_Sorter
 
         private void MainMenu_Load(object sender, EventArgs e)
         {
-            Directory.SetCurrentDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\BDO Item Sorter Data");
+            try //attempt to set current directory, if it doesn't exist then perform initial setup
+            {
+                Directory.SetCurrentDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\BDO Item Sorter Data");
+            }
+            catch
+            {
+                MessageBox.Show("Support files not found, doing first time setup.\nPlease make sure BDO is running!", "Support files not found!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                try
+                {
+                    Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\BDO Item Sorter Data");
+                    Directory.SetCurrentDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\BDO Item Sorter Data");
+                    using (File.Create(Directory.GetCurrentDirectory() + "\\Problematic Items.txt")) { }
+                    using (File.Create(Directory.GetCurrentDirectory() + "\\Item Attributions.csv")) { }
+                    using (File.Create(Directory.GetCurrentDirectory() + "\\Categories.txt")) { }
+                    using (File.Create(Directory.GetCurrentDirectory() + "\\Category Attributions.csv")) { }
+                    using (File.Create(Directory.GetCurrentDirectory() + "\\Position Settings.csv")) { }
+                    using (File.Create(Directory.GetCurrentDirectory() + "\\Cities.txt")) { }
+                    using (StreamWriter writer = new StreamWriter(Directory.GetCurrentDirectory() + "\\Categories.txt"))
+                    {
+                        writer.WriteLine("(none)");
+                    }
+                    using (StreamWriter writer = new StreamWriter(Directory.GetCurrentDirectory() + "\\Category Attributions.csv"))
+                    {
+                        writer.WriteLine("(none),(none)");
+                    }
+                    using (StreamWriter writer = new StreamWriter(Directory.GetCurrentDirectory() + "\\Position Settings.csv"))
+                    {
+                        writer.WriteLine("Top left corner width (horizontal),1467");
+                        writer.WriteLine("Top left corner height (vertical),321");
+                        writer.WriteLine("Step to next slots,54");
+                        writer.WriteLine("Width of slot,42");
+                        writer.WriteLine("Height of slot,24");
+                        writer.WriteLine("Classic");
+                        writer.WriteLine("temp");
+                    }
+                    using (StreamWriter writer = new StreamWriter(Directory.GetCurrentDirectory() + "\\Cities.txt"))
+                    {
+                        writer.WriteLine("Family Storage");
+                        writer.WriteLine("Velia");
+                        writer.WriteLine("Heidel");
+                        writer.WriteLine("Glish");
+                        writer.WriteLine("Calpheon City");
+                        writer.WriteLine("Keplan");
+                        writer.WriteLine("Trent");
+                        writer.WriteLine("Altinova");
+                        writer.WriteLine("Tarif");
+                        writer.WriteLine("(none)");
+                    }
+                    firstSetup = true;
+                }
+                catch
+                {
+                    MessageBox.Show("Error creating support files!", "IO error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    System.Environment.Exit(0);
+                }
+            }
             databaseLoad();
             itemButtons = new Button[,]
             {
@@ -65,8 +122,13 @@ namespace BDO_Item_Sorter
                 tempI++;
             }
             gridItemID = ClearIntMatrix(gridItemID);
-            prtscr = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            prtscr = new Bitmap(activeScreen.Bounds.Width, activeScreen.Bounds.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             g = Graphics.FromImage(prtscr);
+            if (firstSetup == true)
+            {
+                firstSetup = false;
+                settingsButton_Click(sender, e);
+            }
         }
 
         public void databaseLoad()
@@ -77,6 +139,17 @@ namespace BDO_Item_Sorter
             categoryAttributionIndex = 0;
             itemLookup.Items.Clear();
             itemLookupLabel.Text = string.Empty;
+            string[] temp = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\Position Settings.csv");
+            int count = 0;
+            while (count < Screen.AllScreens.Length)
+            {
+                if (temp[6] == Screen.AllScreens[count].DeviceName)
+                {
+                    activeScreen = Screen.AllScreens[count];
+                    break;
+                }
+                count++;
+            }
             using (StreamReader reader = new StreamReader(Directory.GetCurrentDirectory() + "\\Categories.txt"))
             {
                 while (reader.EndOfStream == false)
@@ -84,7 +157,6 @@ namespace BDO_Item_Sorter
                     menuCategories[menuCategoriesIndex] = reader.ReadLine();
                     menuCategoriesIndex++;
                 }
-                reader.Dispose();
             }
             using (StreamReader reader = new StreamReader(Directory.GetCurrentDirectory() + "\\Cities.txt"))
             {
@@ -93,7 +165,6 @@ namespace BDO_Item_Sorter
                     menuCities[menuCitiesIndex] = reader.ReadLine();
                     menuCitiesIndex++;
                 }
-                reader.Dispose();
             }
             using (StreamReader reader = new StreamReader(Directory.GetCurrentDirectory() + "\\Item Attributions.csv"))
             {
@@ -108,7 +179,6 @@ namespace BDO_Item_Sorter
                     itemProblematic[itemDatabaseIndex] = Convert.ToBoolean(tempAttributes[4]);
                     itemDatabaseIndex++;
                 }
-                reader.Dispose();
             }
             using (StreamReader reader = new StreamReader(Directory.GetCurrentDirectory() + "\\Category Attributions.csv"))
             {
@@ -120,7 +190,6 @@ namespace BDO_Item_Sorter
                     menuCityAttribution[categoryAttributionIndex] = tempAttributes[1];
                     categoryAttributionIndex++;
                 }
-                reader.Dispose();
             }
             using (StreamReader reader = new StreamReader(Directory.GetCurrentDirectory() + "\\Position Settings.csv"))
             {
@@ -135,7 +204,6 @@ namespace BDO_Item_Sorter
                 picW = Convert.ToInt32(tempAttribute[1]);
                 tempAttribute = reader.ReadLine().Split(',');
                 picH = Convert.ToInt32(tempAttribute[1]);
-                reader.Dispose();
             }
             categoryOverviewReset();
             for (int i = 0; i < itemDatabaseIndex; i++)
@@ -222,6 +290,7 @@ namespace BDO_Item_Sorter
         {
             if (thread1.IsBusy == false && thread2.IsBusy == false && thread3.IsBusy == false && thread4.IsBusy == false)
             {
+                GC.Collect();
                 int overviewIndexCounter = 0;
                 gridOverviewIndex = ClearIntMatrix(gridOverviewIndex);
                 buttonReset();
@@ -258,7 +327,7 @@ namespace BDO_Item_Sorter
                                     itemButtons[row, col].Enabled = true;
                                 }
                             }
-                            if(itemIgnored[gridItemID[row, col]] == false)
+                            if(itemIgnored[gridItemID[row, col]] == false && gridItemID[row, col] != 0 && gridItemID[row, col] != 1 && gridItemID[row, col] != 2)
                             {
                                 if (itemProblematic[gridItemID[row, col]] == false)
                                 {
@@ -288,6 +357,8 @@ namespace BDO_Item_Sorter
                             }
                         }
                     }
+                loadingBar.Visible = false;
+                loadingBar.Enabled = false;
             }
         }
 
@@ -316,19 +387,29 @@ namespace BDO_Item_Sorter
         private void analyzeButton_Click(object sender, EventArgs e)
         {
             analyzeButton.Enabled = false;
+            loadingBar.Visible = true;
+            loadingBar.Enabled = true;
             loadingBar.Value = 0;
             canAdd = ClearBoolMatrix(canAdd);
             prtscr = null;
             g.Flush();
-            prtscr = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            prtscr = new Bitmap(activeScreen.Bounds.Width, activeScreen.Bounds.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             g = Graphics.FromImage(prtscr);
-            g.CopyFromScreen(0, 0, 0, 0, Screen.PrimaryScreen.Bounds.Size);
+            g.CopyFromScreen(activeScreen.Bounds.X, activeScreen.Bounds.Y, 0, 0, activeScreen.Bounds.Size);
             itemOrganization.Items.Clear();
             categoryOverviewReset();
             thread1.RunWorkerAsync();
             thread2.RunWorkerAsync();
             thread3.RunWorkerAsync();
             thread4.RunWorkerAsync();
+        }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            Settings s = new Settings();
+            s.ShowDialog();
+            GC.Collect();
+            databaseLoad();
         }
 
         private void itemLookup_SelectedIndexChanged(object sender, EventArgs e)
@@ -362,10 +443,10 @@ namespace BDO_Item_Sorter
             }
             int[,] gridID = new int[8, 8];
             Bitmap prts;
-            prts = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            prts = new Bitmap(activeScreen.Bounds.Width, activeScreen.Bounds.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             using (Graphics g = Graphics.FromImage(prts))
             {
-                g.CopyFromScreen(0, 0, 0, 0, Screen.PrimaryScreen.Bounds.Size);
+                g.CopyFromScreen(activeScreen.Bounds.X, activeScreen.Bounds.Y, 0, 0, activeScreen.Bounds.Size);
                 for (int row = 0; row < 4; row++)
                 {
                     for (int col = 0; col < 4; col++)
@@ -374,7 +455,6 @@ namespace BDO_Item_Sorter
                         worker.ReportProgress(15625);
                     }
                 }
-                g.Dispose();
                 prts.Dispose();
                 e.Result = gridID;
             }
@@ -411,10 +491,10 @@ namespace BDO_Item_Sorter
             }
             int[,] gridID = new int[8, 8];
             Bitmap prts;
-            prts = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            prts = new Bitmap(activeScreen.Bounds.Width, activeScreen.Bounds.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             using (Graphics g = Graphics.FromImage(prts))
             {
-                g.CopyFromScreen(0, 0, 0, 0, Screen.PrimaryScreen.Bounds.Size);
+                g.CopyFromScreen(activeScreen.Bounds.X, activeScreen.Bounds.Y, 0, 0, activeScreen.Bounds.Size);
                 for (int row = 0; row < 4; row++)
                 {
                     for (int col = 4; col < 8; col++)
@@ -423,7 +503,6 @@ namespace BDO_Item_Sorter
                         worker.ReportProgress(15625);
                     }
                 }
-                g.Dispose();
                 prts.Dispose();
                 e.Result = gridID;
             }
@@ -460,10 +539,10 @@ namespace BDO_Item_Sorter
             }
             int[,] gridID = new int[8, 8];
             Bitmap prts;
-            prts = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            prts = new Bitmap(activeScreen.Bounds.Width, activeScreen.Bounds.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             using (Graphics g = Graphics.FromImage(prts))
             {
-                g.CopyFromScreen(0, 0, 0, 0, Screen.PrimaryScreen.Bounds.Size);
+                g.CopyFromScreen(activeScreen.Bounds.X, activeScreen.Bounds.Y, 0, 0, activeScreen.Bounds.Size);
                 for (int row = 4; row < 8; row++)
                 {
                     for (int col = 0; col < 4; col++)
@@ -472,7 +551,6 @@ namespace BDO_Item_Sorter
                         worker.ReportProgress(15625);
                     }
                 }
-                g.Dispose();
                 prts.Dispose();
                 e.Result = gridID;
             }
@@ -509,10 +587,10 @@ namespace BDO_Item_Sorter
             }
             int[,] gridID = new int[8, 8];
             Bitmap prts;
-            prts = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            prts = new Bitmap(activeScreen.Bounds.Width, activeScreen.Bounds.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             using (Graphics g = Graphics.FromImage(prts))
             {
-                g.CopyFromScreen(0, 0, 0, 0, Screen.PrimaryScreen.Bounds.Size);
+                g.CopyFromScreen(activeScreen.Bounds.X, activeScreen.Bounds.Y, 0, 0, activeScreen.Bounds.Size);
                 for (int row = 4; row < 8; row++)
                 {
                     for (int col = 4; col < 8; col++)
@@ -521,7 +599,6 @@ namespace BDO_Item_Sorter
                         worker.ReportProgress(15625);
                     }
                 }
-                g.Dispose();
                 prts.Dispose();
                 e.Result = gridID;
             }

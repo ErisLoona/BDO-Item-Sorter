@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             this.loadingBar = new System.Windows.Forms.ProgressBar();
             this.itemButton00 = new System.Windows.Forms.Button();
@@ -104,21 +103,23 @@
             this.categoryOverviewList = new System.Windows.Forms.ListBox();
             this.itemOrganization = new System.Windows.Forms.ListBox();
             this.editCategoriesButton = new System.Windows.Forms.Button();
-            this.itemContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.itemLookup = new System.Windows.Forms.ComboBox();
             this.itemLookupLabel = new System.Windows.Forms.TextBox();
+            this.settingsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // loadingBar
             // 
             this.loadingBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.loadingBar.Location = new System.Drawing.Point(162, 476);
+            this.loadingBar.Enabled = false;
+            this.loadingBar.Location = new System.Drawing.Point(144, 476);
             this.loadingBar.Maximum = 1000000;
             this.loadingBar.Name = "loadingBar";
-            this.loadingBar.Size = new System.Drawing.Size(114, 20);
+            this.loadingBar.Size = new System.Drawing.Size(151, 20);
             this.loadingBar.Step = 15625;
             this.loadingBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.loadingBar.TabIndex = 0;
+            this.loadingBar.Visible = false;
             // 
             // itemButton00
             // 
@@ -1438,11 +1439,6 @@
             this.editCategoriesButton.UseVisualStyleBackColor = false;
             this.editCategoriesButton.Click += new System.EventHandler(this.editCategoriesButton_Click);
             // 
-            // itemContext
-            // 
-            this.itemContext.Name = "itemContext";
-            this.itemContext.Size = new System.Drawing.Size(61, 4);
-            // 
             // itemLookup
             // 
             this.itemLookup.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -1470,12 +1466,30 @@
             this.itemLookupLabel.TabIndex = 71;
             this.itemLookupLabel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // settingsButton
+            // 
+            this.settingsButton.BackColor = System.Drawing.Color.Pink;
+            this.settingsButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("settingsButton.BackgroundImage")));
+            this.settingsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.settingsButton.FlatAppearance.BorderSize = 0;
+            this.settingsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepPink;
+            this.settingsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.HotPink;
+            this.settingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.settingsButton.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.settingsButton.Location = new System.Drawing.Point(6, 477);
+            this.settingsButton.Name = "settingsButton";
+            this.settingsButton.Size = new System.Drawing.Size(31, 31);
+            this.settingsButton.TabIndex = 72;
+            this.settingsButton.UseVisualStyleBackColor = false;
+            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(916, 514);
+            this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.itemLookupLabel);
             this.Controls.Add(this.itemLookup);
             this.Controls.Add(this.editCategoriesButton);
@@ -1637,9 +1651,9 @@
         private System.Windows.Forms.ListBox categoryOverviewList;
         private System.Windows.Forms.ListBox itemOrganization;
         private System.Windows.Forms.Button editCategoriesButton;
-        private System.Windows.Forms.ContextMenuStrip itemContext;
         private System.Windows.Forms.ComboBox itemLookup;
         private System.Windows.Forms.TextBox itemLookupLabel;
+        private System.Windows.Forms.Button settingsButton;
     }
 }
 

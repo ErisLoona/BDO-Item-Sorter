@@ -378,7 +378,7 @@ namespace BDO_Item_Sorter
         public void categoryOverviewReset()
         {
             categoryOverviewList.Items.Clear();
-            for (int city = 0; city < categoryAttributionIndex; city++)
+            for (int city = 0; city < menuCitiesIndex; city++)
                 for (int category = 0; category < categoryAttributionIndex; category++)
                     if (menuCityAttribution[category] == menuCities[city])
                         categoryOverviewList.Items.Add(menuCategoryAttribution[category] + " -> " + menuCities[city]);

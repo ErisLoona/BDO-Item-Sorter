@@ -1,4 +1,5 @@
 # **First Time Setup**
+Quick note: **There is no chance of bans.** The sorter doesn't interact with the game directly in any way. It doesn't even check whether the game is running, it simply takes a screenshot of the screen you selected in the Settings.<br />
 Follow the video. If you get the Windows protected your PC warning, Click on More info:<br />
 ![1](https://github.com/ErisLoona/BDO-Item-Sorter/assets/142046400/4df1dd15-fab6-4f0b-8c92-9ae207593b97)  ![2](https://github.com/ErisLoona/BDO-Item-Sorter/assets/142046400/54d74e3f-ed1c-4d54-b4dc-74ecc7a1fd42)<br />
 and then on Run anyway.<br />

@@ -11,6 +11,7 @@ using System.IO;
 using System.Threading;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace BDO_Item_Sorter
 {
@@ -237,10 +238,6 @@ namespace BDO_Item_Sorter
 
         public bool CompareBitmaps(Bitmap bmp1, Bitmap bmp2) //returns true if the given pics are the same || false if not
         {
-            if (bmp1 == null || bmp2 == null)
-                return false;
-            if (object.Equals(bmp1, bmp2))
-                return true;
             int bytes = bmp1.Width * bmp1.Height * (Image.GetPixelFormatSize(bmp1.PixelFormat) / 8);
             bool result = true;
             byte[] b1bytes = new byte[bytes];

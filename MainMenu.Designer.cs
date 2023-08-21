@@ -113,7 +113,7 @@
             this.loadingBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.loadingBar.Enabled = false;
             this.loadingBar.Location = new System.Drawing.Point(144, 476);
-            this.loadingBar.Maximum = 1000000;
+            this.loadingBar.Maximum = 2000000;
             this.loadingBar.Name = "loadingBar";
             this.loadingBar.Size = new System.Drawing.Size(151, 20);
             this.loadingBar.Step = 15625;

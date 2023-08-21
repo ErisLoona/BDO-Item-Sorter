@@ -18,7 +18,7 @@ namespace BDO_Item_Sorter
     public partial class MainMenu : Form
     {
         public static int[] itemID = new int[10000];
-        public static int[,] gridItemID = new int[8, 8], gridOverviewIndex = new int[8, 8];
+        public static int[,] gridItemID = new int[8, 8], gridOverviewIndex = new int[8, 8], gridStackNumber = new int[8, 8];
         public static string[] itemName = new string[10000], itemCategory = new string[10000], menuCategories = new string[100], menuCities = new string[100], menuCategoryAttribution = new string[100], menuCityAttribution = new string[100];
         public static bool[] itemIgnored = new bool[10000], itemProblematic = new bool[10000];
         public static bool[,] knownItemCheck = new bool[8, 8], itemClicked = new bool[8, 8], canAdd = new bool[8, 8];
@@ -29,6 +29,7 @@ namespace BDO_Item_Sorter
         public static Button[,] itemButtons;
         public static Rectangle[,] itemCoords = new Rectangle[8, 8];
         Bitmap prtscr, currentItem;
+        public static Bitmap[] digits = new Bitmap[10]; 
         Graphics g;
 
         public static int menuCategoriesIndex = 0, menuCitiesIndex = 0, itemDatabaseIndex = 0, categoryAttributionIndex = 0;
@@ -100,6 +101,8 @@ namespace BDO_Item_Sorter
                 }
             }
             databaseLoad();
+            for (int i = 0; i < 10; i++)
+                digits[i] = (Bitmap)Image.FromFile(Directory.GetCurrentDirectory() + "\\Digits\\" + Convert.ToString(i) + ".bmp");
             itemButtons = new Button[,]
             {
                 {itemButton00,itemButton01,itemButton02,itemButton03,itemButton04,itemButton05,itemButton06,itemButton07},
@@ -285,7 +288,7 @@ namespace BDO_Item_Sorter
 
         private void SortingHat()
         {
-            if (thread1.IsBusy == false && thread2.IsBusy == false && thread3.IsBusy == false && thread4.IsBusy == false)
+            if (loadingBar.Value == 2000000)
             {
                 GC.Collect();
                 int overviewIndexCounter = 0;
@@ -324,7 +327,7 @@ namespace BDO_Item_Sorter
                                     itemButtons[row, col].Enabled = true;
                                 }
                             }
-                            if(itemIgnored[gridItemID[row, col]] == false && gridItemID[row, col] != 0 && gridItemID[row, col] != 1 && gridItemID[row, col] != 2)
+                            if (itemIgnored[gridItemID[row, col]] == false && gridItemID[row, col] != 0 && gridItemID[row, col] != 1 && gridItemID[row, col] != 2)
                             {
                                 if (itemProblematic[gridItemID[row, col]] == false)
                                 {
@@ -347,7 +350,7 @@ namespace BDO_Item_Sorter
                                 {
                                     if (itemCategory[gridItemID[row, col]] == menuCategoryAttribution[i])
                                     {
-                                        itemOrganization.Items.Add(itemName[gridItemID[row, col]] + " -> " + menuCityAttribution[i]);
+                                        itemOrganization.Items.Add(Convert.ToString(gridStackNumber[row, col]) + ' ' + itemName[gridItemID[row, col]] + " -> " + menuCityAttribution[i]);
                                         break;
                                     }
                                 }
@@ -357,6 +360,93 @@ namespace BDO_Item_Sorter
                 loadingBar.Visible = false;
                 loadingBar.Enabled = false;
             }
+        }
+
+        public static int StackNumber(Bitmap region) //returns how many items are in the stack (duh, but if it's not a green comment I don't see it lol)
+        {
+            int[] foundCoords = new int[10], foundDigits = new int[10], constructor = new int[10];
+            int final = 0, totalDigits = 0;
+            bool anyDigit = false;
+            for (int i = 0; i < 10; i++)
+            {
+                Point[] temp;
+                temp = FindBitmapPositions(region, digits[i]);
+                if (temp.Length != 0)
+                {
+                    for (int j = 0; j < temp.Length; j++)
+                    {
+                        foundCoords[totalDigits] = temp[j].X;
+                        foundDigits[totalDigits] = i;
+                        totalDigits++;
+                        anyDigit = true;
+                    }
+                }
+            }
+            if (anyDigit == false)
+                return 1;
+            else
+            {
+                for (int j = 0; j <= totalDigits - 2; j++)
+                {
+                    for (int i = 0; i <= totalDigits - 2; i++)
+                    {
+                        if (foundCoords[i] > foundCoords[i + 1])
+                        {
+                            int temp;
+                            temp = foundCoords[i + 1];
+                            foundCoords[i + 1] = foundCoords[i];
+                            foundCoords[i] = temp;
+                            temp = foundDigits[i + 1];
+                            foundDigits[i + 1] = foundDigits[i];
+                            foundDigits[i] = temp;
+                        }
+                    }
+                }
+                int counter = 0;
+                for (int i = totalDigits - 1; i >= 0; i--)
+                {
+                    final += Convert.ToInt32(Math.Pow(10, i)) * foundDigits[counter];
+                    counter++;
+                }
+                return final;
+            }
+        }
+
+        static Point[] FindBitmapPositions(Bitmap largeBitmap, Bitmap smallBitmap)
+        {
+            List<Point> positions = new List<Point>();
+            for (int x = 0; x <= largeBitmap.Width - smallBitmap.Width; x++)
+            {
+                for (int y = 0; y <= largeBitmap.Height - smallBitmap.Height; y++)
+                {
+                    if (CheckBitmapMatch(largeBitmap, smallBitmap, x, y))
+                    {
+                        positions.Add(new Point(x, y));
+                    }
+                }
+            }
+            return positions.ToArray();
+        }
+
+        static bool CheckBitmapMatch(Bitmap largeBitmap, Bitmap smallBitmap, int offsetX, int offsetY)
+        {
+            for (int x = 0; x < smallBitmap.Width; x++)
+            {
+                for (int y = 0; y < smallBitmap.Height; y++)
+                {
+                    Color smallPixel = smallBitmap.GetPixel(x, y);
+                    if (smallPixel.A != 0) //ignore the transparent pixels
+                    {
+                        Color largePixel = largeBitmap.GetPixel(offsetX + x, offsetY + y);
+
+                        if (smallPixel != largePixel)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
         private void buttonReset()
@@ -399,6 +489,28 @@ namespace BDO_Item_Sorter
             thread2.RunWorkerAsync();
             thread3.RunWorkerAsync();
             thread4.RunWorkerAsync();
+            Rectangle[,] stack = new Rectangle[8, 8];
+            int tempI = 0, tempJ = 0;
+            for (int row = cH + picH; row <= cH + picH + 7 * s; row += s)
+            {
+                for (int col = cW; col <= cW + 7 * s; col += s)
+                {
+                    stack[tempI, tempJ] = new Rectangle(col, row, picW, picW - picH);
+                    tempJ++;
+                }
+                tempJ = 0;
+                tempI++;
+            }
+            for (int row = 0; row < 8; row++)
+            {
+                for (int col = 0; col < 8; col++)
+                {
+                    gridStackNumber[row, col] = StackNumber(prtscr.Clone(stack[row, col], prtscr.PixelFormat));
+                    loadingBar.Value += 15625;
+                }
+            }
+            prtscr.Dispose();
+            SortingHat();
         }
 
         private void settingsButton_Click(object sender, EventArgs e)

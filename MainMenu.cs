@@ -111,17 +111,6 @@ namespace BDO_Item_Sorter
                 {itemButton60,itemButton61,itemButton62,itemButton63,itemButton64,itemButton65,itemButton66,itemButton67},
                 {itemButton70,itemButton71,itemButton72,itemButton73,itemButton74,itemButton75,itemButton76,itemButton77}
             };
-            int tempI = 0, tempJ = 0;
-            for (int row = cH; row <= cH + 7 * s; row += s)
-            {
-                for (int col = cW; col <= cW + 7 * s; col += s)
-                {
-                    itemCoords[tempI, tempJ] = new Rectangle(col, row, picW, picH);
-                    tempJ++;
-                }
-                tempJ = 0;
-                tempI++;
-            }
             gridItemID = ClearIntMatrix(gridItemID);
             prtscr = new Bitmap(activeScreen.Bounds.Width, activeScreen.Bounds.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             g = Graphics.FromImage(prtscr);
@@ -210,6 +199,17 @@ namespace BDO_Item_Sorter
             for (int i = 0; i < itemDatabaseIndex; i++)
                 itemLookup.Items.Add(itemName[i]);
             itemLookup.SelectedIndex = -1;
+            int tempI = 0, tempJ = 0;
+            for (int row = cH; row <= cH + 7 * s; row += s)
+            {
+                for (int col = cW; col <= cW + 7 * s; col += s)
+                {
+                    itemCoords[tempI, tempJ] = new Rectangle(col, row, picW, picH);
+                    tempJ++;
+                }
+                tempJ = 0;
+                tempI++;
+            }
         }
 
         public static void lineEditor(string newText, string file, int lineNumber) //edits provided line of provided file with provided text

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             this.loadingBar = new System.Windows.Forms.ProgressBar();
             this.itemButton00 = new System.Windows.Forms.Button();
@@ -106,6 +107,19 @@
             this.itemLookup = new System.Windows.Forms.ComboBox();
             this.itemLookupLabel = new System.Windows.Forms.TextBox();
             this.settingsButton = new System.Windows.Forms.Button();
+            this.normalModePanel = new System.Windows.Forms.Panel();
+            this.farmingModePanel = new System.Windows.Forms.Panel();
+            this.playPauseButton = new System.Windows.Forms.Button();
+            this.endSessionButton = new System.Windows.Forms.Button();
+            this.clearSessionButton = new System.Windows.Forms.Button();
+            this.locationBox = new System.Windows.Forms.ComboBox();
+            this.itemPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.timerLabelLabel = new System.Windows.Forms.Label();
+            this.timerLabel = new System.Windows.Forms.Label();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.modeCheck = new System.Windows.Forms.CheckBox();
+            this.normalModePanel.SuspendLayout();
+            this.farmingModePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // loadingBar
@@ -1387,7 +1401,7 @@
             this.categoryOverviewLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(39)))));
             this.categoryOverviewLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.categoryOverviewLabel.ForeColor = System.Drawing.Color.White;
-            this.categoryOverviewLabel.Location = new System.Drawing.Point(758, -1);
+            this.categoryOverviewLabel.Location = new System.Drawing.Point(319, 5);
             this.categoryOverviewLabel.Name = "categoryOverviewLabel";
             this.categoryOverviewLabel.Size = new System.Drawing.Size(159, 23);
             this.categoryOverviewLabel.TabIndex = 66;
@@ -1402,7 +1416,7 @@
             this.categoryOverviewList.FormattingEnabled = true;
             this.categoryOverviewList.HorizontalScrollbar = true;
             this.categoryOverviewList.ItemHeight = 15;
-            this.categoryOverviewList.Location = new System.Drawing.Point(762, 28);
+            this.categoryOverviewList.Location = new System.Drawing.Point(322, 32);
             this.categoryOverviewList.Name = "categoryOverviewList";
             this.categoryOverviewList.Size = new System.Drawing.Size(153, 482);
             this.categoryOverviewList.TabIndex = 67;
@@ -1417,7 +1431,7 @@
             this.itemOrganization.FormattingEnabled = true;
             this.itemOrganization.HorizontalScrollbar = true;
             this.itemOrganization.ItemHeight = 15;
-            this.itemOrganization.Location = new System.Drawing.Point(441, 118);
+            this.itemOrganization.Location = new System.Drawing.Point(2, 113);
             this.itemOrganization.Name = "itemOrganization";
             this.itemOrganization.Size = new System.Drawing.Size(315, 390);
             this.itemOrganization.TabIndex = 68;
@@ -1432,7 +1446,7 @@
             this.editCategoriesButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.HotPink;
             this.editCategoriesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.editCategoriesButton.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.editCategoriesButton.Location = new System.Drawing.Point(725, 81);
+            this.editCategoriesButton.Location = new System.Drawing.Point(286, 76);
             this.editCategoriesButton.Name = "editCategoriesButton";
             this.editCategoriesButton.Size = new System.Drawing.Size(31, 31);
             this.editCategoriesButton.TabIndex = 69;
@@ -1445,7 +1459,7 @@
             this.itemLookup.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.itemLookup.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.itemLookup.FormattingEnabled = true;
-            this.itemLookup.Location = new System.Drawing.Point(441, 12);
+            this.itemLookup.Location = new System.Drawing.Point(2, 7);
             this.itemLookup.Name = "itemLookup";
             this.itemLookup.Size = new System.Drawing.Size(315, 26);
             this.itemLookup.TabIndex = 70;
@@ -1458,7 +1472,7 @@
             this.itemLookupLabel.Cursor = System.Windows.Forms.Cursors.Default;
             this.itemLookupLabel.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.itemLookupLabel.ForeColor = System.Drawing.Color.White;
-            this.itemLookupLabel.Location = new System.Drawing.Point(441, 44);
+            this.itemLookupLabel.Location = new System.Drawing.Point(2, 39);
             this.itemLookupLabel.Multiline = true;
             this.itemLookupLabel.Name = "itemLookupLabel";
             this.itemLookupLabel.ReadOnly = true;
@@ -1483,18 +1497,161 @@
             this.settingsButton.UseVisualStyleBackColor = false;
             this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
             // 
+            // normalModePanel
+            // 
+            this.normalModePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(39)))));
+            this.normalModePanel.Controls.Add(this.itemLookupLabel);
+            this.normalModePanel.Controls.Add(this.itemLookup);
+            this.normalModePanel.Controls.Add(this.categoryOverviewLabel);
+            this.normalModePanel.Controls.Add(this.editCategoriesButton);
+            this.normalModePanel.Controls.Add(this.itemOrganization);
+            this.normalModePanel.Controls.Add(this.categoryOverviewList);
+            this.normalModePanel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.normalModePanel.Location = new System.Drawing.Point(440, 0);
+            this.normalModePanel.Name = "normalModePanel";
+            this.normalModePanel.Size = new System.Drawing.Size(476, 514);
+            this.normalModePanel.TabIndex = 73;
+            // 
+            // farmingModePanel
+            // 
+            this.farmingModePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(39)))));
+            this.farmingModePanel.Controls.Add(this.playPauseButton);
+            this.farmingModePanel.Controls.Add(this.endSessionButton);
+            this.farmingModePanel.Controls.Add(this.clearSessionButton);
+            this.farmingModePanel.Controls.Add(this.locationBox);
+            this.farmingModePanel.Controls.Add(this.itemPanel);
+            this.farmingModePanel.Controls.Add(this.timerLabelLabel);
+            this.farmingModePanel.Controls.Add(this.timerLabel);
+            this.farmingModePanel.Enabled = false;
+            this.farmingModePanel.Location = new System.Drawing.Point(440, 0);
+            this.farmingModePanel.Name = "farmingModePanel";
+            this.farmingModePanel.Size = new System.Drawing.Size(478, 514);
+            this.farmingModePanel.TabIndex = 74;
+            this.farmingModePanel.Visible = false;
+            // 
+            // playPauseButton
+            // 
+            this.playPauseButton.BackColor = System.Drawing.Color.Pink;
+            this.playPauseButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("playPauseButton.BackgroundImage")));
+            this.playPauseButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.playPauseButton.Enabled = false;
+            this.playPauseButton.FlatAppearance.BorderSize = 0;
+            this.playPauseButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepPink;
+            this.playPauseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.HotPink;
+            this.playPauseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.playPauseButton.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playPauseButton.Location = new System.Drawing.Point(314, 35);
+            this.playPauseButton.Name = "playPauseButton";
+            this.playPauseButton.Size = new System.Drawing.Size(24, 24);
+            this.playPauseButton.TabIndex = 68;
+            this.playPauseButton.UseVisualStyleBackColor = false;
+            this.playPauseButton.Visible = false;
+            this.playPauseButton.Click += new System.EventHandler(this.playPauseButton_Click);
+            // 
+            // endSessionButton
+            // 
+            this.endSessionButton.BackColor = System.Drawing.Color.Pink;
+            this.endSessionButton.Enabled = false;
+            this.endSessionButton.FlatAppearance.BorderSize = 0;
+            this.endSessionButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepPink;
+            this.endSessionButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.HotPink;
+            this.endSessionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.endSessionButton.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.endSessionButton.Location = new System.Drawing.Point(333, 109);
+            this.endSessionButton.Name = "endSessionButton";
+            this.endSessionButton.Size = new System.Drawing.Size(126, 31);
+            this.endSessionButton.TabIndex = 67;
+            this.endSessionButton.Text = "End and Auto-fill";
+            this.endSessionButton.UseVisualStyleBackColor = false;
+            this.endSessionButton.Click += new System.EventHandler(this.endSessionButton_Click);
+            // 
+            // clearSessionButton
+            // 
+            this.clearSessionButton.BackColor = System.Drawing.Color.Pink;
+            this.clearSessionButton.Enabled = false;
+            this.clearSessionButton.FlatAppearance.BorderSize = 0;
+            this.clearSessionButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepPink;
+            this.clearSessionButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.HotPink;
+            this.clearSessionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.clearSessionButton.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clearSessionButton.Location = new System.Drawing.Point(333, 72);
+            this.clearSessionButton.Name = "clearSessionButton";
+            this.clearSessionButton.Size = new System.Drawing.Size(126, 31);
+            this.clearSessionButton.TabIndex = 66;
+            this.clearSessionButton.Text = "Reset Session";
+            this.clearSessionButton.UseVisualStyleBackColor = false;
+            this.clearSessionButton.Click += new System.EventHandler(this.clearSessionButton_Click);
+            // 
+            // locationBox
+            // 
+            this.locationBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.locationBox.FormattingEnabled = true;
+            this.locationBox.Location = new System.Drawing.Point(36, 13);
+            this.locationBox.Name = "locationBox";
+            this.locationBox.Size = new System.Drawing.Size(261, 21);
+            this.locationBox.TabIndex = 3;
+            this.locationBox.SelectedIndexChanged += new System.EventHandler(this.locationBox_SelectedIndexChanged);
+            // 
+            // itemPanel
+            // 
+            this.itemPanel.AutoScroll = true;
+            this.itemPanel.ForeColor = System.Drawing.Color.Black;
+            this.itemPanel.Location = new System.Drawing.Point(33, 51);
+            this.itemPanel.Name = "itemPanel";
+            this.itemPanel.Size = new System.Drawing.Size(264, 463);
+            this.itemPanel.TabIndex = 2;
+            // 
+            // timerLabelLabel
+            // 
+            this.timerLabelLabel.AutoSize = true;
+            this.timerLabelLabel.ForeColor = System.Drawing.Color.White;
+            this.timerLabelLabel.Location = new System.Drawing.Point(328, 13);
+            this.timerLabelLabel.Name = "timerLabelLabel";
+            this.timerLabelLabel.Size = new System.Drawing.Size(136, 13);
+            this.timerLabelLabel.TabIndex = 1;
+            this.timerLabelLabel.Text = "Elapsed time in this session";
+            this.timerLabelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // timerLabel
+            // 
+            this.timerLabel.AutoSize = true;
+            this.timerLabel.Font = new System.Drawing.Font("Calibri", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timerLabel.ForeColor = System.Drawing.Color.White;
+            this.timerLabel.Location = new System.Drawing.Point(343, 25);
+            this.timerLabel.Name = "timerLabel";
+            this.timerLabel.Size = new System.Drawing.Size(126, 42);
+            this.timerLabel.TabIndex = 0;
+            this.timerLabel.Text = "0:00:00";
+            this.timerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // timer
+            // 
+            this.timer.Interval = 1000;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // modeCheck
+            // 
+            this.modeCheck.AutoSize = true;
+            this.modeCheck.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(39)))));
+            this.modeCheck.ForeColor = System.Drawing.Color.White;
+            this.modeCheck.Location = new System.Drawing.Point(6, 454);
+            this.modeCheck.Name = "modeCheck";
+            this.modeCheck.Size = new System.Drawing.Size(93, 17);
+            this.modeCheck.TabIndex = 75;
+            this.modeCheck.Text = "Farming Mode";
+            this.modeCheck.UseVisualStyleBackColor = false;
+            this.modeCheck.Click += new System.EventHandler(this.modeCheck_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(916, 514);
+            this.Controls.Add(this.modeCheck);
+            this.Controls.Add(this.farmingModePanel);
+            this.Controls.Add(this.normalModePanel);
             this.Controls.Add(this.settingsButton);
-            this.Controls.Add(this.itemLookupLabel);
-            this.Controls.Add(this.itemLookup);
-            this.Controls.Add(this.editCategoriesButton);
-            this.Controls.Add(this.itemOrganization);
-            this.Controls.Add(this.categoryOverviewLabel);
             this.Controls.Add(this.analyzeButton);
             this.Controls.Add(this.itemButton77);
             this.Controls.Add(this.itemButton76);
@@ -1560,7 +1717,6 @@
             this.Controls.Add(this.itemButton02);
             this.Controls.Add(this.itemButton01);
             this.Controls.Add(this.itemButton00);
-            this.Controls.Add(this.categoryOverviewList);
             this.Controls.Add(this.loadingBar);
             this.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -1570,6 +1726,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BDO Item Sorter";
             this.Load += new System.EventHandler(this.MainMenu_Load);
+            this.normalModePanel.ResumeLayout(false);
+            this.normalModePanel.PerformLayout();
+            this.farmingModePanel.ResumeLayout(false);
+            this.farmingModePanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1654,6 +1814,17 @@
         private System.Windows.Forms.ComboBox itemLookup;
         private System.Windows.Forms.TextBox itemLookupLabel;
         private System.Windows.Forms.Button settingsButton;
+        private System.Windows.Forms.Panel normalModePanel;
+        private System.Windows.Forms.Panel farmingModePanel;
+        private System.Windows.Forms.Label timerLabel;
+        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Label timerLabelLabel;
+        private System.Windows.Forms.FlowLayoutPanel itemPanel;
+        private System.Windows.Forms.ComboBox locationBox;
+        private System.Windows.Forms.CheckBox modeCheck;
+        private System.Windows.Forms.Button endSessionButton;
+        private System.Windows.Forms.Button clearSessionButton;
+        private System.Windows.Forms.Button playPauseButton;
     }
 }
 

@@ -25,7 +25,9 @@ namespace BDO_Item_Sorter
 
         private void ItemEditor_Load(object sender, EventArgs e)
         {
-            for(int i = 0; i < MainMenu.menuCategoriesIndex; i++)
+            if (MainMenu.sessionActive == true)
+                catDrop.Enabled = false;
+            for (int i = 0; i < MainMenu.menuCategoriesIndex; i++)
                 catDrop.Items.Add(MainMenu.menuCategories[i]);
             catDrop.SelectedIndex = MainMenu.menuCategoriesIndex - 1;
             nameText.Text = null;

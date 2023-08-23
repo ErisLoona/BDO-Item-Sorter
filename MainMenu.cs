@@ -482,6 +482,8 @@ namespace BDO_Item_Sorter
                 {
                     buttonReset();
                     analyzeButton.Enabled = true;
+                    for (int i = 0; i < itemListControls; i++)
+                        stackCounter[i].Value = 0;
                     for (int row = 0; row < 8; row++)
                         for (int col = 0; col < 8; col++)
                         {
@@ -566,7 +568,10 @@ namespace BDO_Item_Sorter
                                                     break;
                                                 }
                                             }
-                                            stackCounter[i].Value = gridStackNumber[row, col] - forgor;
+                                            if (gridStackNumber[row, col] - forgor < 0)
+                                                stackCounter[i].Value = 0;
+                                            else
+                                                stackCounter[i].Value = gridStackNumber[row, col] - forgor;
                                             break;
                                         }
                                     }
@@ -1194,14 +1199,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(0, 0);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[0, 0]];
             ie.ShowDialog();
             itemClicked[0, 0] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[0, 0]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[0, 0]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[0, 0]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -1209,16 +1241,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[0, 0]] == true && canAdd[0, 0] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[0, 0] = true;
+                string oldName = itemName[gridItemID[0, 0]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[0, 0]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[0, 0]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[0, 0]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[0, 0] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -1242,14 +1301,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(0, 1);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[0, 1]];
             ie.ShowDialog();
             itemClicked[0, 1] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[0, 1]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[0, 1]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[0, 1]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -1257,16 +1343,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[0, 1]] == true && canAdd[0, 1] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[0, 1] = true;
+                string oldName = itemName[gridItemID[0, 1]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[0, 1]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[0, 1]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[0, 1]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[0, 1] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -1290,14 +1403,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(0, 2);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[0, 2]];
             ie.ShowDialog();
             itemClicked[0, 2] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[0, 2]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[0, 2]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[0, 2]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -1305,16 +1445,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[0, 2]] == true && canAdd[0, 2] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[0, 2] = true;
+                string oldName = itemName[gridItemID[0, 2]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[0, 2]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[0, 2]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[0, 2]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[0, 2] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -1338,14 +1505,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(0, 3);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[0, 3]];
             ie.ShowDialog();
             itemClicked[0, 3] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[0, 3]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[0, 3]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[0, 3]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -1353,16 +1547,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[0, 3]] == true && canAdd[0, 3] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[0, 3] = true;
+                string oldName = itemName[gridItemID[0, 3]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[0, 3]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[0, 3]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[0, 3]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[0, 3] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -1386,14 +1607,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(0, 4);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[0, 4]];
             ie.ShowDialog();
             itemClicked[0, 4] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[0, 4]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[0, 4]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[0, 4]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -1401,16 +1649,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[0, 4]] == true && canAdd[0, 4] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[0, 4] = true;
+                string oldName = itemName[gridItemID[0, 4]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[0, 4]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[0, 4]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[0, 4]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[0, 4] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -1434,14 +1709,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(0, 5);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[0, 5]];
             ie.ShowDialog();
             itemClicked[0, 5] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[0, 5]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[0, 5]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[0, 5]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -1449,16 +1751,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[0, 5]] == true && canAdd[0, 5] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[0, 5] = true;
+                string oldName = itemName[gridItemID[0, 5]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[0, 5]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[0, 5]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[0, 5]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[0, 5] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -1482,14 +1811,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(0, 6);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[0, 6]];
             ie.ShowDialog();
             itemClicked[0, 6] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[0, 6]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[0, 6]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[0, 6]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -1497,16 +1853,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[0, 6]] == true && canAdd[0, 6] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[0, 6] = true;
+                string oldName = itemName[gridItemID[0, 6]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[0, 6]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[0, 6]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[0, 6]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[0, 6] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -1530,14 +1913,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(0, 7);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[0, 7]];
             ie.ShowDialog();
             itemClicked[0, 7] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[0, 7]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[0, 7]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[0, 7]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -1545,16 +1955,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[0, 7]] == true && canAdd[0, 7] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[0, 7] = true;
+                string oldName = itemName[gridItemID[0, 7]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[0, 7]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[0, 7]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[0, 7]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[0, 7] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -1578,14 +2015,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(1, 0);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[1, 0]];
             ie.ShowDialog();
             itemClicked[1, 0] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[1, 0]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[1, 0]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[1, 0]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -1593,16 +2057,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[1, 0]] == true && canAdd[1, 0] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[1, 0] = true;
+                string oldName = itemName[gridItemID[1, 0]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[1, 0]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[1, 0]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[1, 0]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[1, 0] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -1626,14 +2117,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(1, 1);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[1, 1]];
             ie.ShowDialog();
             itemClicked[1, 1] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[1, 1]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[1, 1]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[1, 1]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -1641,16 +2159,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[1, 1]] == true && canAdd[1, 1] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[1, 1] = true;
+                string oldName = itemName[gridItemID[1, 1]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[1, 1]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[1, 1]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[1, 1]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[1, 1] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -1674,14 +2219,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(1, 2);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[1, 2]];
             ie.ShowDialog();
             itemClicked[1, 2] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[1, 2]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[1, 2]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[1, 2]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -1689,16 +2261,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[1, 2]] == true && canAdd[1, 2] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[1, 2] = true;
+                string oldName = itemName[gridItemID[1, 2]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[1, 2]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[1, 2]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[1, 2]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[1, 2] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -1722,14 +2321,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(1, 3);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[1, 3]];
             ie.ShowDialog();
             itemClicked[1, 3] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[1, 3]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[1, 3]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[1, 3]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -1737,16 +2363,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[1, 3]] == true && canAdd[1, 3] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[1, 3] = true;
+                string oldName = itemName[gridItemID[1, 3]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[1, 3]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[1, 3]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[1, 3]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[1, 3] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -1770,14 +2423,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(1, 4);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[1, 4]];
             ie.ShowDialog();
             itemClicked[1, 4] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[1, 4]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[1, 4]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[1, 4]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -1785,16 +2465,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[1, 4]] == true && canAdd[1, 4] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[1, 4] = true;
+                string oldName = itemName[gridItemID[1, 4]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[1, 4]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[1, 4]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[1, 4]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[1, 4] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -1818,14 +2525,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(1, 5);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[1, 5]];
             ie.ShowDialog();
             itemClicked[1, 5] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[1, 5]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[1, 5]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[1, 5]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -1833,16 +2567,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[1, 5]] == true && canAdd[1, 5] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[1, 5] = true;
+                string oldName = itemName[gridItemID[1, 5]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[1, 5]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[1, 5]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[1, 5]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[1, 5] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -1866,14 +2627,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(1, 6);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[1, 6]];
             ie.ShowDialog();
             itemClicked[1, 6] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[1, 6]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[1, 6]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[1, 6]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -1881,16 +2669,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[1, 6]] == true && canAdd[1, 6] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[1, 6] = true;
+                string oldName = itemName[gridItemID[1, 6]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[1, 6]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[1, 6]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[1, 6]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[1, 6] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -1914,14 +2729,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(1, 7);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[1, 7]];
             ie.ShowDialog();
             itemClicked[1, 7] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[1, 7]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[1, 7]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[1, 7]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -1929,16 +2771,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[1, 7]] == true && canAdd[1, 7] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[1, 7] = true;
+                string oldName = itemName[gridItemID[1, 7]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[1, 7]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[1, 7]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[1, 7]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[1, 7] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -1962,14 +2831,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(2, 0);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[2, 0]];
             ie.ShowDialog();
             itemClicked[2, 0] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[2, 0]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[2, 0]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[2, 0]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -1977,16 +2873,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[2, 0]] == true && canAdd[2, 0] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[2, 0] = true;
+                string oldName = itemName[gridItemID[2, 0]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[2, 0]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[2, 0]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[2, 0]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[2, 0] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -2010,14 +2933,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(2, 1);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[2, 1]];
             ie.ShowDialog();
             itemClicked[2, 1] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[2, 1]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[2, 1]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[2, 1]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -2025,16 +2975,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[2, 1]] == true && canAdd[2, 1] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[2, 1] = true;
+                string oldName = itemName[gridItemID[2, 1]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[2, 1]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[2, 1]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[2, 1]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[2, 1] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -2058,14 +3035,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(2, 2);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[2, 2]];
             ie.ShowDialog();
             itemClicked[2, 2] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[2, 2]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[2, 2]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[2, 2]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -2073,16 +3077,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[2, 2]] == true && canAdd[2, 2] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[2, 2] = true;
+                string oldName = itemName[gridItemID[2, 2]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[2, 2]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[2, 2]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[2, 2]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[2, 2] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -2106,14 +3137,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(2, 3);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[2, 3]];
             ie.ShowDialog();
             itemClicked[2, 3] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[2, 3]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[2, 3]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[2, 3]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -2121,16 +3179,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[2, 3]] == true && canAdd[2, 3] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[2, 3] = true;
+                string oldName = itemName[gridItemID[2, 3]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[2, 3]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[2, 3]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[2, 3]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[2, 3] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -2154,14 +3239,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(2, 4);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[2, 4]];
             ie.ShowDialog();
             itemClicked[2, 4] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[2, 4]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[2, 4]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[2, 4]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -2169,16 +3281,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[2, 4]] == true && canAdd[2, 4] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[2, 4] = true;
+                string oldName = itemName[gridItemID[2, 4]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[2, 4]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[2, 4]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[2, 4]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[2, 4] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -2202,14 +3341,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(2, 5);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[2, 5]];
             ie.ShowDialog();
             itemClicked[2, 5] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[2, 5]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[2, 5]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[2, 5]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -2217,16 +3383,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[2, 5]] == true && canAdd[2, 5] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[2, 5] = true;
+                string oldName = itemName[gridItemID[2, 5]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[2, 5]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[2, 5]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[2, 5]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[2, 5] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -2250,14 +3443,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(2, 6);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[2, 6]];
             ie.ShowDialog();
             itemClicked[2, 6] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[2, 6]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[2, 6]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[2, 6]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -2265,16 +3485,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[2, 6]] == true && canAdd[2, 6] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[2, 6] = true;
+                string oldName = itemName[gridItemID[2, 6]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[2, 6]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[2, 6]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[2, 6]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[2, 6] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -2298,14 +3545,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(2, 7);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[2, 7]];
             ie.ShowDialog();
             itemClicked[2, 7] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[2, 7]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[2, 7]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[2, 7]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -2313,16 +3587,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[2, 7]] == true && canAdd[2, 7] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[2, 7] = true;
+                string oldName = itemName[gridItemID[2, 7]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[2, 7]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[2, 7]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[2, 7]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[2, 7] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -2346,14 +3647,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(3, 0);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[3, 0]];
             ie.ShowDialog();
             itemClicked[3, 0] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[3, 0]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[3, 0]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[3, 0]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -2361,16 +3689,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[3, 0]] == true && canAdd[3, 0] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[3, 0] = true;
+                string oldName = itemName[gridItemID[3, 0]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[3, 0]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[3, 0]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[3, 0]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[3, 0] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -2394,14 +3749,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(3, 1);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[3, 1]];
             ie.ShowDialog();
             itemClicked[3, 1] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[3, 1]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[3, 1]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[3, 1]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -2409,16 +3791,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[3, 1]] == true && canAdd[3, 1] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[3, 1] = true;
+                string oldName = itemName[gridItemID[3, 1]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[3, 1]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[3, 1]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[3, 1]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[3, 1] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -2442,14 +3851,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(3, 2);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[3, 2]];
             ie.ShowDialog();
             itemClicked[3, 2] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[3, 2]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[3, 2]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[3, 2]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -2457,16 +3893,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[3, 2]] == true && canAdd[3, 2] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[3, 2] = true;
+                string oldName = itemName[gridItemID[3, 2]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[3, 2]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[3, 2]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[3, 2]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[3, 2] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -2490,14 +3953,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(3, 3);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[3, 3]];
             ie.ShowDialog();
             itemClicked[3, 3] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[3, 3]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[3, 3]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[3, 3]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -2505,16 +3995,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[3, 3]] == true && canAdd[3, 3] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[3, 3] = true;
+                string oldName = itemName[gridItemID[3, 3]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[3, 3]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[3, 3]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[3, 3]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[3, 3] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -2538,14 +4055,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(3, 4);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[3, 4]];
             ie.ShowDialog();
             itemClicked[3, 4] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[3, 4]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[3, 4]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[3, 4]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -2553,16 +4097,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[3, 4]] == true && canAdd[3, 4] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[3, 4] = true;
+                string oldName = itemName[gridItemID[3, 4]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[3, 4]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[3, 4]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[3, 4]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[3, 4] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -2586,14 +4157,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(3, 5);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[3, 5]];
             ie.ShowDialog();
             itemClicked[3, 5] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[3, 5]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[3, 5]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[3, 5]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -2601,16 +4199,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[3, 5]] == true && canAdd[3, 5] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[3, 5] = true;
+                string oldName = itemName[gridItemID[3, 5]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[3, 5]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[3, 5]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[3, 5]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[3, 5] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -2634,14 +4259,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(3, 6);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[3, 6]];
             ie.ShowDialog();
             itemClicked[3, 6] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[3, 6]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[3, 6]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[3, 6]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -2649,16 +4301,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[3, 6]] == true && canAdd[3, 6] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[3, 6] = true;
+                string oldName = itemName[gridItemID[3, 6]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[3, 6]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[3, 6]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[3, 6]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[3, 6] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -2682,14 +4361,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(3, 7);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[3, 7]];
             ie.ShowDialog();
             itemClicked[3, 7] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[3, 7]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[3, 7]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[3, 7]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -2697,16 +4403,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[3, 7]] == true && canAdd[3, 7] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[3, 7] = true;
+                string oldName = itemName[gridItemID[3, 7]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[3, 7]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[3, 7]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[3, 7]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[3, 7] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -2730,14 +4463,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(4, 0);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[4, 0]];
             ie.ShowDialog();
             itemClicked[4, 0] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[4, 0]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[4, 0]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[4, 0]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -2745,16 +4505,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[4, 0]] == true && canAdd[4, 0] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[4, 0] = true;
+                string oldName = itemName[gridItemID[4, 0]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[4, 0]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[4, 0]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[4, 0]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[4, 0] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -2778,14 +4565,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(4, 1);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[4, 1]];
             ie.ShowDialog();
             itemClicked[4, 1] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[4, 1]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[4, 1]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[4, 1]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -2793,16 +4607,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[4, 1]] == true && canAdd[4, 1] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[4, 1] = true;
+                string oldName = itemName[gridItemID[4, 1]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[4, 1]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[4, 1]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[4, 1]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[4, 1] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -2826,14 +4667,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(4, 2);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[4, 2]];
             ie.ShowDialog();
             itemClicked[4, 2] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[4, 2]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[4, 2]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[4, 2]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -2841,16 +4709,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[4, 2]] == true && canAdd[4, 2] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[4, 2] = true;
+                string oldName = itemName[gridItemID[4, 2]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[4, 2]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[4, 2]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[4, 2]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[4, 2] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -2874,14 +4769,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(4, 3);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[4, 3]];
             ie.ShowDialog();
             itemClicked[4, 3] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[4, 3]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[4, 3]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[4, 3]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -2889,16 +4811,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[4, 3]] == true && canAdd[4, 3] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[4, 3] = true;
+                string oldName = itemName[gridItemID[4, 3]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[4, 3]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[4, 3]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[4, 3]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[4, 3] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -2922,14 +4871,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(4, 4);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[4, 4]];
             ie.ShowDialog();
             itemClicked[4, 4] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[4, 4]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[4, 4]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[4, 4]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -2937,16 +4913,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[4, 4]] == true && canAdd[4, 4] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[4, 4] = true;
+                string oldName = itemName[gridItemID[4, 4]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[4, 4]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[4, 4]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[4, 4]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[4, 4] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -2970,14 +4973,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(4, 5);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[4, 5]];
             ie.ShowDialog();
             itemClicked[4, 5] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[4, 5]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[4, 5]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[4, 5]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -2985,16 +5015,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[4, 5]] == true && canAdd[4, 5] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[4, 5] = true;
+                string oldName = itemName[gridItemID[4, 5]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[4, 5]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[4, 5]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[4, 5]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[4, 5] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -3018,14 +5075,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(4, 6);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[4, 6]];
             ie.ShowDialog();
             itemClicked[4, 6] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[4, 6]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[4, 6]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[4, 6]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -3033,16 +5117,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[4, 6]] == true && canAdd[4, 6] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[4, 6] = true;
+                string oldName = itemName[gridItemID[4, 6]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[4, 6]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[4, 6]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[4, 6]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[4, 6] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -3066,14 +5177,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(4, 7);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[4, 7]];
             ie.ShowDialog();
             itemClicked[4, 7] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[4, 7]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[4, 7]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[4, 7]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -3081,16 +5219,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[4, 7]] == true && canAdd[4, 7] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[4, 7] = true;
+                string oldName = itemName[gridItemID[4, 7]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[4, 7]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[4, 7]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[4, 7]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[4, 7] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -3114,14 +5279,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(5, 0);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[5, 0]];
             ie.ShowDialog();
             itemClicked[5, 0] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[5, 0]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[5, 0]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[5, 0]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -3129,16 +5321,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[5, 0]] == true && canAdd[5, 0] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[5, 0] = true;
+                string oldName = itemName[gridItemID[5, 0]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[5, 0]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[5, 0]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[5, 0]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[5, 0] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -3162,14 +5381,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(5, 1);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[5, 1]];
             ie.ShowDialog();
             itemClicked[5, 1] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[5, 1]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[5, 1]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[5, 1]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -3177,16 +5423,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[5, 1]] == true && canAdd[5, 1] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[5, 1] = true;
+                string oldName = itemName[gridItemID[5, 1]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[5, 1]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[5, 1]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[5, 1]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[5, 1] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -3210,14 +5483,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(5, 2);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[5, 2]];
             ie.ShowDialog();
             itemClicked[5, 2] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[5, 2]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[5, 2]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[5, 2]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -3225,16 +5525,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[5, 2]] == true && canAdd[5, 2] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[5, 2] = true;
+                string oldName = itemName[gridItemID[5, 2]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[5, 2]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[5, 2]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[5, 2]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[5, 2] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -3258,14 +5585,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(5, 3);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[5, 3]];
             ie.ShowDialog();
             itemClicked[5, 3] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[5, 3]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[5, 3]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[5, 3]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -3273,16 +5627,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[5, 3]] == true && canAdd[5, 3] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[5, 3] = true;
+                string oldName = itemName[gridItemID[5, 3]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[5, 3]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[5, 3]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[5, 3]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[5, 3] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -3306,14 +5687,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(5, 4);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[5, 4]];
             ie.ShowDialog();
             itemClicked[5, 4] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[5, 4]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[5, 4]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[5, 4]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -3321,16 +5729,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[5, 4]] == true && canAdd[5, 4] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[5, 4] = true;
+                string oldName = itemName[gridItemID[5, 4]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[5, 4]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[5, 4]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[5, 4]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[5, 4] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -3354,14 +5789,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(5, 5);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[5, 5]];
             ie.ShowDialog();
             itemClicked[5, 5] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[5, 5]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[5, 5]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[5, 5]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -3369,16 +5831,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[5, 5]] == true && canAdd[5, 5] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[5, 5] = true;
+                string oldName = itemName[gridItemID[5, 5]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[5, 5]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[5, 5]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[5, 5]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[5, 5] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -3402,14 +5891,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(5, 6);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[5, 6]];
             ie.ShowDialog();
             itemClicked[5, 6] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[5, 6]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[5, 6]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[5, 6]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -3417,16 +5933,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[5, 6]] == true && canAdd[5, 6] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[5, 6] = true;
+                string oldName = itemName[gridItemID[5, 6]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[5, 6]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[5, 6]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[5, 6]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[5, 6] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -3450,14 +5993,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(5, 7);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[5, 7]];
             ie.ShowDialog();
             itemClicked[5, 7] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[5, 7]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[5, 7]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[5, 7]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -3465,16 +6035,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[5, 7]] == true && canAdd[5, 7] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[5, 7] = true;
+                string oldName = itemName[gridItemID[5, 7]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[5, 7]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[5, 7]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[5, 7]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[5, 7] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -3498,14 +6095,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(6, 0);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[6, 0]];
             ie.ShowDialog();
             itemClicked[6, 0] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[6, 0]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[6, 0]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[6, 0]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -3513,16 +6137,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[6, 0]] == true && canAdd[6, 0] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[6, 0] = true;
+                string oldName = itemName[gridItemID[6, 0]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[6, 0]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[6, 0]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[6, 0]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[6, 0] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -3546,14 +6197,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(6, 1);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[6, 1]];
             ie.ShowDialog();
             itemClicked[6, 1] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[6, 1]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[6, 1]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[6, 1]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -3561,16 +6239,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[6, 1]] == true && canAdd[6, 1] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[6, 1] = true;
+                string oldName = itemName[gridItemID[6, 1]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[6, 1]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[6, 1]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[6, 1]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[6, 1] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -3594,14 +6299,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(6, 2);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[6, 2]];
             ie.ShowDialog();
             itemClicked[6, 2] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[6, 2]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[6, 2]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[6, 2]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -3609,16 +6341,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[6, 2]] == true && canAdd[6, 2] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[6, 2] = true;
+                string oldName = itemName[gridItemID[6, 2]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[6, 2]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[6, 2]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[6, 2]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[6, 2] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -3642,14 +6401,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(6, 3);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[6, 3]];
             ie.ShowDialog();
             itemClicked[6, 3] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[6, 3]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[6, 3]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[6, 3]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -3657,16 +6443,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[6, 3]] == true && canAdd[6, 3] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[6, 3] = true;
+                string oldName = itemName[gridItemID[6, 3]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[6, 3]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[6, 3]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[6, 3]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[6, 3] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -3690,14 +6503,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(6, 4);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[6, 4]];
             ie.ShowDialog();
             itemClicked[6, 4] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[6, 4]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[6, 4]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[6, 4]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -3705,16 +6545,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[6, 4]] == true && canAdd[6, 4] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[6, 4] = true;
+                string oldName = itemName[gridItemID[6, 4]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[6, 4]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[6, 4]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[6, 4]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[6, 4] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -3738,14 +6605,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(6, 5);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[6, 5]];
             ie.ShowDialog();
             itemClicked[6, 5] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[6, 5]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[6, 5]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[6, 5]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -3753,16 +6647,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[6, 5]] == true && canAdd[6, 5] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[6, 5] = true;
+                string oldName = itemName[gridItemID[6, 5]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[6, 5]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[6, 5]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[6, 5]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[6, 5] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -3786,14 +6707,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(6, 6);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[6, 6]];
             ie.ShowDialog();
             itemClicked[6, 6] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[6, 6]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[6, 6]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[6, 6]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -3801,16 +6749,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[6, 6]] == true && canAdd[6, 6] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[6, 6] = true;
+                string oldName = itemName[gridItemID[6, 6]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[6, 6]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[6, 6]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[6, 6]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[6, 6] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -3834,14 +6809,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(6, 7);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[6, 7]];
             ie.ShowDialog();
             itemClicked[6, 7] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[6, 7]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[6, 7]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[6, 7]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -3849,16 +6851,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[6, 7]] == true && canAdd[6, 7] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[6, 7] = true;
+                string oldName = itemName[gridItemID[6, 7]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[6, 7]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[6, 7]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[6, 7]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[6, 7] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -3882,14 +6911,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(7, 0);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[7, 0]];
             ie.ShowDialog();
             itemClicked[7, 0] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[7, 0]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[7, 0]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[7, 0]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -3897,16 +6953,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[7, 0]] == true && canAdd[7, 0] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[7, 0] = true;
+                string oldName = itemName[gridItemID[7, 0]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[7, 0]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[7, 0]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[7, 0]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[7, 0] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -3930,14 +7013,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(7, 1);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[7, 1]];
             ie.ShowDialog();
             itemClicked[7, 1] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[7, 1]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[7, 1]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[7, 1]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -3945,16 +7055,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[7, 1]] == true && canAdd[7, 1] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[7, 1] = true;
+                string oldName = itemName[gridItemID[7, 1]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[7, 1]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[7, 1]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[7, 1]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[7, 1] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -3978,14 +7115,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(7, 2);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[7, 2]];
             ie.ShowDialog();
             itemClicked[7, 2] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[7, 2]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[7, 2]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[7, 2]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -3993,16 +7157,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[7, 2]] == true && canAdd[7, 2] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[7, 2] = true;
+                string oldName = itemName[gridItemID[7, 2]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[7, 2]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[7, 2]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[7, 2]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[7, 2] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -4026,14 +7217,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(7, 3);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[7, 3]];
             ie.ShowDialog();
             itemClicked[7, 3] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[7, 3]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[7, 3]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[7, 3]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -4041,16 +7259,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[7, 3]] == true && canAdd[7, 3] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[7, 3] = true;
+                string oldName = itemName[gridItemID[7, 3]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[7, 3]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[7, 3]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[7, 3]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[7, 3] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -4074,14 +7319,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(7, 4);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[7, 4]];
             ie.ShowDialog();
             itemClicked[7, 4] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[7, 4]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[7, 4]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[7, 4]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -4089,16 +7361,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[7, 4]] == true && canAdd[7, 4] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[7, 4] = true;
+                string oldName = itemName[gridItemID[7, 4]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[7, 4]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[7, 4]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[7, 4]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[7, 4] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -4122,14 +7421,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(7, 5);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[7, 5]];
             ie.ShowDialog();
             itemClicked[7, 5] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[7, 5]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[7, 5]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[7, 5]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -4137,16 +7463,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[7, 5]] == true && canAdd[7, 5] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[7, 5] = true;
+                string oldName = itemName[gridItemID[7, 5]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[7, 5]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[7, 5]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[7, 5]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[7, 5] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -4170,14 +7523,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(7, 6);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[7, 6]];
             ie.ShowDialog();
             itemClicked[7, 6] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[7, 6]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[7, 6]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[7, 6]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -4185,16 +7565,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[7, 6]] == true && canAdd[7, 6] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[7, 6] = true;
+                string oldName = itemName[gridItemID[7, 6]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[7, 6]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[7, 6]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[7, 6]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[7, 6] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }
@@ -4218,14 +7625,41 @@ namespace BDO_Item_Sorter
                 }
                 ItemGrabber(7, 7);
             }
+            bool prevState = sessionPaused;
             if (modeCheck.Checked == true && sessionPaused == false)
                 pauseSession();
+            string oldName = itemName[gridItemID[7, 7]];
             ie.ShowDialog();
             itemClicked[7, 7] = false;
             databaseLoad();
+            for (int i = 0; i < itemListControls; i++)
+            {
+                if (itemName[gridItemID[7, 7]] == stackLabel[i].Text)
+                {
+                    itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[7, 7]);
+                    itemRemember[rememberIndex + 1] = itemName[gridItemID[7, 7]];
+                    rememberIndex += 2;
+                }
+            }
+            for (int i = 1; i < rememberIndex; i += 2)
+                if (itemRemember[i] == oldName)
+                {
+                    int c = 1;
+                    for (int j = 1; j < rememberIndex; j += 2)
+                    {
+                        if ((j == 1 && j == i) || j + 2 == i)
+                        {
+                            j += 2;
+                            itemRemember[c] = itemRemember[j];
+                            c += 2;
+                        }
+                    }
+                    rememberIndex -= 2;
+                    break;
+                }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (modeCheck.Checked == true && sessionPaused == true)
+            if (prevState == false)
                 pauseSession();
         }
 
@@ -4233,16 +7667,43 @@ namespace BDO_Item_Sorter
         {
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[7, 7]] == true && canAdd[7, 7] == true)
             {
+                bool prevState = sessionPaused;
                 if (modeCheck.Checked == true && sessionPaused == false)
                     pauseSession();
                 itemClicked[7, 7] = true;
+                string oldName = itemName[gridItemID[7, 7]];
                 DuplicateSelector ds = new DuplicateSelector();
                 ds.ShowDialog();
                 databaseLoad();
+                for (int i = 0; i < itemListControls; i++)
+                {
+                    if (itemName[gridItemID[7, 7]] == stackLabel[i].Text)
+                    {
+                        itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[7, 7]);
+                        itemRemember[rememberIndex + 1] = itemName[gridItemID[7, 7]];
+                        rememberIndex += 2;
+                    }
+                }
+                for (int i = 1; i < rememberIndex; i += 2)
+                    if (itemRemember[i] == oldName)
+                    {
+                        int c = 1;
+                        for (int j = 1; j < rememberIndex; j += 2)
+                        {
+                            if ((j == 1 && j == i) || j + 2 == i)
+                            {
+                                j += 2;
+                                itemRemember[c] = itemRemember[j];
+                                c += 2;
+                            }
+                        }
+                        rememberIndex -= 2;
+                        break;
+                    }
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[7, 7] = false;
-                if (modeCheck.Checked == true && sessionPaused == true)
+                if (prevState == false)
                     pauseSession();
             }
         }

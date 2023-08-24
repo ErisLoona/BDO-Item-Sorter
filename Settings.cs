@@ -43,6 +43,12 @@ namespace BDO_Item_Sorter
                 }
                 j++;
             }
+            using (StreamReader reader = new StreamReader(Directory.GetCurrentDirectory() + "\\Sorting Mode\\Grind Location Scripts.csv"))
+            {
+                temp = reader.ReadLine().Split(',');
+                garmothText.Text = temp[1];
+                delayCounter.Value = Convert.ToDecimal(temp[2]) / 1000M;
+            }
         }
 
         private void screenButton_Click(object sender, EventArgs e)
@@ -65,6 +71,28 @@ namespace BDO_Item_Sorter
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)
         {
             screenButton_Click(sender, e);
+            setIDButton_Click(sender, e);
+            setDelayButton_Click(sender, e);
+        }
+
+        private void setIDButton_Click(object sender, EventArgs e)
+        {
+            string[] temp = new string[3];
+            using (StreamReader reader = new StreamReader(Directory.GetCurrentDirectory() + "\\Sorting Mode\\Grind Location Scripts.csv"))
+            {
+                temp = reader.ReadLine().Split(',');
+            }
+            MainMenu.lineEditor(temp[0] + ',' + garmothText.Text + ',' + temp[2], Directory.GetCurrentDirectory() + "\\Sorting Mode\\Grind Location Scripts.csv", 0);
+        }
+
+        private void setDelayButton_Click(object sender, EventArgs e)
+        {
+            string[] temp = new string[3];
+            using (StreamReader reader = new StreamReader(Directory.GetCurrentDirectory() + "\\Sorting Mode\\Grind Location Scripts.csv"))
+            {
+                temp = reader.ReadLine().Split(',');
+            }
+            MainMenu.lineEditor(temp[0] + ',' + temp[1] + ',' + Convert.ToString(Convert.ToInt32(delayCounter.Value * 1000M)), Directory.GetCurrentDirectory() + "\\Sorting Mode\\Grind Location Scripts.csv", 0);
         }
     }
 }

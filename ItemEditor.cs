@@ -59,7 +59,10 @@ namespace BDO_Item_Sorter
 
         private void ItemEditor_FormClosed(object sender, FormClosedEventArgs e)
         {
-            MainMenu.lineEditor(Convert.ToString(itemID) + ',' + nameText.Text + ',' + catDrop.Text + ',' + Convert.ToString(ignoredBox.Checked) + ',' + Convert.ToString(problematicBox.Checked), Directory.GetCurrentDirectory() + "\\Item Attributions.csv", itemID);
+            if (catDrop.SelectedIndex != -1)
+                MainMenu.lineEditor(Convert.ToString(itemID) + ',' + nameText.Text + ',' + catDrop.Text + ',' + Convert.ToString(ignoredBox.Checked) + ',' + Convert.ToString(problematicBox.Checked), Directory.GetCurrentDirectory() + "\\Item Attributions.csv", itemID);
+            else
+                MainMenu.lineEditor(Convert.ToString(itemID) + ',' + nameText.Text + ',' + "(none)" + ',' + Convert.ToString(ignoredBox.Checked) + ',' + Convert.ToString(problematicBox.Checked), Directory.GetCurrentDirectory() + "\\Item Attributions.csv", itemID);
         }
 
         private void doneButton_Click(object sender, EventArgs e)

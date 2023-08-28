@@ -40,6 +40,7 @@ namespace BDO_Item_Sorter
         public static string[] script = new string[100], itemRemember = new string[128];
         public static int itemListControls = 0, hh = 0, mm = 0, ss = 0, rememberIndex = 0, scriptIndex = 0, websiteLoadDelay = 5000;
         public static bool sessionActive = false, sessionPaused = false;
+        Image timerButtonPlayIcon, timerButtonPauseIcon;
         NumericUpDown[] stackCounter = new NumericUpDown[50];
         Label[] stackLabel = new Label[50];
 
@@ -109,6 +110,8 @@ namespace BDO_Item_Sorter
                     System.Environment.Exit(0);
                 }
             }
+            timerButtonPlayIcon = Image.FromFile(Directory.GetCurrentDirectory() + "\\Sorting Mode\\play.png");
+            timerButtonPauseIcon = Image.FromFile(Directory.GetCurrentDirectory() + "\\Sorting Mode\\pause.png");
             using (StreamReader reader = new StreamReader(Directory.GetCurrentDirectory() + "\\Sorting Mode\\Grind Location Scripts.csv"))
             {
                 string[] tempAttributes = new string[5];
@@ -772,7 +775,7 @@ namespace BDO_Item_Sorter
         private void clearSessionButton_Click(object sender, EventArgs e)
         {
             bool temp = sessionPaused;
-            if (temp == false)
+            if (temp == false && sessionActive == true)
                 pauseSession();
             if (MessageBox.Show("You are about to reset your current session.\nAre you sure you want to reset it?", "Reset session", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
             {
@@ -789,10 +792,11 @@ namespace BDO_Item_Sorter
                 sessionPaused = false;
                 swapPauseButtonIcon(false);
                 rememberIndex = 0;
+                GC.Collect();
             }
             else
             {
-                if (temp == false)
+                if (temp == false && sessionActive == true)
                     pauseSession();
             }
         }
@@ -880,7 +884,6 @@ namespace BDO_Item_Sorter
                     MessageBox.Show("Please set your ID first in the settings!", "ID not set", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                endSessionButton.Enabled = false;
                 playPauseButton.Enabled = false;
                 playPauseButton.Visible = false;
                 modeCheck.Enabled = true;
@@ -941,6 +944,15 @@ namespace BDO_Item_Sorter
                 {
                     new InputSimulator().Keyboard.KeyPress(VirtualKeyCode.TAB)
                         .TextEntry(Convert.ToString(stackCounter[i].Value));
+                }
+                if (state != "Maximized")
+                {
+                    if (state == "Hide")
+                        ShowWindow(handle, 0);
+                    if (state == "Normal")
+                        ShowWindow(handle, 1);
+                    if (state == "Minimized")
+                        ShowWindow(handle, 2);
                 }
                 GC.Collect();
             }
@@ -1094,17 +1106,22 @@ namespace BDO_Item_Sorter
         public void swapPauseButtonIcon(bool playIcon)
         {
             if (playIcon == true)
-                playPauseButton.BackgroundImage = Image.FromFile(Directory.GetCurrentDirectory() + "\\Sorting Mode\\play.png");
+                playPauseButton.BackgroundImage = timerButtonPlayIcon;
             else
-                playPauseButton.BackgroundImage = Image.FromFile(Directory.GetCurrentDirectory() + "\\Sorting Mode\\pause.png");
+                playPauseButton.BackgroundImage = timerButtonPauseIcon;
         }
 
         private void settingsButton_Click(object sender, EventArgs e)
         {
+            bool prevState = sessionPaused;
+            if (modeCheck.Checked == true && sessionPaused == false && sessionActive == true)
+                pauseSession();
             Settings s = new Settings();
             s.ShowDialog();
             GC.Collect();
             databaseLoad();
+            if (prevState == false && sessionActive == true)
+                pauseSession();
         }
 
         private void itemLookup_SelectedIndexChanged(object sender, EventArgs e)
@@ -1360,7 +1377,7 @@ namespace BDO_Item_Sorter
                 ItemGrabber(brow, bcol);
             }
             bool prevState = sessionPaused;
-            if (modeCheck.Checked == true && sessionPaused == false)
+            if (modeCheck.Checked == true && sessionPaused == false && sessionActive == true)
                 pauseSession();
             string oldName = itemName[gridItemID[brow, bcol]];
             ie.ShowDialog();
@@ -1396,7 +1413,7 @@ namespace BDO_Item_Sorter
             }
             itemOrganization.Items.Clear();
             SortingHat();
-            if (prevState == false)
+            if (prevState == false && sessionActive == true)
                 pauseSession();
         }
 
@@ -1423,7 +1440,7 @@ namespace BDO_Item_Sorter
             if (e.Button == MouseButtons.Right && itemProblematic[gridItemID[brow, bcol]] == true && canAdd[brow, bcol] == true)
             {
                 bool prevState = sessionPaused;
-                if (modeCheck.Checked == true && sessionPaused == false)
+                if (modeCheck.Checked == true && sessionPaused == false && sessionActive == true)
                     pauseSession();
                 itemClicked[brow, bcol] = true;
                 string oldName = itemName[gridItemID[brow, bcol]];
@@ -1461,7 +1478,7 @@ namespace BDO_Item_Sorter
                 itemOrganization.Items.Clear();
                 SortingHat();
                 itemClicked[brow, bcol] = false;
-                if (prevState == false)
+                if (prevState == false && sessionActive == true)
                     pauseSession();
             }
         }

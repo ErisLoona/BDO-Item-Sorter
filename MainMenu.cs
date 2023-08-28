@@ -40,6 +40,7 @@ namespace BDO_Item_Sorter
         public static string[] script = new string[100], itemRemember = new string[128];
         public static int itemListControls = 0, hh = 0, mm = 0, ss = 0, rememberIndex = 0, scriptIndex = 0, websiteLoadDelay = 5000;
         public static bool sessionActive = false, sessionPaused = false;
+        Image timerButtonPlayIcon, timerButtonPauseIcon;
         NumericUpDown[] stackCounter = new NumericUpDown[50];
         Label[] stackLabel = new Label[50];
 
@@ -109,6 +110,8 @@ namespace BDO_Item_Sorter
                     System.Environment.Exit(0);
                 }
             }
+            timerButtonPlayIcon = Image.FromFile(Directory.GetCurrentDirectory() + "\\Sorting Mode\\play.png");
+            timerButtonPauseIcon = Image.FromFile(Directory.GetCurrentDirectory() + "\\Sorting Mode\\pause.png");
             using (StreamReader reader = new StreamReader(Directory.GetCurrentDirectory() + "\\Sorting Mode\\Grind Location Scripts.csv"))
             {
                 string[] tempAttributes = new string[5];
@@ -789,6 +792,7 @@ namespace BDO_Item_Sorter
                 sessionPaused = false;
                 swapPauseButtonIcon(false);
                 rememberIndex = 0;
+                GC.Collect();
             }
             else
             {
@@ -880,7 +884,6 @@ namespace BDO_Item_Sorter
                     MessageBox.Show("Please set your ID first in the settings!", "ID not set", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                endSessionButton.Enabled = false;
                 playPauseButton.Enabled = false;
                 playPauseButton.Visible = false;
                 modeCheck.Enabled = true;
@@ -941,6 +944,15 @@ namespace BDO_Item_Sorter
                 {
                     new InputSimulator().Keyboard.KeyPress(VirtualKeyCode.TAB)
                         .TextEntry(Convert.ToString(stackCounter[i].Value));
+                }
+                if (state != "Maximized")
+                {
+                    if (state == "Hide")
+                        ShowWindow(handle, 0);
+                    if (state == "Normal")
+                        ShowWindow(handle, 1);
+                    if (state == "Minimized")
+                        ShowWindow(handle, 2);
                 }
                 GC.Collect();
             }
@@ -1094,9 +1106,9 @@ namespace BDO_Item_Sorter
         public void swapPauseButtonIcon(bool playIcon)
         {
             if (playIcon == true)
-                playPauseButton.BackgroundImage = Image.FromFile(Directory.GetCurrentDirectory() + "\\Sorting Mode\\play.png");
+                playPauseButton.BackgroundImage = timerButtonPlayIcon;
             else
-                playPauseButton.BackgroundImage = Image.FromFile(Directory.GetCurrentDirectory() + "\\Sorting Mode\\pause.png");
+                playPauseButton.BackgroundImage = timerButtonPauseIcon;
         }
 
         private void settingsButton_Click(object sender, EventArgs e)

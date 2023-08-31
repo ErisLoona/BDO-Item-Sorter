@@ -666,7 +666,6 @@ namespace BDO_Item_Sorter
                     if (smallPixel.A != 0) //ignore the transparent pixels
                     {
                         Color largePixel = largeBitmap.GetPixel(offsetX + x, offsetY + y);
-
                         if (smallPixel != largePixel)
                         {
                             return false;

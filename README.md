@@ -1,6 +1,7 @@
 # This is an Alpha
 I'm trying to adapt the program to be able to auto-fill garmoth for the user as much as possible. It's not tested much, but feel free to test it for yourself if you wanna. There **should**™ be no hard crashes.<br />
 Each push will be a part of the process finalized.<br />
+Today, 31st of Aug 2023, I am very proud of myself. I have figured out an algorithm to generate the digit .bmp files. It won't be fully automatic as the user will need to have items with a stack number of 1, 2, 3 etc. up to 10 and then indicate those in order. However, this means I don't have to manually create thousands of .bmp files across each UI Scale setting across 3 different resolutions. I'm still working out some kinks with it and it's not perfect, but it certainly is more than sufficient. I will deploy it in the program soon, just need to also complete all the Garmoth scripts. Alpha 4 Soon™!
 ## Roadmap:
 I'll try to stick to this, but no promises!
 - ✓ Alpha 1: Give the program the capability to read how many items are in a stack.

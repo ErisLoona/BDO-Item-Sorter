@@ -126,6 +126,7 @@
             this.Name = "ItemEditor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Item Editor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ItemEditor_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ItemEditor_FormClosed);
             this.Load += new System.EventHandler(this.ItemEditor_Load);
             this.ResumeLayout(false);

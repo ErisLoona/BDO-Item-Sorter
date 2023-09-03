@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             this.loadingBar = new System.Windows.Forms.ProgressBar();
             this.itemButton00 = new System.Windows.Forms.Button();
@@ -106,6 +107,19 @@
             this.itemLookup = new System.Windows.Forms.ComboBox();
             this.itemLookupLabel = new System.Windows.Forms.TextBox();
             this.settingsButton = new System.Windows.Forms.Button();
+            this.normalModePanel = new System.Windows.Forms.Panel();
+            this.farmingModePanel = new System.Windows.Forms.Panel();
+            this.playPauseButton = new System.Windows.Forms.Button();
+            this.endSessionButton = new System.Windows.Forms.Button();
+            this.clearSessionButton = new System.Windows.Forms.Button();
+            this.locationBox = new System.Windows.Forms.ComboBox();
+            this.itemPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.timerLabelLabel = new System.Windows.Forms.Label();
+            this.timerLabel = new System.Windows.Forms.Label();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.modeCheck = new System.Windows.Forms.CheckBox();
+            this.normalModePanel.SuspendLayout();
+            this.farmingModePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // loadingBar
@@ -113,7 +127,7 @@
             this.loadingBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.loadingBar.Enabled = false;
             this.loadingBar.Location = new System.Drawing.Point(144, 476);
-            this.loadingBar.Maximum = 1000000;
+            this.loadingBar.Maximum = 2000000;
             this.loadingBar.Name = "loadingBar";
             this.loadingBar.Size = new System.Drawing.Size(151, 20);
             this.loadingBar.Step = 15625;
@@ -124,6 +138,7 @@
             // itemButton00
             // 
             this.itemButton00.BackColor = System.Drawing.Color.Lime;
+            this.itemButton00.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton00.Enabled = false;
             this.itemButton00.FlatAppearance.BorderSize = 0;
             this.itemButton00.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -135,14 +150,15 @@
             this.itemButton00.TabIndex = 1;
             this.itemButton00.UseVisualStyleBackColor = false;
             this.itemButton00.Visible = false;
-            this.itemButton00.Click += new System.EventHandler(this.itemButton00_Click);
-            this.itemButton00.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton00_MouseDown);
-            this.itemButton00.MouseEnter += new System.EventHandler(this.itemButton00_MouseEnter);
+            this.itemButton00.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton00.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton00.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton00.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton01
             // 
             this.itemButton01.BackColor = System.Drawing.Color.Lime;
+            this.itemButton01.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton01.Enabled = false;
             this.itemButton01.FlatAppearance.BorderSize = 0;
             this.itemButton01.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -154,14 +170,15 @@
             this.itemButton01.TabIndex = 2;
             this.itemButton01.UseVisualStyleBackColor = false;
             this.itemButton01.Visible = false;
-            this.itemButton01.Click += new System.EventHandler(this.itemButton01_Click);
-            this.itemButton01.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton01_MouseDown);
-            this.itemButton01.MouseEnter += new System.EventHandler(this.itemButton01_MouseEnter);
+            this.itemButton01.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton01.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton01.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton01.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton02
             // 
             this.itemButton02.BackColor = System.Drawing.Color.Lime;
+            this.itemButton02.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton02.Enabled = false;
             this.itemButton02.FlatAppearance.BorderSize = 0;
             this.itemButton02.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -173,14 +190,15 @@
             this.itemButton02.TabIndex = 3;
             this.itemButton02.UseVisualStyleBackColor = false;
             this.itemButton02.Visible = false;
-            this.itemButton02.Click += new System.EventHandler(this.itemButton02_Click);
-            this.itemButton02.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton02_MouseDown);
-            this.itemButton02.MouseEnter += new System.EventHandler(this.itemButton02_MouseEnter);
+            this.itemButton02.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton02.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton02.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton02.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton03
             // 
             this.itemButton03.BackColor = System.Drawing.Color.Lime;
+            this.itemButton03.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton03.Enabled = false;
             this.itemButton03.FlatAppearance.BorderSize = 0;
             this.itemButton03.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -192,14 +210,15 @@
             this.itemButton03.TabIndex = 4;
             this.itemButton03.UseVisualStyleBackColor = false;
             this.itemButton03.Visible = false;
-            this.itemButton03.Click += new System.EventHandler(this.itemButton03_Click);
-            this.itemButton03.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton03_MouseDown);
-            this.itemButton03.MouseEnter += new System.EventHandler(this.itemButton03_MouseEnter);
+            this.itemButton03.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton03.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton03.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton03.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton04
             // 
             this.itemButton04.BackColor = System.Drawing.Color.Lime;
+            this.itemButton04.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton04.Enabled = false;
             this.itemButton04.FlatAppearance.BorderSize = 0;
             this.itemButton04.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -211,14 +230,15 @@
             this.itemButton04.TabIndex = 5;
             this.itemButton04.UseVisualStyleBackColor = false;
             this.itemButton04.Visible = false;
-            this.itemButton04.Click += new System.EventHandler(this.itemButton04_Click);
-            this.itemButton04.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton04_MouseDown);
-            this.itemButton04.MouseEnter += new System.EventHandler(this.itemButton04_MouseEnter);
+            this.itemButton04.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton04.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton04.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton04.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton05
             // 
             this.itemButton05.BackColor = System.Drawing.Color.Lime;
+            this.itemButton05.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton05.Enabled = false;
             this.itemButton05.FlatAppearance.BorderSize = 0;
             this.itemButton05.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -230,14 +250,15 @@
             this.itemButton05.TabIndex = 6;
             this.itemButton05.UseVisualStyleBackColor = false;
             this.itemButton05.Visible = false;
-            this.itemButton05.Click += new System.EventHandler(this.itemButton05_Click);
-            this.itemButton05.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton05_MouseDown);
-            this.itemButton05.MouseEnter += new System.EventHandler(this.itemButton05_MouseEnter);
+            this.itemButton05.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton05.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton05.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton05.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton06
             // 
             this.itemButton06.BackColor = System.Drawing.Color.Lime;
+            this.itemButton06.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton06.Enabled = false;
             this.itemButton06.FlatAppearance.BorderSize = 0;
             this.itemButton06.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -249,14 +270,15 @@
             this.itemButton06.TabIndex = 7;
             this.itemButton06.UseVisualStyleBackColor = false;
             this.itemButton06.Visible = false;
-            this.itemButton06.Click += new System.EventHandler(this.itemButton06_Click);
-            this.itemButton06.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton06_MouseDown);
-            this.itemButton06.MouseEnter += new System.EventHandler(this.itemButton06_MouseEnter);
+            this.itemButton06.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton06.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton06.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton06.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton07
             // 
             this.itemButton07.BackColor = System.Drawing.Color.Lime;
+            this.itemButton07.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton07.Enabled = false;
             this.itemButton07.FlatAppearance.BorderSize = 0;
             this.itemButton07.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -268,14 +290,15 @@
             this.itemButton07.TabIndex = 8;
             this.itemButton07.UseVisualStyleBackColor = false;
             this.itemButton07.Visible = false;
-            this.itemButton07.Click += new System.EventHandler(this.itemButton07_Click);
-            this.itemButton07.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton07_MouseDown);
-            this.itemButton07.MouseEnter += new System.EventHandler(this.itemButton07_MouseEnter);
+            this.itemButton07.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton07.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton07.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton07.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton10
             // 
             this.itemButton10.BackColor = System.Drawing.Color.Lime;
+            this.itemButton10.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton10.Enabled = false;
             this.itemButton10.FlatAppearance.BorderSize = 0;
             this.itemButton10.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -287,14 +310,15 @@
             this.itemButton10.TabIndex = 9;
             this.itemButton10.UseVisualStyleBackColor = false;
             this.itemButton10.Visible = false;
-            this.itemButton10.Click += new System.EventHandler(this.itemButton10_Click);
-            this.itemButton10.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton10_MouseDown);
-            this.itemButton10.MouseEnter += new System.EventHandler(this.itemButton10_MouseEnter);
+            this.itemButton10.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton10.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton10.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton10.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton20
             // 
             this.itemButton20.BackColor = System.Drawing.Color.Lime;
+            this.itemButton20.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton20.Enabled = false;
             this.itemButton20.FlatAppearance.BorderSize = 0;
             this.itemButton20.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -306,14 +330,15 @@
             this.itemButton20.TabIndex = 10;
             this.itemButton20.UseVisualStyleBackColor = false;
             this.itemButton20.Visible = false;
-            this.itemButton20.Click += new System.EventHandler(this.itemButton20_Click);
-            this.itemButton20.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton20_MouseDown);
-            this.itemButton20.MouseEnter += new System.EventHandler(this.itemButton20_MouseEnter);
+            this.itemButton20.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton20.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton20.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton20.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton30
             // 
             this.itemButton30.BackColor = System.Drawing.Color.Lime;
+            this.itemButton30.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton30.Enabled = false;
             this.itemButton30.FlatAppearance.BorderSize = 0;
             this.itemButton30.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -325,14 +350,15 @@
             this.itemButton30.TabIndex = 11;
             this.itemButton30.UseVisualStyleBackColor = false;
             this.itemButton30.Visible = false;
-            this.itemButton30.Click += new System.EventHandler(this.itemButton30_Click);
-            this.itemButton30.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton30_MouseDown);
-            this.itemButton30.MouseEnter += new System.EventHandler(this.itemButton30_MouseEnter);
+            this.itemButton30.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton30.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton30.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton30.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton40
             // 
             this.itemButton40.BackColor = System.Drawing.Color.Lime;
+            this.itemButton40.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton40.Enabled = false;
             this.itemButton40.FlatAppearance.BorderSize = 0;
             this.itemButton40.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -344,14 +370,15 @@
             this.itemButton40.TabIndex = 12;
             this.itemButton40.UseVisualStyleBackColor = false;
             this.itemButton40.Visible = false;
-            this.itemButton40.Click += new System.EventHandler(this.itemButton40_Click);
-            this.itemButton40.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton40_MouseDown);
-            this.itemButton40.MouseEnter += new System.EventHandler(this.itemButton40_MouseEnter);
+            this.itemButton40.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton40.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton40.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton40.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton50
             // 
             this.itemButton50.BackColor = System.Drawing.Color.Lime;
+            this.itemButton50.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton50.Enabled = false;
             this.itemButton50.FlatAppearance.BorderSize = 0;
             this.itemButton50.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -363,14 +390,15 @@
             this.itemButton50.TabIndex = 13;
             this.itemButton50.UseVisualStyleBackColor = false;
             this.itemButton50.Visible = false;
-            this.itemButton50.Click += new System.EventHandler(this.itemButton50_Click);
-            this.itemButton50.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton50_MouseDown);
-            this.itemButton50.MouseEnter += new System.EventHandler(this.itemButton50_MouseEnter);
+            this.itemButton50.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton50.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton50.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton50.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton60
             // 
             this.itemButton60.BackColor = System.Drawing.Color.Lime;
+            this.itemButton60.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton60.Enabled = false;
             this.itemButton60.FlatAppearance.BorderSize = 0;
             this.itemButton60.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -382,14 +410,15 @@
             this.itemButton60.TabIndex = 14;
             this.itemButton60.UseVisualStyleBackColor = false;
             this.itemButton60.Visible = false;
-            this.itemButton60.Click += new System.EventHandler(this.itemButton60_Click);
-            this.itemButton60.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton60_MouseDown);
-            this.itemButton60.MouseEnter += new System.EventHandler(this.itemButton60_MouseEnter);
+            this.itemButton60.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton60.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton60.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton60.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton70
             // 
             this.itemButton70.BackColor = System.Drawing.Color.Lime;
+            this.itemButton70.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton70.Enabled = false;
             this.itemButton70.FlatAppearance.BorderSize = 0;
             this.itemButton70.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -401,14 +430,15 @@
             this.itemButton70.TabIndex = 15;
             this.itemButton70.UseVisualStyleBackColor = false;
             this.itemButton70.Visible = false;
-            this.itemButton70.Click += new System.EventHandler(this.itemButton70_Click);
-            this.itemButton70.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton70_MouseDown);
-            this.itemButton70.MouseEnter += new System.EventHandler(this.itemButton70_MouseEnter);
+            this.itemButton70.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton70.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton70.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton70.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton11
             // 
             this.itemButton11.BackColor = System.Drawing.Color.Lime;
+            this.itemButton11.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton11.Enabled = false;
             this.itemButton11.FlatAppearance.BorderSize = 0;
             this.itemButton11.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -420,14 +450,15 @@
             this.itemButton11.TabIndex = 16;
             this.itemButton11.UseVisualStyleBackColor = false;
             this.itemButton11.Visible = false;
-            this.itemButton11.Click += new System.EventHandler(this.itemButton11_Click);
-            this.itemButton11.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton11_MouseDown);
-            this.itemButton11.MouseEnter += new System.EventHandler(this.itemButton11_MouseEnter);
+            this.itemButton11.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton11.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton11.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton11.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton12
             // 
             this.itemButton12.BackColor = System.Drawing.Color.Lime;
+            this.itemButton12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton12.Enabled = false;
             this.itemButton12.FlatAppearance.BorderSize = 0;
             this.itemButton12.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -439,14 +470,15 @@
             this.itemButton12.TabIndex = 17;
             this.itemButton12.UseVisualStyleBackColor = false;
             this.itemButton12.Visible = false;
-            this.itemButton12.Click += new System.EventHandler(this.itemButton12_Click);
-            this.itemButton12.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton12_MouseDown);
-            this.itemButton12.MouseEnter += new System.EventHandler(this.itemButton12_MouseEnter);
+            this.itemButton12.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton12.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton12.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton12.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton13
             // 
             this.itemButton13.BackColor = System.Drawing.Color.Lime;
+            this.itemButton13.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton13.Enabled = false;
             this.itemButton13.FlatAppearance.BorderSize = 0;
             this.itemButton13.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -458,14 +490,15 @@
             this.itemButton13.TabIndex = 18;
             this.itemButton13.UseVisualStyleBackColor = false;
             this.itemButton13.Visible = false;
-            this.itemButton13.Click += new System.EventHandler(this.itemButton13_Click);
-            this.itemButton13.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton13_MouseDown);
-            this.itemButton13.MouseEnter += new System.EventHandler(this.itemButton13_MouseEnter);
+            this.itemButton13.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton13.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton13.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton13.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton14
             // 
             this.itemButton14.BackColor = System.Drawing.Color.Lime;
+            this.itemButton14.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton14.Enabled = false;
             this.itemButton14.FlatAppearance.BorderSize = 0;
             this.itemButton14.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -477,14 +510,15 @@
             this.itemButton14.TabIndex = 19;
             this.itemButton14.UseVisualStyleBackColor = false;
             this.itemButton14.Visible = false;
-            this.itemButton14.Click += new System.EventHandler(this.itemButton14_Click);
-            this.itemButton14.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton14_MouseDown);
-            this.itemButton14.MouseEnter += new System.EventHandler(this.itemButton14_MouseEnter);
+            this.itemButton14.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton14.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton14.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton14.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton15
             // 
             this.itemButton15.BackColor = System.Drawing.Color.Lime;
+            this.itemButton15.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton15.Enabled = false;
             this.itemButton15.FlatAppearance.BorderSize = 0;
             this.itemButton15.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -496,14 +530,15 @@
             this.itemButton15.TabIndex = 20;
             this.itemButton15.UseVisualStyleBackColor = false;
             this.itemButton15.Visible = false;
-            this.itemButton15.Click += new System.EventHandler(this.itemButton15_Click);
-            this.itemButton15.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton15_MouseDown);
-            this.itemButton15.MouseEnter += new System.EventHandler(this.itemButton15_MouseEnter);
+            this.itemButton15.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton15.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton15.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton15.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton16
             // 
             this.itemButton16.BackColor = System.Drawing.Color.Lime;
+            this.itemButton16.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton16.Enabled = false;
             this.itemButton16.FlatAppearance.BorderSize = 0;
             this.itemButton16.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -515,14 +550,15 @@
             this.itemButton16.TabIndex = 21;
             this.itemButton16.UseVisualStyleBackColor = false;
             this.itemButton16.Visible = false;
-            this.itemButton16.Click += new System.EventHandler(this.itemButton16_Click);
-            this.itemButton16.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton16_MouseDown);
-            this.itemButton16.MouseEnter += new System.EventHandler(this.itemButton16_MouseEnter);
+            this.itemButton16.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton16.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton16.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton16.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton17
             // 
             this.itemButton17.BackColor = System.Drawing.Color.Lime;
+            this.itemButton17.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton17.Enabled = false;
             this.itemButton17.FlatAppearance.BorderSize = 0;
             this.itemButton17.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -534,14 +570,15 @@
             this.itemButton17.TabIndex = 22;
             this.itemButton17.UseVisualStyleBackColor = false;
             this.itemButton17.Visible = false;
-            this.itemButton17.Click += new System.EventHandler(this.itemButton17_Click);
-            this.itemButton17.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton17_MouseDown);
-            this.itemButton17.MouseEnter += new System.EventHandler(this.itemButton17_MouseEnter);
+            this.itemButton17.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton17.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton17.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton17.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton21
             // 
             this.itemButton21.BackColor = System.Drawing.Color.Lime;
+            this.itemButton21.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton21.Enabled = false;
             this.itemButton21.FlatAppearance.BorderSize = 0;
             this.itemButton21.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -553,14 +590,15 @@
             this.itemButton21.TabIndex = 23;
             this.itemButton21.UseVisualStyleBackColor = false;
             this.itemButton21.Visible = false;
-            this.itemButton21.Click += new System.EventHandler(this.itemButton21_Click);
-            this.itemButton21.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton21_MouseDown);
-            this.itemButton21.MouseEnter += new System.EventHandler(this.itemButton21_MouseEnter);
+            this.itemButton21.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton21.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton21.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton21.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton22
             // 
             this.itemButton22.BackColor = System.Drawing.Color.Lime;
+            this.itemButton22.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton22.Enabled = false;
             this.itemButton22.FlatAppearance.BorderSize = 0;
             this.itemButton22.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -572,14 +610,15 @@
             this.itemButton22.TabIndex = 24;
             this.itemButton22.UseVisualStyleBackColor = false;
             this.itemButton22.Visible = false;
-            this.itemButton22.Click += new System.EventHandler(this.itemButton22_Click);
-            this.itemButton22.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton22_MouseDown);
-            this.itemButton22.MouseEnter += new System.EventHandler(this.itemButton22_MouseEnter);
+            this.itemButton22.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton22.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton22.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton22.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton23
             // 
             this.itemButton23.BackColor = System.Drawing.Color.Lime;
+            this.itemButton23.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton23.Enabled = false;
             this.itemButton23.FlatAppearance.BorderSize = 0;
             this.itemButton23.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -591,14 +630,15 @@
             this.itemButton23.TabIndex = 25;
             this.itemButton23.UseVisualStyleBackColor = false;
             this.itemButton23.Visible = false;
-            this.itemButton23.Click += new System.EventHandler(this.itemButton23_Click);
-            this.itemButton23.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton23_MouseDown);
-            this.itemButton23.MouseEnter += new System.EventHandler(this.itemButton23_MouseEnter);
+            this.itemButton23.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton23.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton23.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton23.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton24
             // 
             this.itemButton24.BackColor = System.Drawing.Color.Lime;
+            this.itemButton24.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton24.Enabled = false;
             this.itemButton24.FlatAppearance.BorderSize = 0;
             this.itemButton24.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -610,14 +650,15 @@
             this.itemButton24.TabIndex = 26;
             this.itemButton24.UseVisualStyleBackColor = false;
             this.itemButton24.Visible = false;
-            this.itemButton24.Click += new System.EventHandler(this.itemButton24_Click);
-            this.itemButton24.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton24_MouseDown);
-            this.itemButton24.MouseEnter += new System.EventHandler(this.itemButton24_MouseEnter);
+            this.itemButton24.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton24.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton24.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton24.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton25
             // 
             this.itemButton25.BackColor = System.Drawing.Color.Lime;
+            this.itemButton25.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton25.Enabled = false;
             this.itemButton25.FlatAppearance.BorderSize = 0;
             this.itemButton25.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -629,14 +670,15 @@
             this.itemButton25.TabIndex = 27;
             this.itemButton25.UseVisualStyleBackColor = false;
             this.itemButton25.Visible = false;
-            this.itemButton25.Click += new System.EventHandler(this.itemButton25_Click);
-            this.itemButton25.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton25_MouseDown);
-            this.itemButton25.MouseEnter += new System.EventHandler(this.itemButton25_MouseEnter);
+            this.itemButton25.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton25.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton25.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton25.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton26
             // 
             this.itemButton26.BackColor = System.Drawing.Color.Lime;
+            this.itemButton26.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton26.Enabled = false;
             this.itemButton26.FlatAppearance.BorderSize = 0;
             this.itemButton26.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -648,14 +690,15 @@
             this.itemButton26.TabIndex = 28;
             this.itemButton26.UseVisualStyleBackColor = false;
             this.itemButton26.Visible = false;
-            this.itemButton26.Click += new System.EventHandler(this.itemButton26_Click);
-            this.itemButton26.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton26_MouseDown);
-            this.itemButton26.MouseEnter += new System.EventHandler(this.itemButton26_MouseEnter);
+            this.itemButton26.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton26.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton26.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton26.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton27
             // 
             this.itemButton27.BackColor = System.Drawing.Color.Lime;
+            this.itemButton27.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton27.Enabled = false;
             this.itemButton27.FlatAppearance.BorderSize = 0;
             this.itemButton27.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -667,14 +710,15 @@
             this.itemButton27.TabIndex = 29;
             this.itemButton27.UseVisualStyleBackColor = false;
             this.itemButton27.Visible = false;
-            this.itemButton27.Click += new System.EventHandler(this.itemButton27_Click);
-            this.itemButton27.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton27_MouseDown);
-            this.itemButton27.MouseEnter += new System.EventHandler(this.itemButton27_MouseEnter);
+            this.itemButton27.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton27.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton27.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton27.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton31
             // 
             this.itemButton31.BackColor = System.Drawing.Color.Lime;
+            this.itemButton31.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton31.Enabled = false;
             this.itemButton31.FlatAppearance.BorderSize = 0;
             this.itemButton31.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -686,14 +730,15 @@
             this.itemButton31.TabIndex = 30;
             this.itemButton31.UseVisualStyleBackColor = false;
             this.itemButton31.Visible = false;
-            this.itemButton31.Click += new System.EventHandler(this.itemButton31_Click);
-            this.itemButton31.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton31_MouseDown);
-            this.itemButton31.MouseEnter += new System.EventHandler(this.itemButton31_MouseEnter);
+            this.itemButton31.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton31.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton31.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton31.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton32
             // 
             this.itemButton32.BackColor = System.Drawing.Color.Lime;
+            this.itemButton32.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton32.Enabled = false;
             this.itemButton32.FlatAppearance.BorderSize = 0;
             this.itemButton32.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -705,14 +750,15 @@
             this.itemButton32.TabIndex = 31;
             this.itemButton32.UseVisualStyleBackColor = false;
             this.itemButton32.Visible = false;
-            this.itemButton32.Click += new System.EventHandler(this.itemButton32_Click);
-            this.itemButton32.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton32_MouseDown);
-            this.itemButton32.MouseEnter += new System.EventHandler(this.itemButton32_MouseEnter);
+            this.itemButton32.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton32.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton32.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton32.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton33
             // 
             this.itemButton33.BackColor = System.Drawing.Color.Lime;
+            this.itemButton33.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton33.Enabled = false;
             this.itemButton33.FlatAppearance.BorderSize = 0;
             this.itemButton33.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -724,14 +770,15 @@
             this.itemButton33.TabIndex = 32;
             this.itemButton33.UseVisualStyleBackColor = false;
             this.itemButton33.Visible = false;
-            this.itemButton33.Click += new System.EventHandler(this.itemButton33_Click);
-            this.itemButton33.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton33_MouseDown);
-            this.itemButton33.MouseEnter += new System.EventHandler(this.itemButton33_MouseEnter);
+            this.itemButton33.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton33.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton33.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton33.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton34
             // 
             this.itemButton34.BackColor = System.Drawing.Color.Lime;
+            this.itemButton34.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton34.Enabled = false;
             this.itemButton34.FlatAppearance.BorderSize = 0;
             this.itemButton34.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -743,14 +790,15 @@
             this.itemButton34.TabIndex = 33;
             this.itemButton34.UseVisualStyleBackColor = false;
             this.itemButton34.Visible = false;
-            this.itemButton34.Click += new System.EventHandler(this.itemButton34_Click);
-            this.itemButton34.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton34_MouseDown);
-            this.itemButton34.MouseEnter += new System.EventHandler(this.itemButton34_MouseEnter);
+            this.itemButton34.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton34.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton34.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton34.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton35
             // 
             this.itemButton35.BackColor = System.Drawing.Color.Lime;
+            this.itemButton35.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton35.Enabled = false;
             this.itemButton35.FlatAppearance.BorderSize = 0;
             this.itemButton35.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -762,14 +810,15 @@
             this.itemButton35.TabIndex = 34;
             this.itemButton35.UseVisualStyleBackColor = false;
             this.itemButton35.Visible = false;
-            this.itemButton35.Click += new System.EventHandler(this.itemButton35_Click);
-            this.itemButton35.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton35_MouseDown);
-            this.itemButton35.MouseEnter += new System.EventHandler(this.itemButton35_MouseEnter);
+            this.itemButton35.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton35.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton35.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton35.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton36
             // 
             this.itemButton36.BackColor = System.Drawing.Color.Lime;
+            this.itemButton36.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton36.Enabled = false;
             this.itemButton36.FlatAppearance.BorderSize = 0;
             this.itemButton36.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -781,14 +830,15 @@
             this.itemButton36.TabIndex = 35;
             this.itemButton36.UseVisualStyleBackColor = false;
             this.itemButton36.Visible = false;
-            this.itemButton36.Click += new System.EventHandler(this.itemButton36_Click);
-            this.itemButton36.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton36_MouseDown);
-            this.itemButton36.MouseEnter += new System.EventHandler(this.itemButton36_MouseEnter);
+            this.itemButton36.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton36.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton36.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton36.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton37
             // 
             this.itemButton37.BackColor = System.Drawing.Color.Lime;
+            this.itemButton37.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton37.Enabled = false;
             this.itemButton37.FlatAppearance.BorderSize = 0;
             this.itemButton37.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -800,14 +850,15 @@
             this.itemButton37.TabIndex = 36;
             this.itemButton37.UseVisualStyleBackColor = false;
             this.itemButton37.Visible = false;
-            this.itemButton37.Click += new System.EventHandler(this.itemButton37_Click);
-            this.itemButton37.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton37_MouseDown);
-            this.itemButton37.MouseEnter += new System.EventHandler(this.itemButton37_MouseEnter);
+            this.itemButton37.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton37.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton37.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton37.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton41
             // 
             this.itemButton41.BackColor = System.Drawing.Color.Lime;
+            this.itemButton41.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton41.Enabled = false;
             this.itemButton41.FlatAppearance.BorderSize = 0;
             this.itemButton41.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -819,14 +870,15 @@
             this.itemButton41.TabIndex = 37;
             this.itemButton41.UseVisualStyleBackColor = false;
             this.itemButton41.Visible = false;
-            this.itemButton41.Click += new System.EventHandler(this.itemButton41_Click);
-            this.itemButton41.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton41_MouseDown);
-            this.itemButton41.MouseEnter += new System.EventHandler(this.itemButton41_MouseEnter);
+            this.itemButton41.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton41.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton41.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton41.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton42
             // 
             this.itemButton42.BackColor = System.Drawing.Color.Lime;
+            this.itemButton42.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton42.Enabled = false;
             this.itemButton42.FlatAppearance.BorderSize = 0;
             this.itemButton42.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -838,14 +890,15 @@
             this.itemButton42.TabIndex = 38;
             this.itemButton42.UseVisualStyleBackColor = false;
             this.itemButton42.Visible = false;
-            this.itemButton42.Click += new System.EventHandler(this.itemButton42_Click);
-            this.itemButton42.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton42_MouseDown);
-            this.itemButton42.MouseEnter += new System.EventHandler(this.itemButton42_MouseEnter);
+            this.itemButton42.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton42.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton42.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton42.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton43
             // 
             this.itemButton43.BackColor = System.Drawing.Color.Lime;
+            this.itemButton43.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton43.Enabled = false;
             this.itemButton43.FlatAppearance.BorderSize = 0;
             this.itemButton43.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -857,14 +910,15 @@
             this.itemButton43.TabIndex = 39;
             this.itemButton43.UseVisualStyleBackColor = false;
             this.itemButton43.Visible = false;
-            this.itemButton43.Click += new System.EventHandler(this.itemButton43_Click);
-            this.itemButton43.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton43_MouseDown);
-            this.itemButton43.MouseEnter += new System.EventHandler(this.itemButton43_MouseEnter);
+            this.itemButton43.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton43.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton43.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton43.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton44
             // 
             this.itemButton44.BackColor = System.Drawing.Color.Lime;
+            this.itemButton44.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton44.Enabled = false;
             this.itemButton44.FlatAppearance.BorderSize = 0;
             this.itemButton44.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -876,14 +930,15 @@
             this.itemButton44.TabIndex = 40;
             this.itemButton44.UseVisualStyleBackColor = false;
             this.itemButton44.Visible = false;
-            this.itemButton44.Click += new System.EventHandler(this.itemButton44_Click);
-            this.itemButton44.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton44_MouseDown);
-            this.itemButton44.MouseEnter += new System.EventHandler(this.itemButton44_MouseEnter);
+            this.itemButton44.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton44.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton44.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton44.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton45
             // 
             this.itemButton45.BackColor = System.Drawing.Color.Lime;
+            this.itemButton45.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton45.Enabled = false;
             this.itemButton45.FlatAppearance.BorderSize = 0;
             this.itemButton45.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -895,14 +950,15 @@
             this.itemButton45.TabIndex = 41;
             this.itemButton45.UseVisualStyleBackColor = false;
             this.itemButton45.Visible = false;
-            this.itemButton45.Click += new System.EventHandler(this.itemButton45_Click);
-            this.itemButton45.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton45_MouseDown);
-            this.itemButton45.MouseEnter += new System.EventHandler(this.itemButton45_MouseEnter);
+            this.itemButton45.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton45.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton45.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton45.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton46
             // 
             this.itemButton46.BackColor = System.Drawing.Color.Lime;
+            this.itemButton46.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton46.Enabled = false;
             this.itemButton46.FlatAppearance.BorderSize = 0;
             this.itemButton46.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -914,14 +970,15 @@
             this.itemButton46.TabIndex = 42;
             this.itemButton46.UseVisualStyleBackColor = false;
             this.itemButton46.Visible = false;
-            this.itemButton46.Click += new System.EventHandler(this.itemButton46_Click);
-            this.itemButton46.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton46_MouseDown);
-            this.itemButton46.MouseEnter += new System.EventHandler(this.itemButton46_MouseEnter);
+            this.itemButton46.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton46.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton46.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton46.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton47
             // 
             this.itemButton47.BackColor = System.Drawing.Color.Lime;
+            this.itemButton47.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton47.Enabled = false;
             this.itemButton47.FlatAppearance.BorderSize = 0;
             this.itemButton47.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -933,14 +990,15 @@
             this.itemButton47.TabIndex = 43;
             this.itemButton47.UseVisualStyleBackColor = false;
             this.itemButton47.Visible = false;
-            this.itemButton47.Click += new System.EventHandler(this.itemButton47_Click);
-            this.itemButton47.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton47_MouseDown);
-            this.itemButton47.MouseEnter += new System.EventHandler(this.itemButton47_MouseEnter);
+            this.itemButton47.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton47.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton47.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton47.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton51
             // 
             this.itemButton51.BackColor = System.Drawing.Color.Lime;
+            this.itemButton51.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton51.Enabled = false;
             this.itemButton51.FlatAppearance.BorderSize = 0;
             this.itemButton51.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -952,14 +1010,15 @@
             this.itemButton51.TabIndex = 44;
             this.itemButton51.UseVisualStyleBackColor = false;
             this.itemButton51.Visible = false;
-            this.itemButton51.Click += new System.EventHandler(this.itemButton51_Click);
-            this.itemButton51.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton51_MouseDown);
-            this.itemButton51.MouseEnter += new System.EventHandler(this.itemButton51_MouseEnter);
+            this.itemButton51.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton51.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton51.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton51.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton52
             // 
             this.itemButton52.BackColor = System.Drawing.Color.Lime;
+            this.itemButton52.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton52.Enabled = false;
             this.itemButton52.FlatAppearance.BorderSize = 0;
             this.itemButton52.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -971,14 +1030,15 @@
             this.itemButton52.TabIndex = 45;
             this.itemButton52.UseVisualStyleBackColor = false;
             this.itemButton52.Visible = false;
-            this.itemButton52.Click += new System.EventHandler(this.itemButton52_Click);
-            this.itemButton52.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton52_MouseDown);
-            this.itemButton52.MouseEnter += new System.EventHandler(this.itemButton52_MouseEnter);
+            this.itemButton52.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton52.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton52.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton52.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton53
             // 
             this.itemButton53.BackColor = System.Drawing.Color.Lime;
+            this.itemButton53.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton53.Enabled = false;
             this.itemButton53.FlatAppearance.BorderSize = 0;
             this.itemButton53.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -990,14 +1050,15 @@
             this.itemButton53.TabIndex = 46;
             this.itemButton53.UseVisualStyleBackColor = false;
             this.itemButton53.Visible = false;
-            this.itemButton53.Click += new System.EventHandler(this.itemButton53_Click);
-            this.itemButton53.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton53_MouseDown);
-            this.itemButton53.MouseEnter += new System.EventHandler(this.itemButton53_MouseEnter);
+            this.itemButton53.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton53.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton53.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton53.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton54
             // 
             this.itemButton54.BackColor = System.Drawing.Color.Lime;
+            this.itemButton54.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton54.Enabled = false;
             this.itemButton54.FlatAppearance.BorderSize = 0;
             this.itemButton54.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1009,14 +1070,15 @@
             this.itemButton54.TabIndex = 47;
             this.itemButton54.UseVisualStyleBackColor = false;
             this.itemButton54.Visible = false;
-            this.itemButton54.Click += new System.EventHandler(this.itemButton54_Click);
-            this.itemButton54.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton54_MouseDown);
-            this.itemButton54.MouseEnter += new System.EventHandler(this.itemButton54_MouseEnter);
+            this.itemButton54.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton54.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton54.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton54.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton55
             // 
             this.itemButton55.BackColor = System.Drawing.Color.Lime;
+            this.itemButton55.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton55.Enabled = false;
             this.itemButton55.FlatAppearance.BorderSize = 0;
             this.itemButton55.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1028,14 +1090,15 @@
             this.itemButton55.TabIndex = 48;
             this.itemButton55.UseVisualStyleBackColor = false;
             this.itemButton55.Visible = false;
-            this.itemButton55.Click += new System.EventHandler(this.itemButton55_Click);
-            this.itemButton55.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton55_MouseDown);
-            this.itemButton55.MouseEnter += new System.EventHandler(this.itemButton55_MouseEnter);
+            this.itemButton55.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton55.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton55.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton55.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton56
             // 
             this.itemButton56.BackColor = System.Drawing.Color.Lime;
+            this.itemButton56.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton56.Enabled = false;
             this.itemButton56.FlatAppearance.BorderSize = 0;
             this.itemButton56.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1047,14 +1110,15 @@
             this.itemButton56.TabIndex = 49;
             this.itemButton56.UseVisualStyleBackColor = false;
             this.itemButton56.Visible = false;
-            this.itemButton56.Click += new System.EventHandler(this.itemButton56_Click);
-            this.itemButton56.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton56_MouseDown);
-            this.itemButton56.MouseEnter += new System.EventHandler(this.itemButton56_MouseEnter);
+            this.itemButton56.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton56.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton56.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton56.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton57
             // 
             this.itemButton57.BackColor = System.Drawing.Color.Lime;
+            this.itemButton57.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton57.Enabled = false;
             this.itemButton57.FlatAppearance.BorderSize = 0;
             this.itemButton57.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1066,14 +1130,15 @@
             this.itemButton57.TabIndex = 50;
             this.itemButton57.UseVisualStyleBackColor = false;
             this.itemButton57.Visible = false;
-            this.itemButton57.Click += new System.EventHandler(this.itemButton57_Click);
-            this.itemButton57.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton57_MouseDown);
-            this.itemButton57.MouseEnter += new System.EventHandler(this.itemButton57_MouseEnter);
+            this.itemButton57.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton57.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton57.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton57.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton61
             // 
             this.itemButton61.BackColor = System.Drawing.Color.Lime;
+            this.itemButton61.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton61.Enabled = false;
             this.itemButton61.FlatAppearance.BorderSize = 0;
             this.itemButton61.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1085,14 +1150,15 @@
             this.itemButton61.TabIndex = 51;
             this.itemButton61.UseVisualStyleBackColor = false;
             this.itemButton61.Visible = false;
-            this.itemButton61.Click += new System.EventHandler(this.itemButton61_Click);
-            this.itemButton61.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton61_MouseDown);
-            this.itemButton61.MouseEnter += new System.EventHandler(this.itemButton61_MouseEnter);
+            this.itemButton61.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton61.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton61.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton61.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton62
             // 
             this.itemButton62.BackColor = System.Drawing.Color.Lime;
+            this.itemButton62.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton62.Enabled = false;
             this.itemButton62.FlatAppearance.BorderSize = 0;
             this.itemButton62.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1104,14 +1170,15 @@
             this.itemButton62.TabIndex = 52;
             this.itemButton62.UseVisualStyleBackColor = false;
             this.itemButton62.Visible = false;
-            this.itemButton62.Click += new System.EventHandler(this.itemButton62_Click);
-            this.itemButton62.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton62_MouseDown);
-            this.itemButton62.MouseEnter += new System.EventHandler(this.itemButton62_MouseEnter);
+            this.itemButton62.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton62.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton62.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton62.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton63
             // 
             this.itemButton63.BackColor = System.Drawing.Color.Lime;
+            this.itemButton63.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton63.Enabled = false;
             this.itemButton63.FlatAppearance.BorderSize = 0;
             this.itemButton63.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1123,14 +1190,15 @@
             this.itemButton63.TabIndex = 53;
             this.itemButton63.UseVisualStyleBackColor = false;
             this.itemButton63.Visible = false;
-            this.itemButton63.Click += new System.EventHandler(this.itemButton63_Click);
-            this.itemButton63.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton63_MouseDown);
-            this.itemButton63.MouseEnter += new System.EventHandler(this.itemButton63_MouseEnter);
+            this.itemButton63.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton63.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton63.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton63.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton64
             // 
             this.itemButton64.BackColor = System.Drawing.Color.Lime;
+            this.itemButton64.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton64.Enabled = false;
             this.itemButton64.FlatAppearance.BorderSize = 0;
             this.itemButton64.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1142,14 +1210,15 @@
             this.itemButton64.TabIndex = 54;
             this.itemButton64.UseVisualStyleBackColor = false;
             this.itemButton64.Visible = false;
-            this.itemButton64.Click += new System.EventHandler(this.itemButton64_Click);
-            this.itemButton64.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton64_MouseDown);
-            this.itemButton64.MouseEnter += new System.EventHandler(this.itemButton64_MouseEnter);
+            this.itemButton64.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton64.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton64.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton64.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton65
             // 
             this.itemButton65.BackColor = System.Drawing.Color.Lime;
+            this.itemButton65.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton65.Enabled = false;
             this.itemButton65.FlatAppearance.BorderSize = 0;
             this.itemButton65.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1161,14 +1230,15 @@
             this.itemButton65.TabIndex = 55;
             this.itemButton65.UseVisualStyleBackColor = false;
             this.itemButton65.Visible = false;
-            this.itemButton65.Click += new System.EventHandler(this.itemButton65_Click);
-            this.itemButton65.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton65_MouseDown);
-            this.itemButton65.MouseEnter += new System.EventHandler(this.itemButton65_MouseEnter);
+            this.itemButton65.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton65.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton65.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton65.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton66
             // 
             this.itemButton66.BackColor = System.Drawing.Color.Lime;
+            this.itemButton66.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton66.Enabled = false;
             this.itemButton66.FlatAppearance.BorderSize = 0;
             this.itemButton66.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1180,14 +1250,15 @@
             this.itemButton66.TabIndex = 56;
             this.itemButton66.UseVisualStyleBackColor = false;
             this.itemButton66.Visible = false;
-            this.itemButton66.Click += new System.EventHandler(this.itemButton66_Click);
-            this.itemButton66.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton66_MouseDown);
-            this.itemButton66.MouseEnter += new System.EventHandler(this.itemButton66_MouseEnter);
+            this.itemButton66.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton66.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton66.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton66.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton67
             // 
             this.itemButton67.BackColor = System.Drawing.Color.Lime;
+            this.itemButton67.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton67.Enabled = false;
             this.itemButton67.FlatAppearance.BorderSize = 0;
             this.itemButton67.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1199,14 +1270,15 @@
             this.itemButton67.TabIndex = 57;
             this.itemButton67.UseVisualStyleBackColor = false;
             this.itemButton67.Visible = false;
-            this.itemButton67.Click += new System.EventHandler(this.itemButton67_Click);
-            this.itemButton67.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton67_MouseDown);
-            this.itemButton67.MouseEnter += new System.EventHandler(this.itemButton67_MouseEnter);
+            this.itemButton67.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton67.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton67.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton67.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton71
             // 
             this.itemButton71.BackColor = System.Drawing.Color.Lime;
+            this.itemButton71.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton71.Enabled = false;
             this.itemButton71.FlatAppearance.BorderSize = 0;
             this.itemButton71.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1218,14 +1290,15 @@
             this.itemButton71.TabIndex = 58;
             this.itemButton71.UseVisualStyleBackColor = false;
             this.itemButton71.Visible = false;
-            this.itemButton71.Click += new System.EventHandler(this.itemButton71_Click);
-            this.itemButton71.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton71_MouseDown);
-            this.itemButton71.MouseEnter += new System.EventHandler(this.itemButton71_MouseEnter);
+            this.itemButton71.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton71.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton71.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton71.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton72
             // 
             this.itemButton72.BackColor = System.Drawing.Color.Lime;
+            this.itemButton72.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton72.Enabled = false;
             this.itemButton72.FlatAppearance.BorderSize = 0;
             this.itemButton72.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1237,14 +1310,15 @@
             this.itemButton72.TabIndex = 59;
             this.itemButton72.UseVisualStyleBackColor = false;
             this.itemButton72.Visible = false;
-            this.itemButton72.Click += new System.EventHandler(this.itemButton72_Click);
-            this.itemButton72.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton72_MouseDown);
-            this.itemButton72.MouseEnter += new System.EventHandler(this.itemButton72_MouseEnter);
+            this.itemButton72.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton72.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton72.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton72.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton73
             // 
             this.itemButton73.BackColor = System.Drawing.Color.Lime;
+            this.itemButton73.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton73.Enabled = false;
             this.itemButton73.FlatAppearance.BorderSize = 0;
             this.itemButton73.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1256,14 +1330,15 @@
             this.itemButton73.TabIndex = 60;
             this.itemButton73.UseVisualStyleBackColor = false;
             this.itemButton73.Visible = false;
-            this.itemButton73.Click += new System.EventHandler(this.itemButton73_Click);
-            this.itemButton73.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton73_MouseDown);
-            this.itemButton73.MouseEnter += new System.EventHandler(this.itemButton73_MouseEnter);
+            this.itemButton73.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton73.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton73.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton73.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton74
             // 
             this.itemButton74.BackColor = System.Drawing.Color.Lime;
+            this.itemButton74.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton74.Enabled = false;
             this.itemButton74.FlatAppearance.BorderSize = 0;
             this.itemButton74.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1275,14 +1350,15 @@
             this.itemButton74.TabIndex = 61;
             this.itemButton74.UseVisualStyleBackColor = false;
             this.itemButton74.Visible = false;
-            this.itemButton74.Click += new System.EventHandler(this.itemButton74_Click);
-            this.itemButton74.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton74_MouseDown);
-            this.itemButton74.MouseEnter += new System.EventHandler(this.itemButton74_MouseEnter);
+            this.itemButton74.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton74.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton74.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton74.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton75
             // 
             this.itemButton75.BackColor = System.Drawing.Color.Lime;
+            this.itemButton75.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton75.Enabled = false;
             this.itemButton75.FlatAppearance.BorderSize = 0;
             this.itemButton75.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1294,14 +1370,15 @@
             this.itemButton75.TabIndex = 62;
             this.itemButton75.UseVisualStyleBackColor = false;
             this.itemButton75.Visible = false;
-            this.itemButton75.Click += new System.EventHandler(this.itemButton75_Click);
-            this.itemButton75.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton75_MouseDown);
-            this.itemButton75.MouseEnter += new System.EventHandler(this.itemButton75_MouseEnter);
+            this.itemButton75.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton75.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton75.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton75.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton76
             // 
             this.itemButton76.BackColor = System.Drawing.Color.Lime;
+            this.itemButton76.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton76.Enabled = false;
             this.itemButton76.FlatAppearance.BorderSize = 0;
             this.itemButton76.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1313,14 +1390,15 @@
             this.itemButton76.TabIndex = 63;
             this.itemButton76.UseVisualStyleBackColor = false;
             this.itemButton76.Visible = false;
-            this.itemButton76.Click += new System.EventHandler(this.itemButton76_Click);
-            this.itemButton76.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton76_MouseDown);
-            this.itemButton76.MouseEnter += new System.EventHandler(this.itemButton76_MouseEnter);
+            this.itemButton76.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton76.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton76.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton76.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // itemButton77
             // 
             this.itemButton77.BackColor = System.Drawing.Color.Lime;
+            this.itemButton77.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton77.Enabled = false;
             this.itemButton77.FlatAppearance.BorderSize = 0;
             this.itemButton77.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1332,9 +1410,9 @@
             this.itemButton77.TabIndex = 64;
             this.itemButton77.UseVisualStyleBackColor = false;
             this.itemButton77.Visible = false;
-            this.itemButton77.Click += new System.EventHandler(this.itemButton77_Click);
-            this.itemButton77.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton77_MouseDown);
-            this.itemButton77.MouseEnter += new System.EventHandler(this.itemButton77_MouseEnter);
+            this.itemButton77.Click += new System.EventHandler(this.itemButton_Click);
+            this.itemButton77.MouseDown += new System.Windows.Forms.MouseEventHandler(this.itemButton_MouseDown);
+            this.itemButton77.MouseEnter += new System.EventHandler(this.itemButton_MouseEnter);
             this.itemButton77.MouseLeave += new System.EventHandler(this.itemButton_MouseLeave);
             // 
             // analyzeButton
@@ -1387,7 +1465,7 @@
             this.categoryOverviewLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(39)))));
             this.categoryOverviewLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.categoryOverviewLabel.ForeColor = System.Drawing.Color.White;
-            this.categoryOverviewLabel.Location = new System.Drawing.Point(758, -1);
+            this.categoryOverviewLabel.Location = new System.Drawing.Point(319, 5);
             this.categoryOverviewLabel.Name = "categoryOverviewLabel";
             this.categoryOverviewLabel.Size = new System.Drawing.Size(159, 23);
             this.categoryOverviewLabel.TabIndex = 66;
@@ -1402,7 +1480,7 @@
             this.categoryOverviewList.FormattingEnabled = true;
             this.categoryOverviewList.HorizontalScrollbar = true;
             this.categoryOverviewList.ItemHeight = 15;
-            this.categoryOverviewList.Location = new System.Drawing.Point(762, 28);
+            this.categoryOverviewList.Location = new System.Drawing.Point(322, 32);
             this.categoryOverviewList.Name = "categoryOverviewList";
             this.categoryOverviewList.Size = new System.Drawing.Size(153, 482);
             this.categoryOverviewList.TabIndex = 67;
@@ -1417,7 +1495,7 @@
             this.itemOrganization.FormattingEnabled = true;
             this.itemOrganization.HorizontalScrollbar = true;
             this.itemOrganization.ItemHeight = 15;
-            this.itemOrganization.Location = new System.Drawing.Point(441, 118);
+            this.itemOrganization.Location = new System.Drawing.Point(2, 113);
             this.itemOrganization.Name = "itemOrganization";
             this.itemOrganization.Size = new System.Drawing.Size(315, 390);
             this.itemOrganization.TabIndex = 68;
@@ -1432,7 +1510,7 @@
             this.editCategoriesButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.HotPink;
             this.editCategoriesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.editCategoriesButton.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.editCategoriesButton.Location = new System.Drawing.Point(725, 81);
+            this.editCategoriesButton.Location = new System.Drawing.Point(286, 76);
             this.editCategoriesButton.Name = "editCategoriesButton";
             this.editCategoriesButton.Size = new System.Drawing.Size(31, 31);
             this.editCategoriesButton.TabIndex = 69;
@@ -1445,7 +1523,7 @@
             this.itemLookup.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.itemLookup.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.itemLookup.FormattingEnabled = true;
-            this.itemLookup.Location = new System.Drawing.Point(441, 12);
+            this.itemLookup.Location = new System.Drawing.Point(2, 7);
             this.itemLookup.Name = "itemLookup";
             this.itemLookup.Size = new System.Drawing.Size(315, 26);
             this.itemLookup.TabIndex = 70;
@@ -1458,7 +1536,7 @@
             this.itemLookupLabel.Cursor = System.Windows.Forms.Cursors.Default;
             this.itemLookupLabel.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.itemLookupLabel.ForeColor = System.Drawing.Color.White;
-            this.itemLookupLabel.Location = new System.Drawing.Point(441, 44);
+            this.itemLookupLabel.Location = new System.Drawing.Point(2, 39);
             this.itemLookupLabel.Multiline = true;
             this.itemLookupLabel.Name = "itemLookupLabel";
             this.itemLookupLabel.ReadOnly = true;
@@ -1483,18 +1561,163 @@
             this.settingsButton.UseVisualStyleBackColor = false;
             this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
             // 
+            // normalModePanel
+            // 
+            this.normalModePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(39)))));
+            this.normalModePanel.Controls.Add(this.itemLookupLabel);
+            this.normalModePanel.Controls.Add(this.itemLookup);
+            this.normalModePanel.Controls.Add(this.categoryOverviewLabel);
+            this.normalModePanel.Controls.Add(this.editCategoriesButton);
+            this.normalModePanel.Controls.Add(this.itemOrganization);
+            this.normalModePanel.Controls.Add(this.categoryOverviewList);
+            this.normalModePanel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.normalModePanel.Location = new System.Drawing.Point(440, 0);
+            this.normalModePanel.Name = "normalModePanel";
+            this.normalModePanel.Size = new System.Drawing.Size(476, 514);
+            this.normalModePanel.TabIndex = 73;
+            // 
+            // farmingModePanel
+            // 
+            this.farmingModePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(39)))));
+            this.farmingModePanel.Controls.Add(this.playPauseButton);
+            this.farmingModePanel.Controls.Add(this.endSessionButton);
+            this.farmingModePanel.Controls.Add(this.clearSessionButton);
+            this.farmingModePanel.Controls.Add(this.locationBox);
+            this.farmingModePanel.Controls.Add(this.itemPanel);
+            this.farmingModePanel.Controls.Add(this.timerLabelLabel);
+            this.farmingModePanel.Controls.Add(this.timerLabel);
+            this.farmingModePanel.Enabled = false;
+            this.farmingModePanel.Location = new System.Drawing.Point(440, 0);
+            this.farmingModePanel.Name = "farmingModePanel";
+            this.farmingModePanel.Size = new System.Drawing.Size(478, 514);
+            this.farmingModePanel.TabIndex = 74;
+            this.farmingModePanel.Visible = false;
+            // 
+            // playPauseButton
+            // 
+            this.playPauseButton.BackColor = System.Drawing.Color.Pink;
+            this.playPauseButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("playPauseButton.BackgroundImage")));
+            this.playPauseButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.playPauseButton.Enabled = false;
+            this.playPauseButton.FlatAppearance.BorderSize = 0;
+            this.playPauseButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepPink;
+            this.playPauseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.HotPink;
+            this.playPauseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.playPauseButton.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playPauseButton.Location = new System.Drawing.Point(314, 35);
+            this.playPauseButton.Name = "playPauseButton";
+            this.playPauseButton.Size = new System.Drawing.Size(24, 24);
+            this.playPauseButton.TabIndex = 68;
+            this.playPauseButton.UseVisualStyleBackColor = false;
+            this.playPauseButton.Visible = false;
+            this.playPauseButton.Click += new System.EventHandler(this.playPauseButton_Click);
+            // 
+            // endSessionButton
+            // 
+            this.endSessionButton.BackColor = System.Drawing.Color.Pink;
+            this.endSessionButton.Enabled = false;
+            this.endSessionButton.FlatAppearance.BorderSize = 0;
+            this.endSessionButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepPink;
+            this.endSessionButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.HotPink;
+            this.endSessionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.endSessionButton.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.endSessionButton.Location = new System.Drawing.Point(333, 109);
+            this.endSessionButton.Name = "endSessionButton";
+            this.endSessionButton.Size = new System.Drawing.Size(126, 31);
+            this.endSessionButton.TabIndex = 67;
+            this.endSessionButton.Text = "End and Auto-fill";
+            this.endSessionButton.UseVisualStyleBackColor = false;
+            this.endSessionButton.Click += new System.EventHandler(this.endSessionButton_Click);
+            // 
+            // clearSessionButton
+            // 
+            this.clearSessionButton.BackColor = System.Drawing.Color.Pink;
+            this.clearSessionButton.Enabled = false;
+            this.clearSessionButton.FlatAppearance.BorderSize = 0;
+            this.clearSessionButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepPink;
+            this.clearSessionButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.HotPink;
+            this.clearSessionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.clearSessionButton.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clearSessionButton.Location = new System.Drawing.Point(333, 72);
+            this.clearSessionButton.Name = "clearSessionButton";
+            this.clearSessionButton.Size = new System.Drawing.Size(126, 31);
+            this.clearSessionButton.TabIndex = 66;
+            this.clearSessionButton.Text = "Reset Session";
+            this.clearSessionButton.UseVisualStyleBackColor = false;
+            this.clearSessionButton.Click += new System.EventHandler(this.clearSessionButton_Click);
+            // 
+            // locationBox
+            // 
+            this.locationBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.locationBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.locationBox.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.locationBox.FormattingEnabled = true;
+            this.locationBox.Location = new System.Drawing.Point(36, 13);
+            this.locationBox.Name = "locationBox";
+            this.locationBox.Size = new System.Drawing.Size(261, 26);
+            this.locationBox.TabIndex = 3;
+            this.locationBox.SelectedIndexChanged += new System.EventHandler(this.locationBox_SelectedIndexChanged);
+            // 
+            // itemPanel
+            // 
+            this.itemPanel.AutoScroll = true;
+            this.itemPanel.ForeColor = System.Drawing.Color.Black;
+            this.itemPanel.Location = new System.Drawing.Point(33, 51);
+            this.itemPanel.Name = "itemPanel";
+            this.itemPanel.Size = new System.Drawing.Size(264, 463);
+            this.itemPanel.TabIndex = 2;
+            // 
+            // timerLabelLabel
+            // 
+            this.timerLabelLabel.AutoSize = true;
+            this.timerLabelLabel.ForeColor = System.Drawing.Color.White;
+            this.timerLabelLabel.Location = new System.Drawing.Point(328, 13);
+            this.timerLabelLabel.Name = "timerLabelLabel";
+            this.timerLabelLabel.Size = new System.Drawing.Size(136, 13);
+            this.timerLabelLabel.TabIndex = 1;
+            this.timerLabelLabel.Text = "Elapsed time in this session";
+            this.timerLabelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // timerLabel
+            // 
+            this.timerLabel.AutoSize = true;
+            this.timerLabel.Font = new System.Drawing.Font("Calibri", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timerLabel.ForeColor = System.Drawing.Color.White;
+            this.timerLabel.Location = new System.Drawing.Point(343, 25);
+            this.timerLabel.Name = "timerLabel";
+            this.timerLabel.Size = new System.Drawing.Size(126, 42);
+            this.timerLabel.TabIndex = 0;
+            this.timerLabel.Text = "0:00:00";
+            this.timerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // timer
+            // 
+            this.timer.Interval = 1000;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // modeCheck
+            // 
+            this.modeCheck.AutoSize = true;
+            this.modeCheck.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(39)))));
+            this.modeCheck.ForeColor = System.Drawing.Color.White;
+            this.modeCheck.Location = new System.Drawing.Point(6, 454);
+            this.modeCheck.Name = "modeCheck";
+            this.modeCheck.Size = new System.Drawing.Size(93, 17);
+            this.modeCheck.TabIndex = 75;
+            this.modeCheck.Text = "Farming Mode";
+            this.modeCheck.UseVisualStyleBackColor = false;
+            this.modeCheck.Click += new System.EventHandler(this.modeCheck_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(916, 514);
+            this.Controls.Add(this.modeCheck);
+            this.Controls.Add(this.farmingModePanel);
+            this.Controls.Add(this.normalModePanel);
             this.Controls.Add(this.settingsButton);
-            this.Controls.Add(this.itemLookupLabel);
-            this.Controls.Add(this.itemLookup);
-            this.Controls.Add(this.editCategoriesButton);
-            this.Controls.Add(this.itemOrganization);
-            this.Controls.Add(this.categoryOverviewLabel);
             this.Controls.Add(this.analyzeButton);
             this.Controls.Add(this.itemButton77);
             this.Controls.Add(this.itemButton76);
@@ -1560,7 +1783,6 @@
             this.Controls.Add(this.itemButton02);
             this.Controls.Add(this.itemButton01);
             this.Controls.Add(this.itemButton00);
-            this.Controls.Add(this.categoryOverviewList);
             this.Controls.Add(this.loadingBar);
             this.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -1570,6 +1792,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BDO Item Sorter";
             this.Load += new System.EventHandler(this.MainMenu_Load);
+            this.normalModePanel.ResumeLayout(false);
+            this.normalModePanel.PerformLayout();
+            this.farmingModePanel.ResumeLayout(false);
+            this.farmingModePanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1654,6 +1880,17 @@
         private System.Windows.Forms.ComboBox itemLookup;
         private System.Windows.Forms.TextBox itemLookupLabel;
         private System.Windows.Forms.Button settingsButton;
+        private System.Windows.Forms.Panel normalModePanel;
+        private System.Windows.Forms.Panel farmingModePanel;
+        private System.Windows.Forms.Label timerLabel;
+        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Label timerLabelLabel;
+        private System.Windows.Forms.FlowLayoutPanel itemPanel;
+        private System.Windows.Forms.ComboBox locationBox;
+        private System.Windows.Forms.CheckBox modeCheck;
+        private System.Windows.Forms.Button endSessionButton;
+        private System.Windows.Forms.Button clearSessionButton;
+        private System.Windows.Forms.Button playPauseButton;
     }
 }
 

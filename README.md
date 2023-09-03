@@ -1,60 +1,34 @@
-# **First Time Setup**
-Quick note: **There is no chance of bans.** The sorter doesn't interact with the game directly in any way. It doesn't even check whether the game is running, it simply takes a screenshot of the screen you selected in the Settings.<br />
-Follow the video. If you get the Windows protected your PC warning, Click on More info:<br />
-![1](https://github.com/ErisLoona/BDO-Item-Sorter/assets/142046400/4df1dd15-fab6-4f0b-8c92-9ae207593b97)  ![2](https://github.com/ErisLoona/BDO-Item-Sorter/assets/142046400/54d74e3f-ed1c-4d54-b4dc-74ecc7a1fd42)<br />
-and then on Run anyway.<br />
-This happens because my program is not signed, which would be very expensive, $1k+ every 2 years. Feel free to Google this to assure yourself it is not indicative of a threat at all.<br />
-
-Click the image below for the video:<br />
-[![https://youtu.be/UFuHvLmkZ1Y](http://img.youtube.com/vi/UFuHvLmkZ1Y/0.jpg)](http://www.youtube.com/watch?v=UFuHvLmkZ1Y "First time setup and quick tutorial")
-## **Limitations**
-Because the program works by detecting the items' icons, it has several limitations.
-- The program does not work at all with the Classic theme because it's transparent, meaning the item slots will never have the exact same background, making item detection impossible
-- If an item has an overlay on it in your inventory or any other effect that changes its icon, the item will not be recognized, for example an item on cooldown or simply hovering your mouse over it
-- Items with animated icons can't *really* be added. Technically it would be possible if you were to add every frame of the animation as a "new" item with the same name, but I CBA usually and just look them up in the drop-down. Most notable example would be Black Stones, both Armor and Weapon
-- Moving the inventory in-game or changing the UI Scale will break it as the coordinates in the `Position Settings.csv` file are no longer accurate, update them with the Alignment button in Settings
-- It cannot distinguish between items with the same icon by default, you need to tell it that a certain icon may be different items and set them accordingly
-- Items, categories and cities cannot have commas (",") in their name
-- The programming is probably about as robust as a puff of smoke
-## **Info**
-Heyo! I'm Eris, newbie programmer who really likes C#. I made this item sorter for myself, but decided to share it with others as it can come in handy for those obsessed with order in their inventories. I really tried my best when making it, but I'm sure it has a ton of flaws in the programming.<br />
-The way the program works is by associating the items' icons with the "known items" that you've added previously and categorizing them accordingly. It then displays in its virtual inventory the items detected and tell you where that particular item should go. I'm using multi-threading to work through the items faster, 4 BackgroundWorkers take one quarter of the inventory each. I'm using `.csv` files as "databses" for the configurable stuff, associating an item ID to each item and having its icon with the same ID as its name to associate them. The header for the `Item Attributions.csv` file, which is the main item database, would be Item ID,Item Name,Should the item be ignored?,Does the item share an icon? so if you ever look into that, that's what's happening. Why is the `Problematic Items` file a .txt and not a .csv? A lack of forethought and being too lazy to change it in all of its appearances in code. Actually this answer probably applies for pretty much all the weird stuff you may or may not find. Anyway, this has made my life so much easier when sorting through my inventory in BDO and I hope it helps you too! Feel free to change the code however you want, just link back here and give me credit if you share it. Have a nice day <3<br />
+# This is an Alpha
+I'm trying to adapt the program to be able to auto-fill garmoth for the user as much as possible. It's not tested much, but feel free to test it for yourself if you wanna. There **should**™ be no hard crashes.<br />
+Each push will be a part of the process finalized.<br />
+## Roadmap:
+I'll try to stick to this, but no promises!
+- ✓ Alpha 1: Give the program the capability to read how many items are in a stack.
+  - Done! I was able to add this without any major performance impact. I'm using the UI thread to do the stack number by essentially "brute-forcing OCR". I have .bmp files with each digit on a transparent pixel background, I try to find the digit .bmp in the .bmp of the lower part of each item slot. I've mathed it out so that the user doesn't need to register another pixel with the Alignment tool. From preliminary testing it has a 100% correctness rate and it seems to be quite quick, about 1 second. This will probably increase the more UI Scale and resolution goes up, but oh well.
+- ✓ Alpha 2: Create a mode specifically for garmoth farming. Add timer and procedure for starting a new grind session. Add appropriate controls.
+  - Done! Added all UI and relevant controls. The program takes as input from the user the farming location, then get the relevant items as directed by a script I will manually write for each location available on garmoth. This is easily expandable by just creating a new script for a new location, or editing one that is already available.
+  - Fixed the digit `3.bmp` having one extra pixel, leading to bad detection.
+  - The user can start a session by clicking Analyze after having selected their location, then pause it by hitting Analyze again. This provides a before and after so I can subtract any relevant items previously there. If it's paused, the user can end the session and push it to garmoth (autofill coming in Alpha 3), or choose to resume it after checking their progress. They can also clear it at any point in time.
+  - To switch between normal (sorting) mode and farming mode, a new checkBox has been added to the bottom left.
+- ✓ Alpha 3: Add auto-filling to garmoth, as much as it can.
+  - Done! While Alpha 2 was the longest, ~~this was the most difficult~~ (actually Alpha 4 was the most difficult, this is second). It took a lot of research, but I've managed to make something truly great, it's actually fun to watch. So far I've only made the script for the first location, but it works great. Unfortunately I need the user to input their ID, taken from the URL of garmoth's Grind Tracker Summary, the alphanumeric mess. I couldn't find another way to grab it myself directly, so this will have to do for now at least. However, it can now push the elapsed time in the session as well as the number of items obtained of each item, which I think is great.
+  - I've added a variable delay that the user can set regarding how long it takes for the webpage to load, since I need to open a new tab each time to ensure that the user is on the right page, as well as to bring their default browser in focus, so I don't have to check for each browser to find out which one they're using.
+  - Also unfortunately I had to use bmp matching again to find the +Add button on garmoth, since the website scales weirdly depending on resolution. Furthermore I have to maximize the browser window because the number of tab presses varies by the resolution of the window, unless it's maximized, which makes no sense, but oh well it's out of my control. However, it works, and greatly at that.
+  - Condensed all the itemButton methods, from 192 down to 3, removing over 6k lines of code in the process and making it easier for me to work on it.
+  - Overall I'm really proud of this Alpha version honestly.
+- ✓ Alpha 4: Complete folder and .bmp structure. Add a way to auto-download the folder into the appropriate place.
+  - Done! This has *a lot* of stuff added into it! So much so that I've decided the full release will be v2.0. In order to avoid creating almost a thousand .bmp files, one for each digit for each UI scale value for each resolution, I found a way to allow the user to create them for themselves instead. I found a pattern in every digit, when looking at the colors used, they're always either R = G = B, or most commonly R > G = B, with the R value being at most 5 higher. This allowed me to separate those colors and paste them into a separate Bitmap, with the rest being transparent. However, because pixels of colors that meet that condition may be present elsewhere I have devised a (in my opinion) really cool algorithm which gets the average number of pixels found in each row and column in the aforementioned Bitmap and eliminates the rows and columns which have numbers of pixels less than or equal to half of the average, effectively tightly cropping the Bitmap around the digit. I was very aggressive with what I crop because missing pixels are preferrable to extra pixels, as the former leads to less accuracy while the latter leads to failed detection. Honestly I'm very very proud of this algorithm, I think it's awesome.
+  - Added a Help button that opens a YouTube tutorial for the Digit Calibration.
+  - Next up, I've created a new repo to hold support files like the Sorting Mode folder. This allows me to have a static download link from which the program can grab those files, especially for first-time setup. I will just delete the current file and upload the new one with the same name to be able to keep the same link to it. This change is retroactive as well, so that current users of version v1.X don't need to do anything extra to get their BDO Item Sorter Data folder up to date with the latest file structure.
+  - Also added an update button in Settings which will allow the user to update only the garmoth scripts (which I have finished making by the way), because the website obviously evolves and changes things, so I need to be able to update those too without always changing code and expecting users to check github.
+  - Added a check on whether garmoth is up, as I've found it to be down on more than one occasion, if it's down it will just cancel the push.
+  - NEXT UP I've added an Icons Mode, instead of only using colored buttons to communicate the state of a detection in the virtual inventory, it will now show the item as it is in game. Basically, it just sets the background image of the button to a screenshot of that slot in-game and adds an overlay to show its state (i.e. ignored is slightly greyed out, problematic has an orange question mark overlay and unknown has a red exclamation mark overlay). I think this can prove very useful to some who are better with visual cues like that. Of course, it's not great for performance but in my experience the change is tiny as I just use existing screenshots that the program took previously, so it's just a matter of cropping it and setting the button's backgroundImage and Image properties.
+  - And lastly, I've added a Donate button. It's small and out of the way in Settings, this project took a lot of time and effort to develop, and will forever be free, so I might as well attempt to get a couple bucks out of it. Also added a donate button at the bottom of this readme, and I will do that in the main branch as well once I fully release this.
+  - I expect a full release some time next week, I'll see how much time testing takes although it shouldn't take long as I've been extensively testing it along the way, but I just wanna make sure. If it's not released until Wednesday then it will be during the weekend, as I have my Bachelor's final exam next week.
+- ✗ Alpha 5: Testing and bugfixing.<br />
+### Download
+**DELETE YOUR OLD SORTING MODE FOLDER!** The new one will be downloaded automatically.<br />
+[Alpha 4.zip](https://github.com/ErisLoona/BDO-Item-Sorter/files/12505719/Alpha.4.zip)
 <br />
-### To-do<br />
-- Lift the "one right-click per item" limitation, highly preferrably without having to change the csv scheme
-- Maybe look into making items show up with a custom color, maybe by category, no idea if I even want this yet and would probably be a pain to implement
-- (low priority) Maaaaaaybe look into a way to have a central updateable repository of already-detected items and allow "updating" detected items with it so new users don't have to add all the items by themselves, but I have no idea how to even start with that
-- ~~Make the program auto-generate support files if they're missing~~ Done as of v1.2
-- ~~Reduce friction with setup somehow (no edge detection pls, is too difficult)~~ Done as of v1.2<br />
-## **Tutorial**<br />
-![image](https://github.com/ErisLoona/BDO-Item-Sorter/assets/142046400/6ca3064e-e37f-47cb-b540-a9d4837d9151)<br />
-1. The virtual inventory, this is where the analysis results are displayed as buttons of 4 possible colors.
-- Red = The item was not recognized
-- Green = The item was recognized and categorized
-- Orange = The item was recognized but it shares an icon with another item, double-check that it's the correct one
-- White = The item was recognized and ignored, not categorized. The color is overriden if the item is marked as sharing an icon<br />
-You can click on any of them to change their name, assigned category and/or attributes:<br />
-![image](https://github.com/ErisLoona/BDO-Item-Sorter/assets/142046400/002268c6-fc06-4208-a203-16a1b6a20c32)<br />
 <br />
-If the item slot is orange, i.e. is marked as sharing an icon, you can right click it to select the correct item. If you haven't added the desired item yet write in its name and hit Done, afterwards you can left click the item to assign it a category.<br />
-<br />
-2. The Analyze button and the loading bar. Click this button whenever you want the program to take a look at your inventory and sort the items. The loading bar shows the progress of the analysis.<br />
-<br />
-3. The item destination list, this is where the analysis results are displayed as a list of items and their destination city. The order is displayed in order of detection, so top to bottom left to right, and shows the item name -> destination city. If you hover over a detected non-ignored item (so Green or Orange) the corresponding entry will be highlighted for ease of use.<br />
-<br />
-4. The Category overview, exactly what it says on the tin, it shows all categories added grouped by the order of the cities.<br />
-<br />
-5. The Edit Category button. This button will open the following menu: <br />
-![image](https://github.com/ErisLoona/BDO-Item-Sorter/assets/142046400/beeba341-a1dc-4839-943d-c230a0e861ac) <br />
-<br />
-- On the left there is a list of all the added categories, in the order they were added (except (none) which cannot be removed or changed). By right clicking on any of them you can delete them or move them in the list. When a category is deleted all the items that were assigned to it will be assigned to (none) automatically.
-- At the top there are the New category and New location boxes, type in the name of the category or location and click the little + button by them to add them. New categories are automatically attributed to the location (none).
-- In the center there is the attribution menu, select the category from the drop-down, the city it's currently attributed to will automatically be selected in the City drop-down, and if you want to change that attribution select the new City from the drop-down and click the "attribute to" arrow button. Click Done when you're done.<br />
-<br />
-6. The item lookup. This drop-down will let you search any item and show you its assigned category and the city it would go to. You can also type the name you're looking for and it will be suggested from the available entries. Useful if you don't wanna mess up your analysis or just as a one-off curiosity, or whatever. Keep in mind the suggestion you will be showed is not very advanced and needs you to type out the item exactly as you put it in, minus capitalization. For example, if you added the item "[Event] Elion's Tear" and simply search "elion's tear" will not show it in the suggestions. However typing "[eve" or more will.<br />
-<br />
-7. The settings button. It opens the same menu you saw during the initial setup:<br />
-![image](https://github.com/ErisLoona/BDO-Item-Sorter/assets/142046400/19161811-b885-4b2b-a735-b387e992c57a)<br />
-<br />
-- The Screens drop-down will initially show the screen it's set to. If BDO is not running on your primary monitor select the correct one and hit Set Screen.
-- The Set Alignment button re-aligns the program to the correct pixel coordinates. Refer to the video for how to use it, much easier shown than said.
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/N4N0OTIEV)

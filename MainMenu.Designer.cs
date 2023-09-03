@@ -118,6 +118,7 @@
             this.timerLabel = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.modeCheck = new System.Windows.Forms.CheckBox();
+            this.infoLabel = new System.Windows.Forms.Label();
             this.normalModePanel.SuspendLayout();
             this.farmingModePanel.SuspendLayout();
             this.SuspendLayout();
@@ -1579,6 +1580,7 @@
             // farmingModePanel
             // 
             this.farmingModePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(39)))));
+            this.farmingModePanel.Controls.Add(this.infoLabel);
             this.farmingModePanel.Controls.Add(this.playPauseButton);
             this.farmingModePanel.Controls.Add(this.endSessionButton);
             this.farmingModePanel.Controls.Add(this.clearSessionButton);
@@ -1707,6 +1709,19 @@
             this.modeCheck.Text = "Farming Mode";
             this.modeCheck.UseVisualStyleBackColor = false;
             this.modeCheck.Click += new System.EventHandler(this.modeCheck_Click);
+            // 
+            // infoLabel
+            // 
+            this.infoLabel.AutoSize = true;
+            this.infoLabel.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.infoLabel.ForeColor = System.Drawing.Color.White;
+            this.infoLabel.Location = new System.Drawing.Point(299, 228);
+            this.infoLabel.Name = "infoLabel";
+            this.infoLabel.Size = new System.Drawing.Size(176, 45);
+            this.infoLabel.TabIndex = 69;
+            this.infoLabel.Text = "Select your grinding location\r\nand click the Analyze button\r\nto start a new grind" +
+    "ing session";
+            this.infoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MainMenu
             // 
@@ -1891,6 +1906,7 @@
         private System.Windows.Forms.Button endSessionButton;
         private System.Windows.Forms.Button clearSessionButton;
         private System.Windows.Forms.Button playPauseButton;
+        private System.Windows.Forms.Label infoLabel;
     }
 }
 

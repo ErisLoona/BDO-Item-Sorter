@@ -119,6 +119,7 @@
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.modeCheck = new System.Windows.Forms.CheckBox();
             this.infoLabel = new System.Windows.Forms.Label();
+            this.noTouchyLabel = new System.Windows.Forms.Label();
             this.normalModePanel.SuspendLayout();
             this.farmingModePanel.SuspendLayout();
             this.SuspendLayout();
@@ -1717,11 +1718,25 @@
             this.infoLabel.ForeColor = System.Drawing.Color.White;
             this.infoLabel.Location = new System.Drawing.Point(299, 228);
             this.infoLabel.Name = "infoLabel";
-            this.infoLabel.Size = new System.Drawing.Size(176, 45);
+            this.infoLabel.Size = new System.Drawing.Size(164, 45);
             this.infoLabel.TabIndex = 69;
-            this.infoLabel.Text = "Select your grinding location\r\nand click the Analyze button\r\nto start a new grind" +
-    "ing session";
-            this.infoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.infoLabel.Text = "Select your grinding location\r\nand Analyze to start a new \r\ngrinding session.";
+            this.infoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // noTouchyLabel
+            // 
+            this.noTouchyLabel.AutoSize = true;
+            this.noTouchyLabel.BackColor = System.Drawing.Color.Black;
+            this.noTouchyLabel.Enabled = false;
+            this.noTouchyLabel.Font = new System.Drawing.Font("Calibri", 54.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.noTouchyLabel.ForeColor = System.Drawing.Color.White;
+            this.noTouchyLabel.Location = new System.Drawing.Point(66, 167);
+            this.noTouchyLabel.Name = "noTouchyLabel";
+            this.noTouchyLabel.Size = new System.Drawing.Size(785, 180);
+            this.noTouchyLabel.TabIndex = 76;
+            this.noTouchyLabel.Text = "Auto-filling! Don\'t use \r\nyour keyboard or mouse!";
+            this.noTouchyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.noTouchyLabel.Visible = false;
             // 
             // MainMenu
             // 
@@ -1729,6 +1744,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(916, 514);
+            this.Controls.Add(this.noTouchyLabel);
             this.Controls.Add(this.modeCheck);
             this.Controls.Add(this.farmingModePanel);
             this.Controls.Add(this.normalModePanel);
@@ -1907,6 +1923,7 @@
         private System.Windows.Forms.Button clearSessionButton;
         private System.Windows.Forms.Button playPauseButton;
         private System.Windows.Forms.Label infoLabel;
+        private System.Windows.Forms.Label noTouchyLabel;
     }
 }
 

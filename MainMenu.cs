@@ -875,7 +875,7 @@ namespace BDO_Item_Sorter
             if (sessionActive == false)
             {
                 timerReset();
-                infoLabel.Visible = false;
+                infoLabel.Text = "Analyze again to check the\r\nnumber of items you've\r\nobtained so far and/or end\r\nthe session.";
                 modeCheck.Enabled = false;
                 locationBox.Enabled = false;
                 sessionActive = true;
@@ -926,6 +926,7 @@ namespace BDO_Item_Sorter
                 rememberIndex = 0;
                 clearTrigger = false;
                 rememborDecision = true;
+                infoLabel.Text = "Select your grinding location\r\nand Analyze to start a new \r\ngrinding session.";
                 GC.Collect();
             }
             else
@@ -1004,6 +1005,8 @@ namespace BDO_Item_Sorter
         {
             if (MessageBox.Show("You are about to end your current session and push it to garmoth.\nAre you sure you want to end the session?", "End session", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
             {
+                noTouchyLabel.Enabled = true;
+                noTouchyLabel.Visible = true;
                 string userID;
                 string[] timer = new string[3];
                 int hours = 0, minutes = 0;
@@ -1020,7 +1023,7 @@ namespace BDO_Item_Sorter
                     return;
                 }
                 clearTrigger = true;
-                infoLabel.Visible = true;
+                infoLabel.Text = "Select your grinding location\r\nand Analyze to start a new \r\ngrinding session.";
                 playPauseButton.Enabled = false;
                 playPauseButton.Visible = false;
                 modeCheck.Enabled = true;
@@ -1076,6 +1079,8 @@ namespace BDO_Item_Sorter
                     .KeyPress(VirtualKeyCode.TAB)
                     .KeyPress(VirtualKeyCode.RETURN);
                 Thread.Sleep(1200);
+                noTouchyLabel.Enabled = false;
+                noTouchyLabel.Visible = false;
                 new InputSimulator().Keyboard.KeyPress(VirtualKeyCode.TAB)
                     .TextEntry(Convert.ToString(hours))
                     .KeyPress(VirtualKeyCode.TAB)

@@ -213,6 +213,12 @@
     <Compile Include="CategoryEditor.Designer.cs">
       <DependentUpon>CategoryEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="DigitCalibration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DigitCalibration.Designer.cs">
+      <DependentUpon>DigitCalibration.cs</DependentUpon>
+    </Compile>
     <Compile Include="DuplicateSelector.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -244,6 +250,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CategoryEditor.resx">
       <DependentUpon>CategoryEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DigitCalibration.resx">
+      <DependentUpon>DigitCalibration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DuplicateSelector.resx">
       <DependentUpon>DuplicateSelector.cs</DependentUpon>

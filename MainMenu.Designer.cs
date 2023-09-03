@@ -138,6 +138,7 @@
             // itemButton00
             // 
             this.itemButton00.BackColor = System.Drawing.Color.Lime;
+            this.itemButton00.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton00.Enabled = false;
             this.itemButton00.FlatAppearance.BorderSize = 0;
             this.itemButton00.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -157,6 +158,7 @@
             // itemButton01
             // 
             this.itemButton01.BackColor = System.Drawing.Color.Lime;
+            this.itemButton01.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton01.Enabled = false;
             this.itemButton01.FlatAppearance.BorderSize = 0;
             this.itemButton01.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -176,6 +178,7 @@
             // itemButton02
             // 
             this.itemButton02.BackColor = System.Drawing.Color.Lime;
+            this.itemButton02.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton02.Enabled = false;
             this.itemButton02.FlatAppearance.BorderSize = 0;
             this.itemButton02.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -195,6 +198,7 @@
             // itemButton03
             // 
             this.itemButton03.BackColor = System.Drawing.Color.Lime;
+            this.itemButton03.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton03.Enabled = false;
             this.itemButton03.FlatAppearance.BorderSize = 0;
             this.itemButton03.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -214,6 +218,7 @@
             // itemButton04
             // 
             this.itemButton04.BackColor = System.Drawing.Color.Lime;
+            this.itemButton04.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton04.Enabled = false;
             this.itemButton04.FlatAppearance.BorderSize = 0;
             this.itemButton04.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -233,6 +238,7 @@
             // itemButton05
             // 
             this.itemButton05.BackColor = System.Drawing.Color.Lime;
+            this.itemButton05.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton05.Enabled = false;
             this.itemButton05.FlatAppearance.BorderSize = 0;
             this.itemButton05.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -252,6 +258,7 @@
             // itemButton06
             // 
             this.itemButton06.BackColor = System.Drawing.Color.Lime;
+            this.itemButton06.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton06.Enabled = false;
             this.itemButton06.FlatAppearance.BorderSize = 0;
             this.itemButton06.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -271,6 +278,7 @@
             // itemButton07
             // 
             this.itemButton07.BackColor = System.Drawing.Color.Lime;
+            this.itemButton07.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton07.Enabled = false;
             this.itemButton07.FlatAppearance.BorderSize = 0;
             this.itemButton07.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -290,6 +298,7 @@
             // itemButton10
             // 
             this.itemButton10.BackColor = System.Drawing.Color.Lime;
+            this.itemButton10.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton10.Enabled = false;
             this.itemButton10.FlatAppearance.BorderSize = 0;
             this.itemButton10.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -309,6 +318,7 @@
             // itemButton20
             // 
             this.itemButton20.BackColor = System.Drawing.Color.Lime;
+            this.itemButton20.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton20.Enabled = false;
             this.itemButton20.FlatAppearance.BorderSize = 0;
             this.itemButton20.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -328,6 +338,7 @@
             // itemButton30
             // 
             this.itemButton30.BackColor = System.Drawing.Color.Lime;
+            this.itemButton30.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton30.Enabled = false;
             this.itemButton30.FlatAppearance.BorderSize = 0;
             this.itemButton30.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -347,6 +358,7 @@
             // itemButton40
             // 
             this.itemButton40.BackColor = System.Drawing.Color.Lime;
+            this.itemButton40.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton40.Enabled = false;
             this.itemButton40.FlatAppearance.BorderSize = 0;
             this.itemButton40.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -366,6 +378,7 @@
             // itemButton50
             // 
             this.itemButton50.BackColor = System.Drawing.Color.Lime;
+            this.itemButton50.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton50.Enabled = false;
             this.itemButton50.FlatAppearance.BorderSize = 0;
             this.itemButton50.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -385,6 +398,7 @@
             // itemButton60
             // 
             this.itemButton60.BackColor = System.Drawing.Color.Lime;
+            this.itemButton60.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton60.Enabled = false;
             this.itemButton60.FlatAppearance.BorderSize = 0;
             this.itemButton60.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -404,6 +418,7 @@
             // itemButton70
             // 
             this.itemButton70.BackColor = System.Drawing.Color.Lime;
+            this.itemButton70.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton70.Enabled = false;
             this.itemButton70.FlatAppearance.BorderSize = 0;
             this.itemButton70.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -423,6 +438,7 @@
             // itemButton11
             // 
             this.itemButton11.BackColor = System.Drawing.Color.Lime;
+            this.itemButton11.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton11.Enabled = false;
             this.itemButton11.FlatAppearance.BorderSize = 0;
             this.itemButton11.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -442,6 +458,7 @@
             // itemButton12
             // 
             this.itemButton12.BackColor = System.Drawing.Color.Lime;
+            this.itemButton12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton12.Enabled = false;
             this.itemButton12.FlatAppearance.BorderSize = 0;
             this.itemButton12.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -461,6 +478,7 @@
             // itemButton13
             // 
             this.itemButton13.BackColor = System.Drawing.Color.Lime;
+            this.itemButton13.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton13.Enabled = false;
             this.itemButton13.FlatAppearance.BorderSize = 0;
             this.itemButton13.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -480,6 +498,7 @@
             // itemButton14
             // 
             this.itemButton14.BackColor = System.Drawing.Color.Lime;
+            this.itemButton14.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton14.Enabled = false;
             this.itemButton14.FlatAppearance.BorderSize = 0;
             this.itemButton14.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -499,6 +518,7 @@
             // itemButton15
             // 
             this.itemButton15.BackColor = System.Drawing.Color.Lime;
+            this.itemButton15.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton15.Enabled = false;
             this.itemButton15.FlatAppearance.BorderSize = 0;
             this.itemButton15.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -518,6 +538,7 @@
             // itemButton16
             // 
             this.itemButton16.BackColor = System.Drawing.Color.Lime;
+            this.itemButton16.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton16.Enabled = false;
             this.itemButton16.FlatAppearance.BorderSize = 0;
             this.itemButton16.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -537,6 +558,7 @@
             // itemButton17
             // 
             this.itemButton17.BackColor = System.Drawing.Color.Lime;
+            this.itemButton17.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton17.Enabled = false;
             this.itemButton17.FlatAppearance.BorderSize = 0;
             this.itemButton17.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -556,6 +578,7 @@
             // itemButton21
             // 
             this.itemButton21.BackColor = System.Drawing.Color.Lime;
+            this.itemButton21.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton21.Enabled = false;
             this.itemButton21.FlatAppearance.BorderSize = 0;
             this.itemButton21.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -575,6 +598,7 @@
             // itemButton22
             // 
             this.itemButton22.BackColor = System.Drawing.Color.Lime;
+            this.itemButton22.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton22.Enabled = false;
             this.itemButton22.FlatAppearance.BorderSize = 0;
             this.itemButton22.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -594,6 +618,7 @@
             // itemButton23
             // 
             this.itemButton23.BackColor = System.Drawing.Color.Lime;
+            this.itemButton23.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton23.Enabled = false;
             this.itemButton23.FlatAppearance.BorderSize = 0;
             this.itemButton23.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -613,6 +638,7 @@
             // itemButton24
             // 
             this.itemButton24.BackColor = System.Drawing.Color.Lime;
+            this.itemButton24.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton24.Enabled = false;
             this.itemButton24.FlatAppearance.BorderSize = 0;
             this.itemButton24.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -632,6 +658,7 @@
             // itemButton25
             // 
             this.itemButton25.BackColor = System.Drawing.Color.Lime;
+            this.itemButton25.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton25.Enabled = false;
             this.itemButton25.FlatAppearance.BorderSize = 0;
             this.itemButton25.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -651,6 +678,7 @@
             // itemButton26
             // 
             this.itemButton26.BackColor = System.Drawing.Color.Lime;
+            this.itemButton26.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton26.Enabled = false;
             this.itemButton26.FlatAppearance.BorderSize = 0;
             this.itemButton26.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -670,6 +698,7 @@
             // itemButton27
             // 
             this.itemButton27.BackColor = System.Drawing.Color.Lime;
+            this.itemButton27.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton27.Enabled = false;
             this.itemButton27.FlatAppearance.BorderSize = 0;
             this.itemButton27.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -689,6 +718,7 @@
             // itemButton31
             // 
             this.itemButton31.BackColor = System.Drawing.Color.Lime;
+            this.itemButton31.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton31.Enabled = false;
             this.itemButton31.FlatAppearance.BorderSize = 0;
             this.itemButton31.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -708,6 +738,7 @@
             // itemButton32
             // 
             this.itemButton32.BackColor = System.Drawing.Color.Lime;
+            this.itemButton32.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton32.Enabled = false;
             this.itemButton32.FlatAppearance.BorderSize = 0;
             this.itemButton32.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -727,6 +758,7 @@
             // itemButton33
             // 
             this.itemButton33.BackColor = System.Drawing.Color.Lime;
+            this.itemButton33.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton33.Enabled = false;
             this.itemButton33.FlatAppearance.BorderSize = 0;
             this.itemButton33.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -746,6 +778,7 @@
             // itemButton34
             // 
             this.itemButton34.BackColor = System.Drawing.Color.Lime;
+            this.itemButton34.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton34.Enabled = false;
             this.itemButton34.FlatAppearance.BorderSize = 0;
             this.itemButton34.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -765,6 +798,7 @@
             // itemButton35
             // 
             this.itemButton35.BackColor = System.Drawing.Color.Lime;
+            this.itemButton35.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton35.Enabled = false;
             this.itemButton35.FlatAppearance.BorderSize = 0;
             this.itemButton35.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -784,6 +818,7 @@
             // itemButton36
             // 
             this.itemButton36.BackColor = System.Drawing.Color.Lime;
+            this.itemButton36.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton36.Enabled = false;
             this.itemButton36.FlatAppearance.BorderSize = 0;
             this.itemButton36.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -803,6 +838,7 @@
             // itemButton37
             // 
             this.itemButton37.BackColor = System.Drawing.Color.Lime;
+            this.itemButton37.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton37.Enabled = false;
             this.itemButton37.FlatAppearance.BorderSize = 0;
             this.itemButton37.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -822,6 +858,7 @@
             // itemButton41
             // 
             this.itemButton41.BackColor = System.Drawing.Color.Lime;
+            this.itemButton41.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton41.Enabled = false;
             this.itemButton41.FlatAppearance.BorderSize = 0;
             this.itemButton41.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -841,6 +878,7 @@
             // itemButton42
             // 
             this.itemButton42.BackColor = System.Drawing.Color.Lime;
+            this.itemButton42.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton42.Enabled = false;
             this.itemButton42.FlatAppearance.BorderSize = 0;
             this.itemButton42.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -860,6 +898,7 @@
             // itemButton43
             // 
             this.itemButton43.BackColor = System.Drawing.Color.Lime;
+            this.itemButton43.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton43.Enabled = false;
             this.itemButton43.FlatAppearance.BorderSize = 0;
             this.itemButton43.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -879,6 +918,7 @@
             // itemButton44
             // 
             this.itemButton44.BackColor = System.Drawing.Color.Lime;
+            this.itemButton44.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton44.Enabled = false;
             this.itemButton44.FlatAppearance.BorderSize = 0;
             this.itemButton44.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -898,6 +938,7 @@
             // itemButton45
             // 
             this.itemButton45.BackColor = System.Drawing.Color.Lime;
+            this.itemButton45.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton45.Enabled = false;
             this.itemButton45.FlatAppearance.BorderSize = 0;
             this.itemButton45.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -917,6 +958,7 @@
             // itemButton46
             // 
             this.itemButton46.BackColor = System.Drawing.Color.Lime;
+            this.itemButton46.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton46.Enabled = false;
             this.itemButton46.FlatAppearance.BorderSize = 0;
             this.itemButton46.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -936,6 +978,7 @@
             // itemButton47
             // 
             this.itemButton47.BackColor = System.Drawing.Color.Lime;
+            this.itemButton47.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton47.Enabled = false;
             this.itemButton47.FlatAppearance.BorderSize = 0;
             this.itemButton47.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -955,6 +998,7 @@
             // itemButton51
             // 
             this.itemButton51.BackColor = System.Drawing.Color.Lime;
+            this.itemButton51.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton51.Enabled = false;
             this.itemButton51.FlatAppearance.BorderSize = 0;
             this.itemButton51.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -974,6 +1018,7 @@
             // itemButton52
             // 
             this.itemButton52.BackColor = System.Drawing.Color.Lime;
+            this.itemButton52.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton52.Enabled = false;
             this.itemButton52.FlatAppearance.BorderSize = 0;
             this.itemButton52.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -993,6 +1038,7 @@
             // itemButton53
             // 
             this.itemButton53.BackColor = System.Drawing.Color.Lime;
+            this.itemButton53.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton53.Enabled = false;
             this.itemButton53.FlatAppearance.BorderSize = 0;
             this.itemButton53.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1012,6 +1058,7 @@
             // itemButton54
             // 
             this.itemButton54.BackColor = System.Drawing.Color.Lime;
+            this.itemButton54.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton54.Enabled = false;
             this.itemButton54.FlatAppearance.BorderSize = 0;
             this.itemButton54.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1031,6 +1078,7 @@
             // itemButton55
             // 
             this.itemButton55.BackColor = System.Drawing.Color.Lime;
+            this.itemButton55.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton55.Enabled = false;
             this.itemButton55.FlatAppearance.BorderSize = 0;
             this.itemButton55.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1050,6 +1098,7 @@
             // itemButton56
             // 
             this.itemButton56.BackColor = System.Drawing.Color.Lime;
+            this.itemButton56.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton56.Enabled = false;
             this.itemButton56.FlatAppearance.BorderSize = 0;
             this.itemButton56.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1069,6 +1118,7 @@
             // itemButton57
             // 
             this.itemButton57.BackColor = System.Drawing.Color.Lime;
+            this.itemButton57.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton57.Enabled = false;
             this.itemButton57.FlatAppearance.BorderSize = 0;
             this.itemButton57.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1088,6 +1138,7 @@
             // itemButton61
             // 
             this.itemButton61.BackColor = System.Drawing.Color.Lime;
+            this.itemButton61.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton61.Enabled = false;
             this.itemButton61.FlatAppearance.BorderSize = 0;
             this.itemButton61.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1107,6 +1158,7 @@
             // itemButton62
             // 
             this.itemButton62.BackColor = System.Drawing.Color.Lime;
+            this.itemButton62.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton62.Enabled = false;
             this.itemButton62.FlatAppearance.BorderSize = 0;
             this.itemButton62.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1126,6 +1178,7 @@
             // itemButton63
             // 
             this.itemButton63.BackColor = System.Drawing.Color.Lime;
+            this.itemButton63.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton63.Enabled = false;
             this.itemButton63.FlatAppearance.BorderSize = 0;
             this.itemButton63.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1145,6 +1198,7 @@
             // itemButton64
             // 
             this.itemButton64.BackColor = System.Drawing.Color.Lime;
+            this.itemButton64.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton64.Enabled = false;
             this.itemButton64.FlatAppearance.BorderSize = 0;
             this.itemButton64.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1164,6 +1218,7 @@
             // itemButton65
             // 
             this.itemButton65.BackColor = System.Drawing.Color.Lime;
+            this.itemButton65.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton65.Enabled = false;
             this.itemButton65.FlatAppearance.BorderSize = 0;
             this.itemButton65.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1183,6 +1238,7 @@
             // itemButton66
             // 
             this.itemButton66.BackColor = System.Drawing.Color.Lime;
+            this.itemButton66.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton66.Enabled = false;
             this.itemButton66.FlatAppearance.BorderSize = 0;
             this.itemButton66.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1202,6 +1258,7 @@
             // itemButton67
             // 
             this.itemButton67.BackColor = System.Drawing.Color.Lime;
+            this.itemButton67.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton67.Enabled = false;
             this.itemButton67.FlatAppearance.BorderSize = 0;
             this.itemButton67.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1221,6 +1278,7 @@
             // itemButton71
             // 
             this.itemButton71.BackColor = System.Drawing.Color.Lime;
+            this.itemButton71.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton71.Enabled = false;
             this.itemButton71.FlatAppearance.BorderSize = 0;
             this.itemButton71.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1240,6 +1298,7 @@
             // itemButton72
             // 
             this.itemButton72.BackColor = System.Drawing.Color.Lime;
+            this.itemButton72.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton72.Enabled = false;
             this.itemButton72.FlatAppearance.BorderSize = 0;
             this.itemButton72.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1259,6 +1318,7 @@
             // itemButton73
             // 
             this.itemButton73.BackColor = System.Drawing.Color.Lime;
+            this.itemButton73.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton73.Enabled = false;
             this.itemButton73.FlatAppearance.BorderSize = 0;
             this.itemButton73.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1278,6 +1338,7 @@
             // itemButton74
             // 
             this.itemButton74.BackColor = System.Drawing.Color.Lime;
+            this.itemButton74.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton74.Enabled = false;
             this.itemButton74.FlatAppearance.BorderSize = 0;
             this.itemButton74.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1297,6 +1358,7 @@
             // itemButton75
             // 
             this.itemButton75.BackColor = System.Drawing.Color.Lime;
+            this.itemButton75.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton75.Enabled = false;
             this.itemButton75.FlatAppearance.BorderSize = 0;
             this.itemButton75.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1316,6 +1378,7 @@
             // itemButton76
             // 
             this.itemButton76.BackColor = System.Drawing.Color.Lime;
+            this.itemButton76.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton76.Enabled = false;
             this.itemButton76.FlatAppearance.BorderSize = 0;
             this.itemButton76.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;
@@ -1335,6 +1398,7 @@
             // itemButton77
             // 
             this.itemButton77.BackColor = System.Drawing.Color.Lime;
+            this.itemButton77.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.itemButton77.Enabled = false;
             this.itemButton77.FlatAppearance.BorderSize = 0;
             this.itemButton77.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen;

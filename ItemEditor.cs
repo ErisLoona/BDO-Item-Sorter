@@ -69,5 +69,15 @@ namespace BDO_Item_Sorter
         {
             this.Close();
         }
+
+        private void ItemEditor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (nameText.Text.Contains(',') == true)
+            {
+                MessageBox.Show("The name cannot contain commas (\",\")!", "Illegal character", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                e.Cancel = true;
+                return;
+            }
+        }
     }
 }

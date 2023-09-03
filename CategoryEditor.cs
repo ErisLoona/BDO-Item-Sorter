@@ -203,6 +203,11 @@ namespace BDO_Item_Sorter
 
         private void addCategory_Click(object sender, EventArgs e)
         {
+            if (newCategoryText.Text.Contains(',') == true)
+            {
+                MessageBox.Show("The name cannot contain commas (\",\")!", "Illegal character", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (newCategoryText.Text != null)
             {
                 MainMenu.lineEditor(newCategoryText.Text, Directory.GetCurrentDirectory() + "\\Categories.txt", menuCategoriesIndex - 1);
@@ -224,6 +229,11 @@ namespace BDO_Item_Sorter
 
         private void addLocation_Click(object sender, EventArgs e)
         {
+            if (newLocationText.Text.Contains(',') == true)
+            {
+                MessageBox.Show("The name cannot contain commas (\",\")!", "Illegal character", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (newLocationText.Text != null)
             {
                 MainMenu.lineEditor(newLocationText.Text, Directory.GetCurrentDirectory() + "\\Cities.txt", menuCitiesIndex - 1);

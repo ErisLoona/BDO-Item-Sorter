@@ -64,6 +64,12 @@ namespace BDO_Item_Sorter
 
         private void DuplicateSelector_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (nameBox.Text.Contains(',') == true)
+            {
+                MessageBox.Show("The name cannot contain commas (\",\")!", "Illegal character", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                e.Cancel = true;
+                return;
+            }
             if (nameBox.SelectedIndex == -1 && nameBox.Text != string.Empty)
             {
                 using (StreamWriter writer = new StreamWriter(Directory.GetCurrentDirectory() + "\\Item Attributions.csv", true))

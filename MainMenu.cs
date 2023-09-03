@@ -14,35 +14,44 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Net.Http;
 using WindowsInput;
+using System.Net;
+using System.IO.Compression;
+using System.Security.Policy;
 
 namespace BDO_Item_Sorter
 {
     public partial class MainMenu : Form
     {
+        #region Global variable declaration
+
         public static int[] itemID = new int[10000];
         public static int[,] gridItemID = new int[8, 8], gridOverviewIndex = new int[8, 8], gridStackNumber = new int[8, 8];
         public static string[] itemName = new string[10000], itemCategory = new string[10000], menuCategories = new string[100], menuCities = new string[100], menuCategoryAttribution = new string[100], menuCityAttribution = new string[100];
         public static bool[] itemIgnored = new bool[10000], itemProblematic = new bool[10000];
         public static bool[,] knownItemCheck = new bool[8, 8], itemClicked = new bool[8, 8], canAdd = new bool[8, 8];
         public static int cW = 0, cH = 0, s = 0, picW = 0, picH = 0;
-        public static bool firstSetup = false, fmode;
+        public static bool firstSetup = false, fmode, iconsMode;
 
         Screen activeScreen = Screen.PrimaryScreen;
         public static Button[,] itemButtons;
         public static Rectangle[,] itemCoords = new Rectangle[8, 8], stack = new Rectangle[8, 8];
         Bitmap prtscr, currentItem;
+        Bitmap unknownItemOverlay, problematicItemOverlay, ignoredItemOverlay;
         public static Bitmap[] digits = new Bitmap[10];
         Graphics g;
 
         public static int menuCategoriesIndex = 0, menuCitiesIndex = 0, itemDatabaseIndex = 0, categoryAttributionIndex = 0;
 
         //Sorting Mode extras
-        public static string[] script = new string[100], itemRemember = new string[128];
+        public static string[] script = new string[200], itemRemember = new string[128];
         public static int itemListControls = 0, hh = 0, mm = 0, ss = 0, rememberIndex = 0, scriptIndex = 0, websiteLoadDelay = 5000;
         public static bool sessionActive = false, sessionPaused = false;
         Image timerButtonPlayIcon, timerButtonPauseIcon;
         NumericUpDown[] stackCounter = new NumericUpDown[50];
         Label[] stackLabel = new Label[50];
+        Panel[] stackPanel = new Panel[50];
+
+        #endregion
 
         public MainMenu()
         {
@@ -60,7 +69,8 @@ namespace BDO_Item_Sorter
             }
             catch
             {
-                MessageBox.Show("Support files not found, doing first time setup.\nPlease make sure BDO is running!", "Support files not found!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (MessageBox.Show("Support files not found, doing first time setup.\nPlease make sure BDO is running!\nSome of the files will be downloaded, is that okay?", "Support files not found", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.No)
+                    System.Environment.Exit(0);
                 try
                 {
                     Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\BDO Item Sorter Data");
@@ -107,16 +117,53 @@ namespace BDO_Item_Sorter
                 catch
                 {
                     MessageBox.Show("Error creating support files!", "IO error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    System.Environment.Exit(0);
+                    System.Environment.Exit(1);
                 }
             }
-            timerButtonPlayIcon = Image.FromFile(Directory.GetCurrentDirectory() + "\\Sorting Mode\\play.png");
-            timerButtonPauseIcon = Image.FromFile(Directory.GetCurrentDirectory() + "\\Sorting Mode\\pause.png");
+            if (Directory.Exists(Directory.GetCurrentDirectory() + "\\Sorting Mode") == false)
+            {
+                if (firstSetup == false)
+                {
+                    if (MessageBox.Show("Your file structure is outdated and the program needs to download the update.\nIs that okay?", "Old file structure", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                    {
+                        MessageBox.Show("The program will now exit.\nYou can update the file structure yourself from github.", "Download declined", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        System.Environment.Exit(0);
+                    }
+                }
+                using (WebClient client = new WebClient())
+                {
+                    try
+                    {
+                        client.DownloadFile("https://github.com/ErisLoona/support-files/raw/main/BDO%20Sorting%20Mode.zip", Directory.GetCurrentDirectory() + "\\sorting.zip");
+                    }
+                    catch
+                    {
+                        MessageBox.Show("The download failed!\nYou can download it yourself from github.", "Download error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        System.Environment.Exit(1);
+                    }
+                }
+                try
+                {
+                    ZipFile.ExtractToDirectory(Directory.GetCurrentDirectory() + "\\sorting.zip", Directory.GetCurrentDirectory());
+                    File.Delete(Directory.GetCurrentDirectory() + "\\sorting.zip");
+                }
+                catch
+                {
+                    MessageBox.Show("File extraction failed!\nYou can extract it yourself, then delete the archive.", "Extraction IO error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    System.Environment.Exit(2);
+                }
+            }
+            timerButtonPlayIcon = (Bitmap)Image.FromFile(Directory.GetCurrentDirectory() + "\\Sorting Mode\\play.png");
+            timerButtonPauseIcon = (Bitmap)Image.FromFile(Directory.GetCurrentDirectory() + "\\Sorting Mode\\pause.png");
+            unknownItemOverlay = (Bitmap)Image.FromFile(Directory.GetCurrentDirectory() + "\\Sorting Mode\\unknownitem.png");
+            problematicItemOverlay = (Bitmap)Image.FromFile(Directory.GetCurrentDirectory() + "\\Sorting Mode\\problematicitem.png");
+            ignoredItemOverlay = (Bitmap)Image.FromFile(Directory.GetCurrentDirectory() + "\\Sorting Mode\\ignoreditem.png");
             using (StreamReader reader = new StreamReader(Directory.GetCurrentDirectory() + "\\Sorting Mode\\Grind Location Scripts.csv"))
             {
                 string[] tempAttributes = new string[5];
                 tempAttributes = reader.ReadLine().Split(',');
                 fmode = Convert.ToBoolean(tempAttributes[0]);
+                iconsMode = Convert.ToBoolean(tempAttributes[3]);
                 modeCheck.Checked = fmode;
             }
             if (modeCheck.Checked == true)
@@ -414,20 +461,25 @@ namespace BDO_Item_Sorter
             if (loadingBar.Value >= loadingBar.Maximum)
             {
                 GC.Collect();
+                buttonReset();
                 if (modeCheck.Checked == false)
                 {
                     int overviewIndexCounter = 0;
                     gridOverviewIndex = ClearIntMatrix(gridOverviewIndex);
-                    buttonReset();
-                    analyzeButton.Enabled = true;
+                    itemOrganization.Items.Clear();
                     for (int row = 0; row < 8; row++)
                         for (int col = 0; col < 8; col++)
                         {
                             if (gridItemID[row, col] == -1)
                             {
-                                itemButtons[row, col].BackColor = Color.Red;
-                                itemButtons[row, col].FlatAppearance.MouseOverBackColor = Color.Firebrick;
-                                itemButtons[row, col].FlatAppearance.MouseDownBackColor = Color.DarkRed;
+                                if (iconsMode == true)
+                                    iconsModeOverlay(2, row, col);
+                                else
+                                {
+                                    itemButtons[row, col].BackColor = Color.Red;
+                                    itemButtons[row, col].FlatAppearance.MouseOverBackColor = Color.Firebrick;
+                                    itemButtons[row, col].FlatAppearance.MouseDownBackColor = Color.DarkRed;
+                                }
                                 itemButtons[row, col].Visible = true;
                                 itemButtons[row, col].Enabled = true;
                             }
@@ -437,17 +489,27 @@ namespace BDO_Item_Sorter
                                 {
                                     if (itemProblematic[gridItemID[row, col]] == false)
                                     {
-                                        itemButtons[row, col].BackColor = Color.White;
-                                        itemButtons[row, col].FlatAppearance.MouseOverBackColor = Color.Silver;
-                                        itemButtons[row, col].FlatAppearance.MouseDownBackColor = Color.Gray;
+                                        if (iconsMode == true)
+                                            iconsModeOverlay(4, row, col);
+                                        else
+                                        {
+                                            itemButtons[row, col].BackColor = Color.White;
+                                            itemButtons[row, col].FlatAppearance.MouseOverBackColor = Color.Silver;
+                                            itemButtons[row, col].FlatAppearance.MouseDownBackColor = Color.Gray;
+                                        }
                                         itemButtons[row, col].Visible = true;
                                         itemButtons[row, col].Enabled = true;
                                     }
                                     else
                                     {
-                                        itemButtons[row, col].BackColor = Color.Orange;
-                                        itemButtons[row, col].FlatAppearance.MouseOverBackColor = Color.Goldenrod;
-                                        itemButtons[row, col].FlatAppearance.MouseDownBackColor = Color.DarkGoldenrod;
+                                        if (iconsMode == true)
+                                            iconsModeOverlay(3, row, col);
+                                        else
+                                        {
+                                            itemButtons[row, col].BackColor = Color.Orange;
+                                            itemButtons[row, col].FlatAppearance.MouseOverBackColor = Color.Goldenrod;
+                                            itemButtons[row, col].FlatAppearance.MouseDownBackColor = Color.DarkGoldenrod;
+                                        }
                                         itemButtons[row, col].Visible = true;
                                         itemButtons[row, col].Enabled = true;
                                     }
@@ -458,6 +520,8 @@ namespace BDO_Item_Sorter
                                     {
                                         gridOverviewIndex[row, col] = overviewIndexCounter;
                                         overviewIndexCounter++;
+                                        if (iconsMode == true)
+                                            iconsModeOverlay(1, row, col);
                                         itemButtons[row, col].Visible = true;
                                         itemButtons[row, col].Enabled = true;
                                     }
@@ -465,9 +529,14 @@ namespace BDO_Item_Sorter
                                     {
                                         gridOverviewIndex[row, col] = overviewIndexCounter;
                                         overviewIndexCounter++;
-                                        itemButtons[row, col].BackColor = Color.Orange;
-                                        itemButtons[row, col].FlatAppearance.MouseOverBackColor = Color.Goldenrod;
-                                        itemButtons[row, col].FlatAppearance.MouseDownBackColor = Color.DarkGoldenrod;
+                                        if (iconsMode == true)
+                                            iconsModeOverlay(3, row, col);
+                                        else
+                                        {
+                                            itemButtons[row, col].BackColor = Color.Orange;
+                                            itemButtons[row, col].FlatAppearance.MouseOverBackColor = Color.Goldenrod;
+                                            itemButtons[row, col].FlatAppearance.MouseDownBackColor = Color.DarkGoldenrod;
+                                        }
                                         itemButtons[row, col].Visible = true;
                                         itemButtons[row, col].Enabled = true;
                                     }
@@ -485,8 +554,6 @@ namespace BDO_Item_Sorter
                 }
                 else
                 {
-                    buttonReset();
-                    analyzeButton.Enabled = true;
                     for (int i = 0; i < itemListControls; i++)
                         stackCounter[i].Value = 0;
                     for (int row = 0; row < 8; row++)
@@ -494,9 +561,14 @@ namespace BDO_Item_Sorter
                         {
                             if (gridItemID[row, col] == -1)
                             {
-                                itemButtons[row, col].BackColor = Color.Red;
-                                itemButtons[row, col].FlatAppearance.MouseOverBackColor = Color.Firebrick;
-                                itemButtons[row, col].FlatAppearance.MouseDownBackColor = Color.DarkRed;
+                                if (iconsMode == true)
+                                    iconsModeOverlay(2, row, col);
+                                else
+                                {
+                                    itemButtons[row, col].BackColor = Color.Red;
+                                    itemButtons[row, col].FlatAppearance.MouseOverBackColor = Color.Firebrick;
+                                    itemButtons[row, col].FlatAppearance.MouseDownBackColor = Color.DarkRed;
+                                }
                                 itemButtons[row, col].Visible = true;
                                 itemButtons[row, col].Enabled = true;
                             }
@@ -506,17 +578,27 @@ namespace BDO_Item_Sorter
                                 {
                                     if (itemProblematic[gridItemID[row, col]] == false)
                                     {
-                                        itemButtons[row, col].BackColor = Color.White;
-                                        itemButtons[row, col].FlatAppearance.MouseOverBackColor = Color.Silver;
-                                        itemButtons[row, col].FlatAppearance.MouseDownBackColor = Color.Gray;
+                                        if (iconsMode == true)
+                                            iconsModeOverlay(4, row, col);
+                                        else
+                                        {
+                                            itemButtons[row, col].BackColor = Color.White;
+                                            itemButtons[row, col].FlatAppearance.MouseOverBackColor = Color.Silver;
+                                            itemButtons[row, col].FlatAppearance.MouseDownBackColor = Color.Gray;
+                                        }
                                         itemButtons[row, col].Visible = true;
                                         itemButtons[row, col].Enabled = true;
                                     }
                                     else
                                     {
-                                        itemButtons[row, col].BackColor = Color.Orange;
-                                        itemButtons[row, col].FlatAppearance.MouseOverBackColor = Color.Goldenrod;
-                                        itemButtons[row, col].FlatAppearance.MouseDownBackColor = Color.DarkGoldenrod;
+                                        if (iconsMode == true)
+                                            iconsModeOverlay(3, row, col);
+                                        else
+                                        {
+                                            itemButtons[row, col].BackColor = Color.Orange;
+                                            itemButtons[row, col].FlatAppearance.MouseOverBackColor = Color.Goldenrod;
+                                            itemButtons[row, col].FlatAppearance.MouseDownBackColor = Color.DarkGoldenrod;
+                                        }
                                         itemButtons[row, col].Visible = true;
                                         itemButtons[row, col].Enabled = true;
                                     }
@@ -524,7 +606,7 @@ namespace BDO_Item_Sorter
                                     {
                                         for (int i = 0; i < itemListControls; i++)
                                         {
-                                            if (itemName[gridItemID[row, col]] == stackLabel[i].Text)
+                                            if (itemName[gridItemID[row, col]].ToLower() == stackLabel[i].Text.ToLower())
                                             {
                                                 itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[row, col]);
                                                 itemRemember[rememberIndex + 1] = itemName[gridItemID[row, col]];
@@ -537,14 +619,21 @@ namespace BDO_Item_Sorter
                                 {
                                     if (itemProblematic[gridItemID[row, col]] == false)
                                     {
+                                        if (iconsMode == true)
+                                            iconsModeOverlay(1, row, col);
                                         itemButtons[row, col].Visible = true;
                                         itemButtons[row, col].Enabled = true;
                                     }
                                     else
                                     {
-                                        itemButtons[row, col].BackColor = Color.Orange;
-                                        itemButtons[row, col].FlatAppearance.MouseOverBackColor = Color.Goldenrod;
-                                        itemButtons[row, col].FlatAppearance.MouseDownBackColor = Color.DarkGoldenrod;
+                                        if (iconsMode == true)
+                                            iconsModeOverlay(3, row, col);
+                                        else
+                                        {
+                                            itemButtons[row, col].BackColor = Color.Orange;
+                                            itemButtons[row, col].FlatAppearance.MouseOverBackColor = Color.Goldenrod;
+                                            itemButtons[row, col].FlatAppearance.MouseDownBackColor = Color.DarkGoldenrod;
+                                        }
                                         itemButtons[row, col].Visible = true;
                                         itemButtons[row, col].Enabled = true;
                                     }
@@ -552,7 +641,7 @@ namespace BDO_Item_Sorter
                                     {
                                         for (int i = 0; i < itemListControls; i++)
                                         {
-                                            if (itemName[gridItemID[row, col]] == stackLabel[i].Text)
+                                            if (itemName[gridItemID[row, col]].ToLower() == stackLabel[i].Text.ToLower())
                                             {
                                                 itemRemember[rememberIndex] = Convert.ToString(gridStackNumber[row, col]);
                                                 itemRemember[rememberIndex + 1] = itemName[gridItemID[row, col]];
@@ -562,12 +651,12 @@ namespace BDO_Item_Sorter
                                     }
                                     for (int i = 0; i < itemListControls; i++)
                                     {
-                                        if (stackLabel[i].Text == itemName[gridItemID[row, col]])
+                                        if (stackLabel[i].Text.ToLower() == itemName[gridItemID[row, col]].ToLower())
                                         {
                                             int forgor = 0;
                                             for (int j = 1; j < rememberIndex; j += 2)
                                             {
-                                                if (itemRemember[j] == stackLabel[i].Text)
+                                                if (itemRemember[j].ToLower() == stackLabel[i].Text.ToLower())
                                                 {
                                                     forgor = Convert.ToInt32(itemRemember[j - 1]);
                                                     break;
@@ -579,14 +668,42 @@ namespace BDO_Item_Sorter
                                                 stackCounter[i].Value = gridStackNumber[row, col] - forgor;
                                             break;
                                         }
+                                        if (stackLabel[i].Text == "Any Artifact" && (itemName[gridItemID[row, col]].Contains("Artifact") || itemName[gridItemID[row, col]].Contains("artifact")) && sessionActive == false)
+                                        {
+                                            stackCounter[i].Value += 1;
+                                        }
                                     }
                                 }
                             }
                         }
                     startSession();
                 }
+                analyzeButton.Enabled = true;
                 loadingBar.Visible = false;
                 loadingBar.Enabled = false;
+            }
+        }
+
+        private void iconsModeOverlay(uint state, int row, int col) //state 1 = item is known, no overlay; state 2 = item is unknown; state 3 = item is problematic; state 4 = item is ignored
+        {
+            Rectangle itemPic = new Rectangle(itemCoords[row, col].X, itemCoords[row, col].Y, picW, picW);
+            itemButtons[row, col].BackgroundImage = prtscr.Clone(itemPic, prtscr.PixelFormat);
+            if (state == 1)
+                return;
+            if (state == 2)
+            {
+                itemButtons[row, col].Image = unknownItemOverlay;
+                return;
+            }
+            if (state == 3)
+            {
+                itemButtons[row, col].Image = problematicItemOverlay;
+                return;
+            }
+            if (state == 4)
+            {
+                itemButtons[row, col].Image = ignoredItemOverlay;
+                return;
             }
         }
 
@@ -686,6 +803,8 @@ namespace BDO_Item_Sorter
                     itemButtons[row, col].BackColor = Color.Lime;
                     itemButtons[row, col].FlatAppearance.MouseOverBackColor = Color.Green;
                     itemButtons[row, col].FlatAppearance.MouseDownBackColor = Color.DarkGreen;
+                    itemButtons[row, col].BackgroundImage = null;
+                    itemButtons[row, col].Image = null;
                 }
         }
 
@@ -717,7 +836,6 @@ namespace BDO_Item_Sorter
             prtscr = new Bitmap(activeScreen.Bounds.Width, activeScreen.Bounds.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             g = Graphics.FromImage(prtscr);
             g.CopyFromScreen(activeScreen.Bounds.X, activeScreen.Bounds.Y, 0, 0, activeScreen.Bounds.Size);
-            itemOrganization.Items.Clear();
             categoryOverviewReset();
             thread1.RunWorkerAsync();
             thread2.RunWorkerAsync();
@@ -873,12 +991,12 @@ namespace BDO_Item_Sorter
                 int hours = 0, minutes = 0;
                 using (StreamReader reader = new StreamReader(Directory.GetCurrentDirectory() + "\\Sorting Mode\\Grind Location Scripts.csv"))
                 {
-                    string[] tempAttributes = new string[3];
+                    string[] tempAttributes = new string[5];
                     tempAttributes = reader.ReadLine().Split(',');
                     userID = tempAttributes[1];
                     websiteLoadDelay = Convert.ToInt32(tempAttributes[2]);
                 }
-                if(userID == "undefined")
+                if (userID == "undefined")
                 {
                     MessageBox.Show("Please set your ID first in the settings!", "ID not set", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -896,12 +1014,15 @@ namespace BDO_Item_Sorter
                     minutes = Convert.ToInt32(timer[1]) + 1;
                 else
                     minutes = Convert.ToInt32(timer[1]);
-                /*
-                 * push to garmoth
-                 */
+                //push to garmoth
                 ProcessStartInfo website = new ProcessStartInfo();
                 website.FileName = "https://garmoth.com/grind-tracker/" + userID + "/summary";
                 Process.Start(website);
+                if (CheckUrlStatus("https://garmoth.com/grind-tracker/" + userID + "/summary") == false)
+                {
+                    MessageBox.Show("Garmoth is currently unavailable!\nPlease try again later.", "Garmoth is down", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 Thread.Sleep(websiteLoadDelay);
                 IntPtr handle;
                 handle = GetForegroundWindow();
@@ -929,6 +1050,7 @@ namespace BDO_Item_Sorter
                 SetCursorPos(garmothX, garmothY);
                 mouse_event(LMB_Down, garmothX, garmothY, 0, 0);
                 mouse_event(LMB_Up, garmothX, garmothY, 0, 0);
+                Thread.Sleep(400);
                 new InputSimulator().Keyboard.KeyPress(VirtualKeyCode.TAB)
                     .TextEntry(script[0])
                     .KeyPress(VirtualKeyCode.TAB)
@@ -954,6 +1076,24 @@ namespace BDO_Item_Sorter
                         ShowWindow(handle, 2);
                 }
                 GC.Collect();
+            }
+        }
+
+        public static bool CheckUrlStatus(string website)
+        {
+            try
+            {
+                var request = WebRequest.Create(website) as HttpWebRequest;
+                request.Method = "HEAD";
+                request.UserAgent = "heyo just checking in";
+                using (var response = (HttpWebResponse)request.GetResponse())
+                {
+                    return response.StatusCode == HttpStatusCode.OK;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
 
@@ -1012,10 +1152,7 @@ namespace BDO_Item_Sorter
             {
                 stackCounter[i].Dispose();
                 stackLabel[i].Dispose();
-            }
-            foreach (Control control in itemPanel.Controls)
-            {
-                control.Dispose();
+                stackPanel[i].Dispose();
             }
             itemListControls = 0;
             if (locationBox.SelectedIndex != 0)
@@ -1025,36 +1162,36 @@ namespace BDO_Item_Sorter
                 scriptIndex = temp[locationBox.SelectedIndex].Split(',').Length;
                 for (int i = 1; i < scriptIndex; i++)
                 {
-                    if (script[i] == "item")
-                    {
-                        i++;
-                        NumericUpDown numericUpDown = new NumericUpDown();
-                        numericUpDown.BorderStyle = BorderStyle.None;
-                        numericUpDown.AutoSize = true;
-                        numericUpDown.Maximum = 10000;
-                        numericUpDown.TextAlign = HorizontalAlignment.Center;
-                        numericUpDown.ThousandsSeparator = true;
-                        Label label = new Label();
-                        label.AutoSize = true;
-                        label.BackColor = Color.FromArgb(36, 36, 39);
-                        label.Font = new Font("Calibri", 11);
+                    NumericUpDown numericUpDown = new NumericUpDown();
+                    numericUpDown.BorderStyle = BorderStyle.None;
+                    numericUpDown.AutoSize = true;
+                    numericUpDown.Maximum = 10000;
+                    numericUpDown.TextAlign = HorizontalAlignment.Center;
+                    numericUpDown.ThousandsSeparator = true;
+                    Label label = new Label();
+                    label.AutoSize = true;
+                    label.BackColor = Color.FromArgb(36, 36, 39);
+                    label.Font = new Font("Calibri", 11);
+                    if (script[i] != "Silver")
                         label.ForeColor = Color.White;
-                        label.Text = script[i];
-                        label.TextAlign = ContentAlignment.MiddleCenter;
-                        FlowLayoutPanel panel = new FlowLayoutPanel();
-                        panel.BackColor = Color.FromArgb(36, 36, 39);
-                        panel.AutoSize = true;
-                        panel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-                        panel.WrapContents = false;
-                        panel.Dock = DockStyle.Top;
-                        stackCounter[itemListControls] = numericUpDown;
-                        stackLabel[itemListControls] = label;
-                        panel.Controls.Add(stackCounter[itemListControls]);
-                        panel.Controls.Add(stackLabel[itemListControls]);
-                        itemPanel.Controls.Add(panel);
-                        itemPanel.SetFlowBreak(panel, true);
-                        itemListControls++;
-                    }
+                    else
+                        label.ForeColor = Color.Red;
+                    label.Text = script[i];
+                    label.TextAlign = ContentAlignment.MiddleCenter;
+                    FlowLayoutPanel panel = new FlowLayoutPanel();
+                    panel.BackColor = Color.FromArgb(36, 36, 39);
+                    panel.AutoSize = true;
+                    panel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                    panel.WrapContents = false;
+                    panel.Dock = DockStyle.Top;
+                    stackCounter[itemListControls] = numericUpDown;
+                    stackLabel[itemListControls] = label;
+                    stackPanel[itemListControls] = panel;
+                    panel.Controls.Add(stackCounter[itemListControls]);
+                    panel.Controls.Add(stackLabel[itemListControls]);
+                    itemPanel.Controls.Add(panel);
+                    itemPanel.SetFlowBreak(panel, true);
+                    itemListControls++;
                 }
             }
         }
@@ -1062,15 +1199,16 @@ namespace BDO_Item_Sorter
         private void modeCheck_Click(object sender, EventArgs e)
         {
             buttonReset();
-            string[] temp = new string[3];
+            string[] temp = new string[5];
             using (StreamReader reader = new StreamReader(Directory.GetCurrentDirectory() + "\\Sorting Mode\\Grind Location Scripts.csv"))
             {
                 temp = reader.ReadLine().Split(',');
             }
-            lineEditor(Convert.ToString(modeCheck.Checked) + ',' + temp[1] + ',' + temp[2], Directory.GetCurrentDirectory() + "\\Sorting Mode\\Grind Location Scripts.csv", 0);
+            lineEditor(Convert.ToString(modeCheck.Checked) + ',' + temp[1] + ',' + temp[2] + ',' + temp[3], Directory.GetCurrentDirectory() + "\\Sorting Mode\\Grind Location Scripts.csv", 0);
             if (modeCheck.Checked == true)
             {
                 loadingBar.Maximum = 2000000;
+                itemOrganization.Items.Clear();
                 normalModePanel.Visible = false;
                 normalModePanel.Enabled = false;
                 farmingModePanel.Visible = true;
